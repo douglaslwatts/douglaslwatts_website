@@ -1,0 +1,856 @@
+<div class="tux_background">
+  <article>
+      <h1>Operating System</h1>
+      <div class="aside_box">
+        <aside>
+          How does the <mark>OS (operating system)</mark> work?
+        </aside>
+      </div>
+        <p>
+          <em>These pages are the notes I took in the Operating Systems course at my university. This 
+          website began as a study tool for that course. Typing my notes into the HTML files and then 
+          reading the pages in my browser was an excellent way to engrain the material into my mind 
+          while preparing for exams. This is also the first website I have ever created, so it
+          has been and continues to be a learning experience in that respect as well. I only wish I 
+          had thought of studying that way earlier instead of only starting it in my graduating semester.</em>
+        </p>
+      <br>
+      <table>
+          <tr>
+              <th><strong>Hardware</strong></th>
+              <th><strong>System Software</strong></th>
+              <th><strong>Application Software</strong></th>
+          </tr>
+          <tr>
+              <td>Physical Devices</td>
+              <td>Compilers</td>
+              <td>Web Browsers</td>
+          </tr>
+          <tr>
+              <td>Micro Architecture</td>
+              <td>Editors</td>
+              <td>Video Games</td>
+          </tr>
+          <tr>
+              <td>ISA Architecture</td>
+              <td>Command Interpreter</td>
+              <td>Music Apps</td>
+          </tr>
+          <tr>
+              <td></td>
+              <td>Operating System (kernel)</td>
+              <td>General Desktop Apps</td>
+          </tr>
+      </table>
+
+      <h2>There are 3 Different Viewpoints of the OS</h2>
+      <p>
+        <strong><h3>1: User Viewpoint</h3></strong>
+        <strong>Basic User View - One primary user (desktop, laptop, smart phone)</strong>
+        Goals for basic user view is to maximize performance for the one primary user, thus providing ease 
+        of use. Less attention is paid to other things like resource allocation.
+        <br><br> 
+        <strong>(Mainframe | Single Server) User View</strong><br>
+           Goals are to maximize resource allocation. These resources include things like files, CPU time, 
+           etc. No user gets more than their fair share of the available resources of the system. All 
+           processes are not equal and all users are not equal. For example, the sysadmin's processes should 
+           have more priority than other user's and it is likely that the sysadmin may consume more resources 
+           than other users if needed.
+           
+        <br><br> 
+        <strong>Cloud Based System User View (A series of servers)</strong>
+           <br>
+           This is a balance between sharing resources and providing performance.
+        <br><br> 
+        Question: Do all computers have a User View?<br>
+        Answer: No, embedded systems may have no user view at all, or a very primitive one.
+        <br><br> 
+        <strong><h3>2: System Viewpoint</h3></strong>
+        This is more of a bottom-up view, whereas the user view is more of a top-down view.
+        Resources to manage: processes, memories, timers, disks, mice, networks(network components),
+        interfaces,(CLI, GUI), printers, etc.
+        <br><br>
+        The job of the OS is orderly allocation of these resources to the programs which use them.
+        These programs are in competition for the resources.
+
+        <br><br>The OS must:<br>
+        1. Keep track of who is using what resources and account for that usage<br>
+        2. Manage requests for resources and mediate them with some fairness algorithm<br><br>
+
+        EX:
+        <br>
+        Imagine 3 programs which need to use the printer simultaneously. If they all print at the
+        same time, the print outs will be a jumbled mess. The OS must use <mark>print spooling</mark> to let the
+        programs each believe that their print job has completed. The OS does so by printing the
+        programs' outputs to a buffer until the printer is available to actually print each item. The first
+        print job is the only one actually printing, while the data for the other print jobs is stored in buffers. The
+        concept in general is called <mark>spooling</mark>. The example becomes much more complex when their are
+        multiple users on the system. Competition is not only for hardware, but for files and databases
+        as well.
+
+        <br><br> 
+        <strong><h3>3: Extended Machine Viewpoint (Like an API for interacting with hardware)</h3></strong>
+        This view is concerned with the instruction set, memory organization, how to handle I/O,
+        bus structure, processors, etc. All of these things are complex, awkward, and primitive to
+        program at the machine level. For example, in older computers there were 16 commands to
+        send instructions to the disk (mechanical HDD) such as read, write, move the disk arm, format 
+        portions of the disk, sense the disk arm location, init (initialize the disk), reset, and 
+        recalibrate. There were only between 1 and 9 bytes in which to pack these commands and all of 
+        there parameters into special registers on the disk. Even the most basic of these commands,
+        read and write, had 13 parameters to pack into these 9 bytes. Some such parameters were
+        the address on the disk, the number of chunks in each location on this disk, how data is stored
+        on the device, what the spacing is, etc. A code 23 would be returned when the read or write
+        was finished. This code and all error fields had to be packed into 7 bytes. The programmers
+        had to know if the motor of the disk was on, if not, then they had to turn it on. If it was on,
+        then has it been on too long, which could result in the motor not lasting as long as it should?
+        <br><br>
+        The point is that all of that is <strong>too complex!</strong> If we had to worry about all
+        of that for every program we write, then we would never get any work done. We need an
+        abstraction over the disk, a named collection of files, an API (Application Programming Interface) 
+        which we can use to interface
+        with the disk. This abstraction comes from the operating system. That is the 
+        <mark>Extended Machine View</mark>. The purpose of the OS as an extended machine is to abstract
+        all of that complexity away so that programmers can be productive. Otherwise we would spend
+        hours on every little detail of each program we write!
+        <br><br>
+        Some programmers write operating systems, they create this abstraction for the rest of us.
+
+        <br><br>
+        <strong><h3>How Does the OS Start if it Controls Everything in the Computer?</h3></strong>
+        An initial program called the <mark>bootstrap</mark>, which is stored in
+        <mark>EEPROM (Electronic Erasable Programmable Read Only Memory)</mark>, starts the OS. 
+        EEPROM is a modifiable ROM. Being erasable and programmable sort of makes it not read only 
+        though, right? Another name for This is <mark>firmware</mark>. This is what finds and loads 
+        the operating system.
+
+        <br><br>
+        Question: Is bootstrap a part of the OS?<br>
+        Answer: No, it searches for and loads the OS<br><br>
+      </p>
+
+      <h2>Event Driven Programs</h2>
+      <p>
+        The OS is an <mark>event driven program</mark>. Broadly, these events are called
+        <mark>exceptions</mark>. They are normally, more specifically called <mark>interrupts</mark>,
+        <mark>traps</mark>, <mark>alarms</mark>, etc. <mark>Events</mark> are, for example,
+        interrupts, which are generated by hardware, and traps, which are generated by software.
+        From the software point of view, a <mark>system call</mark> is a trap. 
+        <strong>
+          interrupts can be generated at any time. The interrupt signal is sent, via the bus, to the CPU.
+        </strong>
+
+        <br><br>
+        <strong>
+          <h3>Traps A.K.A. System Calls</h3>
+        </strong>
+
+        Interrupts cause the CPU to stop doing whatever it is doing and handle the exceptions. How
+        does the OS handle them? The OS transfers control to an exception handler, which is just
+        some code written by the OS developers. There will be some code number associated with the
+        exception, which is an index/id/key. Sometimes this index is called a device number.
+
+        <br><br>
+        <strong>
+          <h3>Storage Structure</h3>
+        </strong>
+
+        <strong>Work is only done on processors</strong>. So, we need to get data to and from memory
+        and storage. <mark>RAM (Read Only Memory)</mark> is where programs which are currently
+        executing are stored, but only while they are running. RAM is much faster than 
+        <mark>electronic disks</mark> such as an
+        <mark>SSD (Solid State Drive)</mark> or an <mark>HDD (Hard Disk Drive)</mark>, or any of the
+        other common types of <mark>secondary-storage</mark> which store things in a persistent way
+        such that the data is preserved when the power is off. RAM is <mark>volatile memory</mark>,
+        meaning once the power is turned off all data in RAM is lost. <mark>Cache</mark> and <mark>registers</mark>
+        are also volatile, whereas secondary-storage is <mark>non-volatile memory</mark>. If we were
+        dependent on secondary-storage devices for everything, the computer would be very slow.
+        Registers are the smallest, fastest, memory and lives on the CPU. Cache is the second
+        smallest, second fastest memory, and also lives on the CPU. RAM is the third smallest, third
+        fastest memory, and is plugged into the motherboard separately from the CPU. A running
+        program is a currently running process which was spawned from some executable file, which 
+        is stored in secondary-storage.
+        <br><br>
+
+        Memory is typically layed out in <mark>word</mark> sized segments. On most modern PCs
+        which we use today, a word is 64 <mark>bits</mark>. computers with a 32-bit architecture 
+        have 32-bit words. A byte is 8 <mark>bits</mark>. Memory,
+        though layed out in words, is usually byte addressable. This means that we can access a word,
+        or a byte within that word, but not individual bits. Once we have retrieved a byte, then we
+        can do <mark>bit twiddling</mark> inside the registers. Bit twiddling refers to cool stuff
+        like shifting bits and <mark>& (and)</mark> and <mark>| (or)</mark> operations. A really useful
+        one is, if we need the remainder of a number when divided by a power of two, modulus,
+        we can <mark>&</mark> that number with one less than the power of two by which it is divided.
+        So, <mark>5 & 1</mark> is the same as <mark>5 (mod 2)</mark>, similarly <mark>10 & 3</mark>
+        yields the same result as <mark>10 (mod 4)</mark>. Another one is that, left shifting a number
+        by <mark><em>n</em></mark> bits is the same as multiplying that number by 
+        <mark>2<sup><em>n</em></sup></mark>, while right shifting by <mark><em>n</em></mark> bits is 
+        the same as dividing the number by <mark>2<sup><em>n</em></sup></mark>. <mark>Boolean</mark>
+        values (<mark>true</mark>/<mark>false</mark>) are conceptually a single bit, zero or one.
+        However, we cannot access a single bit from memory, so generally, in a given language, a 
+        variable of a boolean type will still take up a byte of memory. Most computers today use
+        <mark>Von Neumann Architecture</mark>. This means that only <mark>load</mark> and <mark>store</mark>
+        instructions can access memory, which in turn means that we must load a value before we
+        can do any work with that value.
+        <br><br>
+
+
+        A device such as a disk drive or a <mark>GPU (Graphics Processing Unit)</mark> has
+        a <mark>device controller</mark>, which is a specialized CPU that controls the device.
+        The device controller is on the device and has registers and buffers. A <mark>device driver</mark>
+        is a driver which provides an interface for communication between the OS and a device controller.
+        These are often written by the manufacturer of the device and typically the one written by
+        the manufacturer of the device is the best driver to use. For instance, if you are a Windows user and you
+        have an Nvidia GPU, you want the drivers written for that GPU by Nvidia ...not the one written
+        by Windows. 
+      </p>
+
+      <figure class="linus_quote">
+      <blockquote>
+        "A computer is like air conditioning - it becomes useless when you open Windows."<br>
+      </blockquote>
+      <figcaption>- Linus Torvalds</figcaption>
+      </figure>
+
+      <p>
+        We all know that Unix is better, but Windows is certainly useful for video games and other
+        types of entertainment. If we want to get any actual work done, however, other than music production
+        with softwares such as <a href="https://www.ableton.com/" target="new" rel="noopener noreferrer">Ableton</a>, some form of 
+        Unix is the only way to go. I am sure it is clear by now that I prefer Linux. 
+        <mark><a href="https://www.gnu.org/home.en.html" target="new" rel="noopener noreferrer">GNU</a> (GNU is Not Unix)</mark>, recursive acronyms are great, right? It definitely
+        gets the point across. GNU is not Linux either, but Linux is Unix based and so is MacOS. I have heard
+        from a few music producers that Ableton crashes a lot on <mark>Mac Books</mark> and is more
+        stable on Windows. Linux is the most common OS in the world. You may not realize it,
+        but many of the embedded computer systems in devices like your refrigerator are powered by
+        Linux. Not to mention that
+        <a href="https://www.zdnet.com/article/can-the-internet-exist-without-linux/" target="new" rel="noopener noreferrer">96.3%</a> 
+        of the top servers in the world are running some flavor of Linux.
+
+        <br><br>
+        <strong>
+          <h3>DMA (direct memory access)</h3>
+        </strong>
+
+        DMA is for things like bulk data movement. The CPU asks the disk drive for a lot of data,
+        the device could tell the CPU that the data is ready and the CPU could copy the data from
+        the drive to <mark>MM (main memory ...RAM)</mark>, but this type of busy work is a waste of
+        the CPU's time. The CPU does not do the actual copying in DMA. Another specialized CPU which
+        is designed specifically for this type of task does that work. The CPU is then notified only
+        once the data has been copied to RAM and is ready for use.
+
+        <br><br>
+        <strong>
+          <h3>Single Processor Systems</h3>
+        </strong>
+
+        Single processor systems still exists today in many embedded systems. This is a system which
+        has only a single processor core. We tend to think of our personal computers as having
+        a single processor, however almost all CPUs today in personal computers are multi-core units.
+        This makes those systems multi-processor systems. In a single processor system, there can still be
+        specialized CPUs on devices such as a GPU. These specialized CPUs have a limited
+        <mark>ISA (instruction set architecture)</mark> and are designed for a very limited number
+        of jobs.
+
+        <br><br>
+        <strong>
+          <h3>Multi-Processor Systems</h3>
+        </strong>
+
+        Multi-Processor systems have more than one CPU core which are in close communication with
+        each other. They share a <mark>bus</mark>, <mark>peripherals</mark>, <mark>system clock</mark>,
+        etc. The benefits of having multiple processors is increased <mark>throughput</mark>,
+        <mark>economies of scale</mark>, and <mark>increased reliability</mark>.
+        <br><br>
+
+        Increased throughput means that the system is faster and can do more work in a given time
+        unit. This is limited, however and there is a point of diminishing returns. We do not get
+        an <em>n</em> decrease in processing time for adding
+        <em>n</em> CPUs. There is overhead, CPUs must communicate with each other, problems to be solved
+        or data to process must be split between the CPUs and then the final result joined once all
+        of the work is done. Multiple CPUs also compete with each other, on some scale, for system
+        resources. If a program does not split the problems it solves correctly, then this competition can lead to
+        issues.
+        <br><br>
+
+        Economies of scale is described in the following table. It is a monetary comparison.
+
+      </p>
+
+      <table>
+        <tr>
+          <th>Multi-Processor Systems (4 processors)</th>
+          <th>4 Single Processor Systems</th>
+        </tr>
+        <tr>
+          <td>1 case</td>
+          <td>4 cases</td>
+        </tr>
+        <tr>
+          <td>1 keyboard</td>
+          <td>4 keyboards</td>
+        </tr>
+        <tr>
+          <td>1 motherboard</td>
+          <td>4 motherboards</td>
+        </tr>
+        <tr>
+          <td>1 NIC (network interface card)</td>
+          <td>4 NIC (network interface cards)</td>
+        </tr>
+      </table>
+
+      <p>
+        <br><br>
+        <strong>
+          <h3>Increased Reliability</h3>
+        </strong>
+
+        For mission critical technologies such as driverless cars and technologies used in space,
+        if one CPU fails and the system has multiple processors, then other CPUs can take over and 
+        avoid a complete system failure. There are two types of increased reliability. 
+        <mark>Graceful Degradation</mark> and <mark>Fault Toleration</mark>. 
+        Graceful degradation means that in the case of a failure, work can continue at a reduced 
+        capacity, whereas fault toleration means that the system can continue to work at the same 
+        functional level and can, thus continue to solve the same set of problems normally. 
+        Graceful degradation is OK for a phone, but we want fault toleration for mission critical 
+        systems. Fault toleration does not mean that there is absolutely never a system failure, it 
+        is just tolerant to certain levels of failure. If we have twice as many CPUs as we need, 
+        then if one or more fail the rest can take on the workload and the system can continue to 
+        function at normal capacity. 
+
+        There are two types of multi-processor systems, <mark>asymmetric</mark> and <mark>symmetric</mark>. 
+        In asymmetric systems, each CPU is not equal, all CPUs are not of equal power. Each type of CPU 
+        is assigned specific jobs and their is one main CPU (a sort of captain CPU). In my class I 
+        joked that there should be a cartoon character "Captain CPU" and my professor said the character 
+        should teach kids about computers. Then, another student said Captain CPU's super power would be 
+        to cause the villain to have a <mark>segmentation fault</mark>. In a symmetric system, each CPU is of equal power 
+        an can perform all the same tasks. The CPUs all work together as a team. Symmetric systems are 
+        more common, there is no hierarchy and <mark>load balancing</mark> is used to ensure that all 
+        CPUs do approximately the same amount of work. This means there is more work for the OS, as it 
+        must ensure that data goes to the correct CPU.
+        <br><br>
+
+        Multi-core CPUs have multiple CPU cores on a single chip. Communication between these cores 
+        is more efficient than if there were multiple CPU units, since communication can take place on 
+        the chip's "internal bus" (my own term) rather than over the system bus. Power consumption of
+        an <em>n</em>-core CPU is less than <em>n</em> single-core CPUs.
+        <br><br> 
+
+        There is no standard definition for <mark>clusters</mark>, in some contexts this could mean 
+        systems with multiple CPUs, while in other cases it could mean multiple machines working 
+        together as a single system. 
+
+
+
+        <br><br>
+        <strong>
+          <h3>Multiprogramming</h3>
+        </strong>
+
+        Multiprogramming is when there are multiple programs running simultaneously. This is really 
+        only the human perception though, as what is really happening is that the CPU switches between 
+        processes so quickly that to our senses it appears as if all of them are running at the 
+        same time. We can have Multiprogramming on both single and multi processor systems. The goal 
+        of Multiprogramming is that all CPUs should be busy doing useful work at all times. For 
+        instance, one processor may be running a backup job and a web browser, while another CPU runs 
+        a chess game, a word processor, and <a href="https://www.vim.org/" target="new" rel="noopener noreferrer">Vim</a>. CPUs typically 
+        do not handle <mark>I/O (input/output)</mark>, this is handled by DMA an other things. The 
+        CPU will come back to a program which is waiting for I/O later, after switching to other jobs. 
+        <br><br>
+
+        Question: 
+        <br>
+        In a multi-programming and multi-user environment, several users share the system 
+        simultaneously. The situation can result in several problems (without preventative measures). 
+        <br><br>
+
+        a) What are two such problems 
+        <br><br>
+        Answer:
+        <br>
+        It can be difficult to <mark>account</mark> for which users are taking up more CPU time and 
+        other resources. There must be some sort of fairness algorithm in place to compute these things. 
+        If there is no algorithm in place for this, then users may experience longer wait times.
+        <br><br>
+
+
+        b) Can we ensure the same degree of security in a multi-user machine as in a dedicated 
+           (A.K.A. single-user) machine? Explain?
+        <br><br>
+        Answer:
+        <br>
+        No, on a single-user system the OS does not need to worry about other human users and how 
+        they use the system. It only needs to account for one human user and all of the daemons which 
+        may be running. When there are multiple human users, one never knows what each individual may 
+        try to do ...such as try to access other users' data. People will always try to find ways around 
+        security measures which are in place. If there is only one human user, that user does not need 
+        protection from other human users on the system.
+        <br><br>
+
+        Question: 
+        <br>
+        What is the difference between multi-processor systems and clustered systems?
+        <br><br>
+        Answer:
+        <br>
+        In a multiprocessor system there are multiple CPUs which work together and share the same bus,
+        peripherals, RAM, clock, etc. A clustered system is a group of computers which work together to
+        solve problems and each have their own bus, RAM, etc. A multiprocessor system would have 1 case,
+        1 keyboard, a single motherboard, and so on (e.g. economy of scale), whereas a clustered system would
+        have one of each of those things for each system in the cluster.
+        <br><br>
+
+        Question: 
+        <br>
+        What are the requirements for two or more machines belonging to the same cluster?
+        <br><br>
+        Answer:
+        <br>
+        A cluster of systems must be structured either asymmetrically or symmetrically so that communication
+        can take place between the systems. This means there must be some type of network in place, 
+        the internet, some other custom WAN (wide area network), or just a LAN (local area network).
+        Either they are are peers and monitor each other and split the
+        work as evenly as possible, in the more efficient case of symmetric structure, or there is a master
+        system which monitors the other system while in "hot-standby mode" and only takes over if the other
+        system fails. To take better advantage of the cluster setup, it is better to use a symmetric
+        structure. This requires programs to be written to use parallelization. This divides the program
+        into parts which are split over the systems in the cluster and the end result of each system's
+        portion of the program are combined to get a final answer for a given problem which is solved by
+        the program. Some clusters cluster over the WAN as opposed to only the LAN, which requires access
+        for each of the machines to a shared storage location. This requires access control and locking so
+        that there are no conflicts with concurrent accesses and operations
+        <br><br>
+
+        Question: 
+        <br>
+        what would be required for a two machine cluster to cooperate
+        to provide a highly available service (e.g., Amazon, Google, search, Gmail, etc.)?
+        <br><br>
+        Answer:
+        <br>
+        To provide a highly available service using a two machine cluster, there would need to be a lot of
+        redundancy in hardware and software. The machines would have to be set up either symmetrically or
+        asymmetrically such that monitoring can take place. These machines would need to be in sync with 
+        each other such that they are using the same versions of packages and be set up with the same security. 
+        This setup would require at least graceful degradation such that work can continue, but would preferably be
+        fault tolerant. This setup would need to include error checking and error correction to ensure that
+        end users do not experience any interruptions in service which are very noticeable. Clearly, 
+        this is not realistic as services such as Amazon are hundreds of thousands of machines.
+
+
+        <br><br>
+        <strong>
+          <h3>RAM and Jobs</h3>
+        </strong>
+
+        RAM is too small to hold all the jobs we want to run all at once. Not only does the CPU 
+        switch between processes/jobs, MM switches between them as well. There is a <mark>job pool</mark> 
+        from which the OS selects which jobs will currently be in MM. The OS also handles switching them out. Jobs 
+        may be switched in and out of MM as they need to pause for I/O or something. I/O happens at 
+        human speed, which is <em>extremely</em> slow to a computer. The CPU can handle quite a lot of 
+        work in the time that it takes a human to type something or click a button. <mark>Job scheduling</mark>
+        is how the OS picks from the job pool. To do this we need <mark>memory management</mark>. The 
+        <mark>CPU scheduler</mark> picks, from MM, what job to actually run at a given moment. We are talking 
+        about nanoseconds or picoseconds when we talk about a moment in computer time. 
+
+        OS operations are event (exception) driven and when there are no events the OS does nothing,
+        sleeps. This does not happen very often. The OS is not just a program running at the same time as all of the other programs.
+        It is <em>essential</em> that other programs (e.g. user programs) not affect the OS. User programs 
+        should also not interfere with each other unless they are meant to interact with each other. 
+        This was one of the major flaws in early versions of Windows and the cause of many
+        <mark>blue screens of death</mark>. 
+
+
+        <br><br>
+        <strong>
+          <h3>Dual Mode Operation</h3>
+        </strong>
+
+        There are two modes of operation in which a program can run, <mark>user mode</mark> and 
+        <mark>kernel mode</mark>. This is supported by hardware, as there is a bit in hardware which 
+        signifies what the current mode is ...on or off. In kernel mode a program can run all 
+        instructions without constraint. In user mode a program cannot run privileged instructions. 
+        privileged instructions are those which are dangerous to run as they may affect the entire 
+        system. At Boot time the system is running in kernel mode. 
+      </p>
+
+        <table class="left_aligned">
+          <tr>
+            <td>1 --> load the OS then start applications in user mode</td>
+          </tr>
+          <tr>
+            <td>2 --> traps or interrupts may cause the system to switch into kernel mode</td>
+          </tr>
+          <tr>
+            <td>3 --> before apps get to run again, the system switches back to user mode</td>
+          </tr>
+        </table>
+
+        <p>
+          The OS is the only program which runs in kernel mode. When we write a program we often 
+          do things which cause the system to switch into kernel mode because we are asking the OS 
+          to do something for our program. Simple things like printing to the screen in a terminal
+          emulator are actually asking for access to privileged instructions. Why might simply printing 
+          some text to the screen be privileged? Only one process can access the screen at a time, it 
+          is a finite resource. Consider this:
+        </p>
+
+        <table class="left_aligned">
+          <tr>
+            <td>1 --> A program grabs access to the screen</td>
+          </tr>
+          <tr>
+            <td>2 --> The program starts to print to the screen</td>
+          </tr>
+          <tr>
+            <td>3 --> The program finishes printing to the screen</td>
+          </tr>
+          <tr>
+            <td>4 --> The program crashes or forgets to release the screen for others to use</td>
+          </tr>
+        </table>
+
+        <p>
+          Now no other processes can use the screen again because it has not been released, there is 
+          a lock on access. This is a very bad scenario, so accessing the screen is a privileged 
+          instruction which our programs must ask the OS to do for them. As a user, to get to 
+          kernel mode we ask the OS to do something for us. These are called <mark>system calls</mark>. 
+          System calls generate a trap, a type of interrupt generated by software.
+
+          Here are some examples of privileged and non-privileged instructions:
+        </p>
+
+        <table class="large_left_aligned">
+          <tr>
+            <th>Instruction</th>
+            <th>privileged?</th>
+          </tr>
+          <tr>
+            <td>Read the system clock</td>
+            <td>No, there is no modification ...only a read</td>
+          </tr>
+          <tr>
+            <td>Switch to kernel mode from user mode</td>
+            <td>No, but how we do this is a system call and user programs have no control over how
+              system calls do their work
+            </td>
+          </tr>
+          <tr>
+            <td>Set a timer</td>
+            <td>Yes, it could be the timer for alloted CPU time of a program</td>
+          </tr>
+          <tr>
+            <td>Clear the RAM</td>
+            <td>Yes, could be clearing other process's data in memory</td>
+          </tr>
+          <tr>
+            <td>Turning off interrupts</td>
+            <td>Yes, could be turning off a drive or other hardware</td>
+          </tr>
+          <tr>
+            <td>Modify entries in the device-status table</td>
+            <td>Yes, we should not be able to modify an entry to make it say a drive is not ready or something</td>
+          </tr>
+          <tr>
+            <td>Access I/O devices</td>
+            <td>Yes, only one process may have a lock on a device at a time ...they are finite resources</td>
+          </tr>
+        </table>
+
+        <p>
+          The system calls are written by the developers who write the OS. We as programmers only call the 
+          system calls and have no control over how it works. This is an abstraction provided to us 
+          which allows us to be productive and protects us from breaking systems with our programs. 
+          A timer waits for <em>x</em> time units and then generates an event. The timer indicates 
+          when time alloted on the CPU (CPU time) is over for a job/process. 
+
+
+        <br><br>
+        <strong>
+          <h3>Process Management</h3>
+        </strong>
+
+        There are always lots of processes running such as a compiler, Vim, an IDE, or any other 
+        programs one wishes to execute and they must be managed. Processes need access to resources 
+        such as reading or writing from or to files, access to I/O, how much memory is alloted (is 
+        it on the stack or the heap?), these processes need CPU time. Sometimes processes are a single thread 
+        of execution, while other processes are concurrent threads of execution. A single thread of 
+        execution has exactly one <mark>PC (program counter)</mark>. The program counter signifies 
+        what instruction in the program is currently being executed. Typically a thread runs sequentially. 
+        Since each thread has its own PC, if there are multiple threads for a concurrent program, then that 
+        program has multiple PCs. The OS controls all of the resources which these programs/threads 
+        need access to. 
+
+
+
+        <br><br>
+        <strong>
+          <h3>OS Responsibilities</h3>
+        </strong>
+
+        The OS has many responsibilities and is, thus very complex. The OS must schedule processes/threads, 
+        create/delete both user and system processes, suspend/resume processes, provide process 
+        synchronization, provide ways of communicating between processes, memory management, allocation 
+        and de-allocation of portions of MM, manage mass-storage/secondary-storage, disk scheduling, 
+        cache management, etc. A user process is a process which is <em>not</em> doing work for the OS, whereas 
+        a system process is a process which <em>is</em> doing work for the OS and is part of the OS. 
+        <br><br>
+        A process is an instance of a program, a currently executing executable file. A process is 
+        somewhat analogous to an object in an OO (object oriented) programming language. In a sense, 
+        a process is to a program as an object is to a class. The OS must be able to start user 
+        processes so that when a user types "vim some_file_name" in at the command line, the OS 
+        is able to start Vim as a process. The OS must also be able to kill a process, for example, when 
+        we run a program and it spins out of control due to errors in the code. A process almost never 
+        runs from start to finish uninterrupted, the OS is continuously switching out what process is 
+        currently running. These are reasons why the OS must be able to suspend/resume processes. 
+        <br><br>
+
+
+
+        <br><br>
+        <strong>
+          <h3>Memory Management</h3>
+        </strong>
+
+        Main Memory is essentially a large array of words which is usually byte addressable. In the
+        below representation of a small segment of MM, the rows are words, while the columns are bytes.
+      </p>
+
+
+      <table class="ram">
+        <tr>
+          <th>0</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th></th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>0</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>4</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>8</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>12</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>16</th>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <th>20</th>
+        </tr>
+      </table>
+
+      <p>
+        If memory were bit addressable, it would be far too slow. Reads and writes need to be very 
+        fast in MM. The OS must keep track of what portions of memory are being used at any given 
+        moment and what portions are free for other programs to use. The OS must also keep track 
+        of what processes (or portions of a process) are being moved into and out of memory. If a 
+        process has a million lines of code, then it is likely that only a portion of that process 
+        can fit in MM at a time. So, the portions of the process which are being executed are moved 
+        into memory and then moved out when other portions need to be moved in. for example, at 
+        time <em>A</em> maybe lines 1-100 are in MM, then at time <em>B</em> lines 125-225 are 
+        in MM. This is one of the reasons that the OS must be capable of allocating and de-allocating 
+        portions of MM. We have yet to consider secondary-storage. 
+          
+
+        <br><br>
+        <strong>
+          <h3>File Management</h3>
+        </strong>
+        File management is very important as well. 
+        The OS must be able to create/delete files, manipulate (move, copy, edit, shrink) 
+        files/directories, map the files/directories to secondary-storage (SSD, HDD, etc.), a backup solution 
+        is another thing that may be provided by the OS. Most programs are stored on 
+        secondary-storage until a process is created from them or the data which they contain is 
+        needed. Secondary-storage disk space must also be allocated and the OS must be capable 
+        of managing disk de-fragmentation. A file gets scattered across multiple disk locations as it 
+        grows over time because the space immediately near it has data from other files. Disk de-fragmentation 
+        takes such files and rearranges the disk such that they are these files are in contiguous 
+        memory segments of memory. This makes reading and writing to the files faster. 
+
+
+
+        <br><br>
+        <strong>
+          <h3>Disk Scheduling</h3>
+        </strong>
+
+        The OS must schedule disk access for processes, as two processes cannot write to the disk 
+        simultaneously. 
+
+
+
+        <br><br>
+        <strong>
+          <h3>Cache Management</h3>
+        </strong>
+
+        Some types of cache management are victim cache and snoop cache.
+
+
+
+        <br><br>
+        <strong>
+          <h3>OS Services Differ Between OSs</h3>
+        </strong>
+
+        Different OSs may provide different services, some services provided include, 
+        <mark>resource allocation</mark>, <mark>accounting</mark>, <mark>error detection</mark>, 
+        <mark>protection and security</mark>, <mark>program execution</mark>, 
+        <mark>I/O operations</mark>, <mark>file systems</mark>, <mark>communication</mark>, and 
+        <mark>user interfaces</mark>.
+        The OS sits on top of the underlying hardware and provides system calls, user and other system 
+        programs sit on top of the underlying operating system. 
+
+
+
+        <br><br>
+        <strong>
+          <h3>System Calls</h3>
+        </strong>
+
+        On Unix based systems there are 2 system calls for creating processes, while in Windows there 
+        is one. It should be noted that Unix is the most used OS in the world. 
+        <mark>
+          Android, MacOS, IOS, and Linux
+        </mark>
+        are all Unix based OSs.
+
+
+
+        <br><br>
+        <strong>
+          <h3>User Interfaces</h3>
+        </strong>
+
+        User interfaces are another very important service provided by the OS. Three types of user 
+        interface are 
+        <mark>CLI (command line interface)</mark>, <mark>Batch (for processing files in batches)</mark>, 
+          and <mark>GUI (Graphical User Interface)</mark>.
+        CLI is what we use when we type in commands to a terminal emulator, while GUI is what we use when we 
+        are clicking buttons and typing data into text boxes in a window.
+
+        Below is a summarized view of some of the above OS services
+      </p>
+
+      <table class="review_table">
+        <tr>
+          <th></th>
+          <th>OS services which are geared toward user experience</th>
+        </tr>
+        <tr>
+          <td>User Interface</td>
+          <td>CLI, Batch, GUI</td>
+        </tr>
+        <tr>
+          <td>Program Execution</td>
+          <td>Load programs into MM, run them, end them (naturally or terminated)</td>
+        </tr>
+        <tr>
+          <td>I/O operations</td>
+          <td>Users cannot control I/O, this is done through a system call</td>
+        </tr>
+        <tr>
+          <td>File System Manipulation</td>
+          <td>Read, write, create, files and directories. Some sort of protection scheme.</td>
+        </tr>
+        <tr>
+          <td>Process Communication</td>
+          <td>
+            There are 2 ways processes communicate. Either passing messages back and forth over 
+            a network or within a single machine, which is the easier way to program (but less efficient).
+            Or  through shared memory (MM), which is usually much more efficient when done correctly, 
+            but much more difficult to program correctly.
+          </td>
+        </tr>
+        <tr>
+          <td>Error Detection</td>
+          <td>
+            Errors can occur in memory, I/O, the CPU, a program, etc. 
+          </td>
+        </tr>
+      </table>
+
+      <table class="review_table">
+        <tr>
+          <th></th>
+          <th>OS services geared toward efficient operation of the OS</th>
+        </tr>
+        <tr>
+          <td>Resource Allocation</td>
+          <td>
+            Multiprogramming/time shared systems. On a multi-user system such as a server, 
+            time sharing is when multiprogramming is so fast that each user has the perspective 
+            of having the entire system to themselves. this must be done with some sort of fairness 
+            algorithm.
+          </td>
+        </tr>
+        <tr>
+          <td>Accounting</td>
+          <td>
+            This is the OS accounting for what users' processes are using what resources and 
+            how often each user is using resources. This is done with some sort of fairness algorithm.
+          </td>
+        </tr>
+        <tr>
+          <td>Protection/Security</td>
+          <td>This includes things like authentication, firewalls, memory protection, etc.</td>
+        </tr>
+        <tr>
+          <td>Shell Command Interpreter</td>
+          <td>
+            The shell is used to run programs. type "rm foo.txt" into one's choice terminal emulator, 
+            double click to open a file from a GUI file manager.
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        System calls were, at one time, all written in assembly language. Now many are written in languages 
+        such as <mark>C</mark>, <mark>C++</mark>, and the up and coming 
+        <a href="https://www.rust-lang.org/" target="new" rel="noopener noreferrer">Rust</a> language, which 
+        is providing a nicer systems language than we have ever had. Rust makes it easier to write thread 
+        safe code. The truth is that it can be more difficult to get the code to compile as the Rust 
+        compiler is very strict on what is allowed, but once it does compile it is almost certainly safe 
+        code without such things as memory leaks. The Rust compiler also provides <em>amazing</em> 
+        error messages which often tell you exactly how to fix the issue. There are thousands of system calls 
+        per second in a running OS. Three common APIs for system calls are <mark>Win32</mark>, 
+        <mark>POSIX</mark>, and the <mark>Java API</mark> which is for programs which run on the 
+        <mark>JVM (Java Virtual Machine)</mark>. Often system calls that are available to us in the 
+        C programming language are really wrappers around actual system calls to hide the details for 
+        abstraction and portability. The POSIX system calls are <mark>fork()</mark> and <mark>exec()</mark>.         
+      </p>
+  </article>
+  <nav>
+    <a id="navOS2">OS part 2</a>
+    <a id="navOS3">OS part 3</a>
+  </nav>
+</div>

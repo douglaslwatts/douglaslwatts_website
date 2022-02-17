@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="many_to_one_threading_model.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="350.85585"
+     inkscape:cy="708.57143"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 30.956244,44.322919 c 3.391962,6.098174 -6.912388,15.007414 0.264584,21.695834"
+       id="path817"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path819"
+       d="m 53.181258,44.322919 c 3.391962,6.098174 -6.912388,15.007414 0.264584,21.695834"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 79.639608,43.793752 c 3.391962,6.098174 -6.912388,15.007414 0.264584,21.695834"
+       id="path821"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path823"
+       d="m 103.98131,43.264585 c 3.39198,6.098174 -6.912408,15.007414 0.26459,21.695834"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="M 32.54375,71.310417 C 61.647916,126.60833 61.647916,126.60833 61.647916,126.60833"
+       id="path829"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 53.974999,72.104167 7.672917,54.504163"
+       id="path831"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="M 80.168749,73.1625 C 61.647916,126.60833 61.647916,126.60833 61.647916,126.60833"
+       id="path833"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="M 103.98125,71.839584 C 61.647916,126.60833 61.647916,126.60833 61.647916,126.60833"
+       id="path835"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 61.647916,126.60833 c 0.264583,20.37292 0,20.37292 0,20.37292"
+       id="path839"
+       inkscape:connector-curvature="0" />
+    <ellipse
+       style="fill:none;fill-opacity:0.39215686;stroke:#bbbbbb;stroke-width:0.66600001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       id="path841"
+       cx="61.383316"
+       cy="160.34271"
+       rx="12.964583"
+       ry="13.361458" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="115.88749"
+       y="64.166672"
+       id="text845"><tspan
+         sodipodi:role="line"
+         id="tspan847"
+         x="115.88749"
+         y="64.166672">&lt;-- User Threads</tspan></text>
+    <text
+       id="text851"
+       y="158.88713"
+       x="54.504112"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan853"
+         x="54.504112"
+         y="158.88713">Kernel</tspan><tspan
+         sodipodi:role="line"
+         id="tspan855"
+         x="54.504112"
+         y="164.1788">Thread</tspan></text>
+  </g>
+</svg>

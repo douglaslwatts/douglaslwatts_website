@@ -1,0 +1,395 @@
+<div class="tux_background">
+  <article>
+    <h1>Basic CLI Tutorial</h1>
+    <p>
+      Learning the <mark>CLI (command line interface)</mark> is essential for any programmer. Here are 
+      some of the most basic operations, they are very easy and are great for getting a start on 
+      the command line.
+    </p>
+    
+    <pre><code>
+  douglaslwatts@linuxbox: ~ > ls
+  
+  bin Documents Downloads Git Music Pictures Public some_pic.png Templates Videos
+    </code></pre>
+
+    <p>
+      The above is similar to what one may see if the <code>ls</code> command is run in 
+      a terminal emulator. The command simply lists files and directories which are present. 
+      If no arguments are given, then the files and directories in the current working directory 
+      are listed. There are many options for <code>ls</code>, and most other commands, which can change the 
+      output to make it useful for your current needs. The first thing that we see is the prompt,
+      <code>douglaslwatts@linuxbox: ~ ></code> which and can be interpreted as "my username" on 
+      "my machine's host name" followed by "my current working directory". The <code>~</code> 
+      character expands to <code>/home/douglaslwatts/</code> in my case. Just remember that 
+      <code>~</code> means the current-user-who-is-logged-in's home directory.
+      After the right arrow sign is the command I typed in.  the right arrow sign is 
+      one of a few typical characters used as the last character in a normal user's prompt.
+      Often, the <code>#</code> character will be the last character in the root user's prompt. After the 
+      prompt is the <code>ls</code> command which the user typed. Below that is the list of files and 
+      directories which have been listed as the <code>ls</code> command's output. Before we 
+      proceed any further, we should understand the directory tree.
+
+      <br><br>
+      Perhaps the most useful command is <code>man</code>. This will pull up manual pages for a
+      command so that we can learn how to use it. The command <code>man man</code> will pull up the 
+      manual pages for <code>man</code>. So, to see the many options available for the <code>ls</code>
+      command, we can run <code>man ls</code>. There is a program <code>apropos</code> which will search 
+      for manual pages which match a set of keywords. So, <code>apropos editor</code> will print the names of 
+      some programs which are editors such as Vim and any other text editors on your system. The 
+      <code>-k</code> option for the <code>man</code> command has identical functionality. So, 
+      <code>man -k editor</code> will give the same results. We could look for a program to help us 
+      sort text with <code>man -k sorting text</code> or anything else we need a tool for. The man 
+      pages are very important and extremely useful, however they can sometimes be difficult to 
+      understand. So, <a href="https://duckduckgo.com" target="new" rel="noopener noreferrer">DuckDuckGo</a> is your friend. There is almost 
+      always some <a href="https://stackoverflow.com" target="new" rel="noopener noreferrer">StackOverflow</a> post which will, at the very 
+      least point you in the right direction.
+
+      <br><br>
+      <strong><h2>What is a File</h2></strong>
+      
+      A file is 
+      a stream of bytes and in Unix systems everything is a file. File names can be composed of any 
+      printable character except the '/', though it is convention to never use <mark>white space</mark> 
+      characters in a file name. Following this convention will save time and aggravation on the 
+      command line. The reason that '/' cannot be used in a file name is that it is used to separate 
+      directories when specifying a path to a file. Directories are just files which point to other 
+      files. The files pointed to by a directory may be directories, regular files, or often a mix 
+      of both. In Linux systems file names are case sensitive, so <mark>file_01</mark> is distinct from 
+      <mark>File_01</mark>. File extensions are optional unless required by the program(s) which use them. 
+      If we need to compile some files for a <mark>C</mark> program, for example, the compiler expects them to have 
+      <mark>.c</mark>, <mark>.h</mark>, <mark>.a</mark>, etc. extensions. Similarly, if we want to compile a 
+      <mark>LaTeX</mark> file with the <mark>pdflatex</mark> command, we need to use the '.tex' extension. A file which begins with the 
+      '.' character is a <mark>hidden</mark> file and often configuration files are hidden files. This 
+      means that without the <code>-a</code> or <code>-A</code> flag, the <code>ls</code> command will 
+      not list them. There are two hidden files which are very useful and exist in every directory, '.' 
+      points to the directory itself and '..' points the the parent directory. Shell scripts often have 
+      a '.sh' extension, but this is not needed and often we will see scripts with no extension at all. 
+      I typically do not use a file extension for plain text files or shell scripts. In fact, in Linux 
+      we can use the '.' character anywhere in a file or directory name. We could have a file named 
+      "my.useful.file." and it could hold plain text or be made executable and hold a script. 
+      Similarly, we could have a directory named "my.directory.which.has.many.files". There are many 
+      other file types besides regular files and directories and they will be discussed later.
+      <br><br>
+    
+      
+      <br><br>
+      <strong><h2>File System</h2></strong>
+
+      The Linux file system starts at root and is like an upside down a tree structure with 
+      the base up top and the branches and leaves at the bottom. The root of the file system 
+      is '/' and directory paths are separated by the '/' character. A user's home directory, 
+      the directory where the user's files live, is in the home directory which may contain 
+      many users. So, for a user with username "douglaslwatts", the path to the home directory 
+      would be <code>/home/douglaslwatts/</code>. There are many directories in the root directory 
+      which are used for storing configuration files and binary executables among other types 
+      of files. <code>/usr/bin/</code> holds many of the executable binaries which are the 
+      Linux tools we use. We may sometimes want to write a POSIX compliant script which runs 
+      commands that need root privileges and can only be run by the administrator of the 
+      system. <code>/usr/local/bin/</code> is a good place to store them. A <mark>path</mark> 
+      can be <mark>absolute</mark>, meaning it starts at the root, or it can be 
+      <mark>relative</mark>, meaning it starts from the current location in the system and often may make use 
+      of the '.' or '..' pointers mentioned earlier. For example, <code>/home/douglaslwatts/</code> 
+      is an absolute path to home directory of the user douglaslwatts, while from the directory
+      <code>/home/douglaslwatts/Documents/</code>, <code>../Git/Chess/</code> is a relative path 
+      to the <code>/home/douglaslwatts/Git/Chess/</code> directory.
+    
+      <br><br>
+      <strong><h2>Wildcards</h2></strong>
+
+      Wildcards match any character or lots of characters. The <code>*</code> matches zero or more of 
+      any character, but it will not match '.' unless that is explicitly turned on. We can turn it on
+      with <code>shopt -s dotglob</code> if we need, but it is a good idea to only use that when it is 
+      really needed. The <code>?</code> 
+      matches any single character. A character list matches a single character which is 
+      specified, for example <code>[A-Za-z]</code> matches any alphabet character regardless 
+      of case, while <code>[Azq]</code> matches either 'A', 'z', or 'q'. This is very useful if 
+      we need to run a command on any file which matches a particular pattern. For instance, 
+      the <code>ls</code> command lists files, by default the files in the current directory. 
+      So if we want to see all the files with the date "03-01-2021" in the name, we can run the 
+      command 
+      <br><br>
+
+      <code>ls *03-01-2021*</code>
+
+      <br><br>
+
+      We could compile all of our Java files in a directory with 
+      <br><br>
+
+      <code>javac *.java</code>
+
+      <br><br>
+
+      The wildcard <code>**</code> matches all the directories in the current directory or in the path 
+      specified before it. So, if we wanted to 
+      compile all of the C files which are located in several subdirectories which are directly below the <code>source</code> 
+      directory located in our current directory, we could do
+      <br><br>
+
+      <code>gcc -Wall -o my_program source/**/*.c</code>
+
+      <br><br>
+
+      We could list all files which start with 'p', followed by any single character, followed 
+      by an 'A' or 'a', then zero or more of any characters, and finally having the file extension 
+      '.tex' with
+      <br><br>
+
+      <code>ls p?[Aa]*.tex</code>
+
+      <br><br>
+
+      I am not sure that particular example would ever be useful, but the point is clear ...wildcarding 
+      is powerful and can also be dangerous. It can be easy to confuse wildcards in Bash with regular 
+      expressions as there are a lot of similarities, however they are not the same. The <code>rm</code> command removes files and with 
+      the <code>-r</code> flag, it does so recursively and can therefore remove entire directory 
+      structures. Running the command <code>rm -r /*</code> is commonly joked about. Naturally, 
+      that would require one to be the administrator of the system as it would remove every file 
+      in the entire system, including all configuration files and binaries which are owned by the "root" user. 
+      <br><br>
+      The root user is not to be confused with the root of the file system, it is the all 
+      powerful superuser which can run any command. When we run a command with <code>sudo</code> we are 
+      running it as root. This is how we run commands which must be run with root privileges and
+      <mark>sudo</mark> means <mark>superuser do</mark>, as root is the superuser. Do not log in 
+      as root unless you have a really good reason to. Being root means that any command you run will 
+      be executed without question, without needing to enter your password. Anything you can do as root, you 
+      can, and probably should, do with <mark>sudo</mark>. This way you need to enter your password, which 
+      should cause you to consider the consequences of the command you are running more carefully. For 
+      instance, if you are trying to remove a directory which is owned by root and has important files 
+      because you accidentally misspelled it or put a '/' in front of it, then you will get a permission 
+      denied error if you did not use sudo. If you were root, the directory is gone and there is no 
+      trash bin to restore it from. When you remove things on the command line, they are gone and 
+      often cannot be restored even with forensics tools.
+
+      <br><br>
+      <strong>
+        <h2>Some Useful Info</h2>
+      </strong>
+
+      A user will typically have a home directory which will be <code>/home/username/</code>. There is 
+      a short hand way of denoting this directory. You can simply use <code>~</code> which the shell 
+      will expand to <code>/home/username/</code> for the currently logged in user. So, wherever one 
+      finds themselves in the file system, <code>cd ~</code> will always take them home. However, this is 
+      such a common thing to do that the <code>~</code> can be omitted, <code>cd</code> will default to 
+      take-me-home. For navigating to a different user's home directory, if you are the system administrator 
+      and need to check on something, <code>~username</code> will expand to <code>/home/username/</code>, 
+      where <code>username</code> is a user on the system. The command <code>pwd</code> will 
+      print your current location in the file system as an absolute path.
+      <br><br>
+
+      To make a new directory, use the <code>mkdir</code> command. To remove an empty directory use 
+      the <code>rmdir</code> command, this will only remove the directory if it is empty. This is only 
+      really useful if one wishes to remove a directory which they are sure is empty, but want a sanity 
+      check. The <code>rm</code> command can be used with the <code>-r</code> flag to remove non-empty 
+      directories recursively. If you want to be asked about each item which will be removed, so you can answer 
+      yes or no for each, use the <code>-i</code> flag. This will run in interactive mode. 
+      <br><br>
+
+      The <code>ls</code> command has many useful flags as well. The <code>-t</code> flag will list 
+      items in order from newest to oldest. If you want them in reverse order use <code>-tr</code>. 
+      The <code>-R</code> flag will list recursively and the <code>-F</code> flag will append a 
+      character to the end of each listing to signify what type of file it is, such as <code>*</code> 
+      for an executable, <code>/</code> for a directory, and <code>@</code> for a <mark>symlink</mark>. 
+      More on <mark>symlinks</mark>, <mark>hard links</mark>, and <mark>inodes</mark> later. If you 
+      want to see information about a directory without listing its contents, <code>ls -d</code> is 
+      useful. 
+
+      <br><br>
+      <strong>
+        <h2>File Permissions</h2>
+      </strong>
+
+      Permissions are important and very useful. It is relatively simple. There are three
+      process types which can access files. From the perspective of the file system, you are either
+      <mark>user</mark>, the owner of the file, <mark>group</mark>, in a group which the file belongs 
+      to, or <mark>other</mark>, neither the owner nor in a group which the file belongs to. The first 
+      is quite intuitive, groups are not too difficult to wrap your head around, and other just means 
+      that you have no association with the file. Groups are useful in sharing files between users without 
+      giving everyone on the system access to them. If we have a group, say <code>shared</code>, and you 
+      and some other user are both in that group and no one else is. Then, you can create files which 
+      belong to that group and, if other has no permissions, only you and that person can access them. 
+      There are three types of permissions, <mark>read</mark>, <mark>write</mark>, and <mark>execute</mark>. 
+      For files which are directories, read means you can list the contents, write means you can add 
+      files, and execute means you may enter the directory. For regular files, read means you can read 
+      the contents of the file, write means you may modify the file, and execute means that, if the file 
+      is an executable, you may successfully execute the file, thus spawning a process from it. For more 
+      on processes check out the <a id="navOS">operating systems</a> pages. Permissions can be 
+      displayed using the <code>-l</code> flag for <code>ls</code>. 
+      <br><br>
+    </p>
+
+      <pre><code>
+  douglaslwatts@linuxbox: ~ > ls -ld Documents /shared/folder/random_file.info
+
+  drwx------ 27 douglaslwatts douglaslwatts    4096 Mar  5 08:16 Documents
+  -rw-rw-r--  1 douglaslwatts        shared 3085957 Mar  5 12:13 /shared/folder/random_file.info
+      </code></pre>
+
+    <p>
+      The permissions are the letters and dashes at the start of the listing, the next number is the 
+      number of links to the file, the next thing is the file's owner, then the file's group, the size of the 
+      file in bytes, the last modification month, day, and time, and finally the name of the file.
+      The 'd' means that <code>Documents</code> is a directory, while the '-' means that <code>random_file.info</code> 
+      is a regular file. The first three permissions are for 'user', the second three are for the 
+      'group' the file belongs to, and the last three are for 'other'. When there is a '-' for a 
+      permission, this means that the permission is off. So, only douglaslwatts may list the contents, 
+      add new files and directories, or enter the Documents directory as no permissions are set for group 
+      or other. For random_file.info, anyone may read the file as read permissions are set for all three, 
+      while only douglaslwatts and anyone in the shared group may edit the file.
+      <br><br>
+
+      To change the permissions of a file or directory we can use the <mark>change file mode bits</mark> 
+      command, <code>chmod</code>. To change the owner or group of a file there are <code>chown</code> 
+      and <code>chgrp</code>, respectively. You can also use <code>chown</code> to change both the owner 
+      and group simultaneously. All of these commands have a <code>-R</code> flag to change a directory 
+      and all of its contents recursively. So, if we want to change the owner of random_file.info, we 
+      can do <code>chown newowner:newgroup random_file.info</code>. If we wanted to do so recursively for 
+      the Documents directory, it would be <code>chown -R newowner:newgroup Documents</code>. 
+
+      <br><br>
+      There are a couple of ways to use the <code>chmod</code> command. We can use 'u' for user, 'g' 
+      for group, 'o' for other, and 'a' for all three. So <code>chmod u+x</code> gives user execute 
+      permission, while <code>chmod u-x</code> takes them away and <code>chmod u=r</code> means that 
+      whatever permissions were before they are only read now. So, we can do 
+      <code>chmod u+x,g-w,o=x random_file.info</code> to add execute permissions for user, take write 
+      permissions away from group and set it such that other may only execute the file. There is another 
+      way called <mark>octal mode</mark>. Basically, think of read permissions as equaling 4, write 
+      as equaling 2, and execute as equaling 1. So, <code>chmod 644 random_file.info</code> means that 
+      now anyone can read the file, while only the owner of the file may edit it. If we run 
+      <code>chmod 750 Documents</code>, then the owner may list the contents, add new contents, and enter 
+      the directory, while those in the group to which Documents belongs may only list the list the 
+      contents of the directory and enter the directory and other has no permissions at all. One thing 
+      to keep in mind is that no matter the permissions of a file, if the containing directory and the entire 
+      path up to it do not allow a user appropriate permissions, then the user cannot access the file. 
+      So, in the original listing above, if random_file.info were moved inside the Documents directory 
+      with the <code>mv</code> command, <code>mv /shared/folder/random_file.info /home/douglaslwatts/Documents/</code>, then 
+      those in the <code>shared</code> group no longer have access as they are not in the group douglaslwatts.
+      <br><br>
+
+      To change the location of or simply rename a file, we can use the <code>mv</code> command. If
+      we need to move the file "file.txt" into a directory which lives in the grandparent directory  
+      of our current working directory and that directory's name is "folder_01", then we can run 
+      <code>mv file.txt ../../folder_01/</code>. If we need to, instead rename file.txt to file-3-05.txt, 
+      we can run <code>mv file.txt file-3-05.txt</code>. There is no rename command, we just use mv. 
+      If there was a file already with the name file-3-05.txt, then it has been clobbered and now 
+      contains the contents of file.txt, so we must be careful with that. In general, when working on 
+      the command line it is important to be mindful of what we are doing and aware of our environment 
+      and its contents. If we wanted to move the directory folder_01 from the grandparent directory to 
+      our current directory we can run <code>mv ../../folder_01/ ./</code>. The <code>/</code> proceeding 
+      both the <code>.</code> and <code>folder_01</code> is really optional, but if working on an older 
+      system it is a good idea as there may not be as many safe guards in place as on a newer 
+      version of the same Linux distribution. Many, who are far more experienced than I, always proceed 
+      a folder name with a <code>/</code> as current safe guards did not exist when they learned to use 
+      the command line. We can also move many things at once with a command such as 
+      <code>mv file.txt file_03.txt random.pdf folder_03/ my_directory/ my_other_directory/</code>. 
+      Now file.txt, file_03.txt, random.pdf, folder_03/, and my_directory/ all live inside the 
+      my_other_directory/ directory. However, the destination must exist if moving more than one thing, 
+      whereas if we are renaming a file or directory, the destination does not need to exist. If 
+      it does and is a directory, then it will contain what was moved and if it does exist and is a file 
+      it will be clobbered. 
+      There will be an error if we try to mv a directory to an existing file name or if we try to move 
+      many things to a directory which does not exist. If we are unsure, we can specify the 
+      <code>--no-clobber</code> flag such that existing files will not be overwritten.
+      <br><br>
+
+      Three streams exist that we will concern ourselves with, standard in, standard out, and 
+      standard error. They are denoted as <mark>stdin</mark>, <mark>stdout</mark>, and <mark>stderr</mark>, 
+      respectively. By default stdin comes from the keyboard, stdout goes to the screen, and stderr also 
+      goes to the screen, but is a separate stream from stdout. These have numerical representations as 
+      well. stdin is 0, stdout is 1, and stderr is 2. If you have not encountered it before, in 
+      computer science and programming in general, get used to zero indexing things. Generally arrays 
+      and other structures' first element has the index zero. We can redirect these streams using 
+      redirection operators. the <code>></code> is the same as <code>1></code>, which redirects stdout 
+      to some place. The <code>echo</code> command will echo what is provided as an argument to stdout. 
+      So if we type <code>echo "hello"</code>, then hello will be printed to the screen. So, if we run 
+      <code>echo "hello" > file.txt</code>, then hello will be written to the file. This will overwrite 
+      whatever was in the file and its new contents will be <mark>hello</mark>. If the file did not exist,
+      it will have been created. We can append to the file by using <code>>></code>. So, 
+      <code>echo "hello" >> file.txt</code> would not overwrite the contents, but append to them. We can 
+      also redirect stderr. So, <code>mv file1 new_name --no-clobber 2>> my_log_file</code> will send 
+      any errors to my_log_file. Note if there were any stdout it would still be printed to the screen. 
+      We can send stdout and stderr to different places as well, 
+      <code>rm -r some_dir > output_file 2>> error_log</code>. We can also redirect stdin. If we are 
+      using a program which needs some information from a stdin, we can redirect a file which contains 
+      the information to the 
+      stdin of the command. The <code>cat</code> command concatenates a file to stdout and reads from 
+      stdin by default as it is a filter. So, <code>cat < file.txt</code> will print the contents of 
+      file.txt to the screen. However, this is just an example of redirection as we could supply 
+      the file as an argument, such as <code>cat file.txt</code>. 
+    </p>
+
+    <table class="left_aligned_table">
+      <tr>
+        <th>Redirection</th>
+        <th>What it Does</th>
+      </tr>
+      <tr>
+        <td>></td>
+        <td>send stdout somewhere ...overwrites</td>
+      </tr>
+      <tr>
+        <td>>></td>
+        <td>send stdout somewhere ...appends</td>
+      </tr>
+      <tr>
+        <td>2></td>
+        <td>send stderr somewhere ...overwrites</td>
+      </tr>
+      <tr>
+        <td>2>></td>
+        <td>send stderr somewhere ...appends</td>
+      </tr>
+      <tr>
+        <td>>&2</td>
+        <td>send stdout to stderr</td>
+      </tr>
+      <tr>
+        <td><</td>
+        <td>redirect a file to stdin</td>
+      </tr>
+      <tr>
+        <td>&></td>
+        <td>redirect stdout and stderr somewhere ...overwrites</td>
+      </tr>
+      <tr>
+        <td>&>></td>
+        <td>redirect stdout and stderr somewhere ...appends</td>
+      </tr>
+      <tr>
+        <td>< <(echo "hello")</td>
+        <td>
+          create a temporary file with the text "hello", which<br>is automatically destroyed, and
+          redirect it to stdin.<br>This is process redirection, more on that later.
+        </td>
+      </tr>
+    </table>
+
+    <p>
+      Many Linux tools are <mark>filters</mark>, meaning that, by default, they read from 
+      stdin and write to stdout. This allows 
+      them to be used with <mark>pipes</mark> to chain commands together to do extremely powerful 
+      things. The pipe operator is <code>|</code> and is used to pipe the stdout of one command to stdin 
+      of another. So, <code>cat names.txt | grep -i "luke" | wc -l</code> will print the number of 
+      lines that the name Luke appears on in names.txt, disregarding case. Okay, that is not so powerful, 
+      but this is just a very simple example of what can be done with pipes. The <code>grep</code> command 
+      searches for a pattern in stdin by default or in a file or files if provided as arguments. The 
+      <code>wc</code> command counts lines, words, and characters from stdin by default or from a file 
+      or files if provided as arguments. The <code>-i</code> tells grep to ignore case and the <code>-l</code>
+      tells wc to only count the number of lines. The <code>tee</code> command will send stdin to 
+      any number of files and still send it to stdout. This can be very useful. Imagine you want to 
+      send the output of program_01 to a file for use and to a log file, while still sending the output 
+      to program_02. We can run <code>program_01 | tee file.txt log_file.txt | program_02</code>. Now 
+      both files got the output and we were still able to use it as stdin for the other program. This 
+      could also be useful if we need to print an error message for users of a script we are writing, 
+      however we also need to log the error. We can use 
+      <code>echo "Error! Something went wrong!" | tee -a error_log >&2</code>. This will send the 
+      message to the error_log file and to stdout, then redirect stdout to stderr. This way it is 
+      printed to the screen as an error for the user and we have logged the error. The <code>-a</code> tells tee to append to the file not overwrite it.
+    </p>
+</article>
+  <nav>
+    <a id="navCLI2">CLI part 2</a>
+    <a id="navCLI3">CLI part 3</a>
+  </nav>
+</div>

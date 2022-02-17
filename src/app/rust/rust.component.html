@@ -1,0 +1,226 @@
+<div class="rust_background">
+  <article>
+    <h1>Basic <a href="https://rust-lang.org" target="new" rel="noopener noreferrer">Rust</a> Tutorial</h1>
+    <p>
+      Rust is a systems language, which means it is a low level language and is meant to 
+      provide access to the OS's (operating system's) low level system calls for more control 
+      over program behavior. Rust is a modern systems language which, unlike older languages 
+      such as C, is intended to help programmers write safer code by only compiling safer 
+      code. The Rust compiler is amazing at error detection and provides incredibly useful 
+      error messages which help us fix the issue. Often, the compiler will tell us exactly 
+      how to fix the issues in our code. Concepts such as <mark>ownership</mark> and
+      <mark>borrowing</mark> along with the way that Rust handles dropping values automatically 
+      when the value's owner goes out of scope, make this possible. The Rust language is an 
+      excellent choice when one needs to write thread safe programs. This is a basic tutorial 
+      that I am writing and will be continually updating and adding to as I learn more about 
+      using Rust. I cannot, and am not attempting to, provide a better learning tool for the 
+      Rust language than <a href="https://doc.rust-lang.org/book/title-page.html" target="new" rel="noopener noreferrer">The Book</a>. 
+      In fact, I am making this tutorial more as a way of engraining the material into my own 
+      mind than as a way of providing others with a learning tool. However, I will try to keep 
+      it easy to understand for beginners, so maybe someone out there will find it to be useful.
+    
+    
+      <br><br>
+      <strong><h2>Variables in Rust</h2></strong>
+    
+      Rust is a systems language and, as such the target audience is computer scientists. So, 
+      data types have names which are very explicit about exactly what they are. Below is a 
+      table with the integer data types in Rust.
+    </p>
+    
+    <table class="left_aligned_table">
+      <tr>
+        <th>Datatype</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>i8</td>
+        <td>A signed 8-bit integer value</td>
+      </tr>
+      <tr>
+        <td>u8</td>
+        <td>An unsigned 8-bit integer value</td>
+      </tr>
+      <tr>
+        <td>i16</td>
+        <td>A signed 16-bit integer value</td>
+      </tr>
+      <tr>
+        <td>u16</td>
+        <td>An unsigned 16-bit integer value</td>
+      </tr>
+      <tr>
+        <td>i32</td>
+        <td>A signed 32-bit integer value</td>
+      </tr>
+      <tr>
+        <td>u32</td>
+        <td>An unsigned 32-bit integer value</td>
+      </tr>
+      <tr>
+        <td>i64</td>
+        <td>A signed 64-bit integer value</td>
+      </tr>
+      <tr>
+        <td>u64</td>
+        <td>An unsigned 64-bit integer value</td>
+      </tr>
+      <tr>
+        <td>i128</td>
+        <td>A signed 128-bit integer value</td>
+      </tr>
+      <tr>
+        <td>u128</td>
+        <td>An unsigned 128-bit integer value</td>
+      </tr>
+      <tr>
+        <td>isize</td>
+        <td>Architecture dependent, signed 64-bit integer on a 64-bit system, etc.</td>
+      </tr>
+      <tr>
+        <td>usize</td>
+        <td>Architecture dependent, unsigned 64-bit integer on a 64-bit system, etc.</td>
+      </tr>
+    </table>
+    
+    <p>
+      Floating point data types are <mark>f32</mark> and <mark>f64</mark>. We can explicitly 
+      annotate the datatype of a variable upon creating it, but Rust can also infer the datatype 
+      in many, but not all, cases. If you are on a system with 64-bit architecture, then 
+      <code>let num = 512;</code> will result in <code>num</code> being a <mark>i32</mark> by 
+      default. This would also be true on a machine with 32-bit architecture. However, 
+      <code>let num = 1024.2;</code> will result in <code>num</code> being an <mark>f64</mark>, 
+      naturally that would need to be an <mark>f32</mark> on a 32-bit machine.
+      <br><br>
+    
+      String literals are actually string slices, more on that later, and there is a <mark>String</mark> type as 
+      well. We can declare a string literal as in most other languages,
+      <code>let hello = "Hello World!";</code>. String literals are not <mark>mutable</mark>, if 
+      we need to change a string without destroying it and assigning an entirely new value to the 
+      variable, then we must use the <mark>String</mark> type. We can create these in a number 
+      of ways, one such way is from a string literal like: 
+      <br><br>
+      <code>let mut hello_world = String::from("Hello");</code>
+      <br><br> 
+      Now this is a mutable String and 
+      we can do <code>hello_world.push_str(" World");</code>. In Rust variables are immutable by 
+      default so we must declare them as mutable with the <mark>mut</mark> keyword if we want to 
+      be able to alter their value. The set of colons serves to namespace the <code>from()</code> 
+      method to <mark>String</mark>. 
+      <br><br>
+    
+      To print out a value we use the macros which Rust provides for us. The
+      <code>println!("hello");</code> macro will print to stdout and follow the print with a newline
+      character, thus flushing the output stream. The <code>print!("hello");</code> will not be 
+      followed by a newline character and, thus will not flush the output stream. There is also
+      <code>eprintln!("error");</code> for printing to stderr. That is enough to go ahead and have 
+      a small example with a
+      <a href="https://en.wikipedia.org/wiki/%22Hello,_World!%22_program" target="new" rel="noopener noreferrer">hello world</a> 
+      program.
+      <br><br>
+    
+      We use <mark>Cargo</mark> to work with rust programs. To get <mark>rustc</mark> (the compiler), and 
+      Cargo installed, visit their 
+      <a href="https://www.rust-lang.org/tools/install" target="new" rel="noopener noreferrer">install</a>
+      page and follow the instructions for your OS. To create a new program, we can do 
+      <code>cargo new hello_world</code>. this will create a new directory named 
+      <mark>hello_world</mark>, snake case is the naming convention for this in Rust. Inside that 
+      directory will be the <mark>Cargo.toml</mark> file for configuring the project should you need to add 
+      dependencies, more on that later, and an <mark>src</mark> directory with a file 
+      <mark>main.rs</mark>. The file <mark>main.rs</mark> is where we will put our code.
+      If you are not familiar with 
+      the command line, note that everything before the right arrow sign is just my prompt. It reads 
+      as "my username" on "my machine's host name" followed by "my current working directory". 
+      After the right arrow sign is the command I typed in. Your command prompt is completely 
+      customizable. I am using a fairly standard prompt here, which is typical on many OSs
+      as a default prompt style.
+    
+    </p>
+    
+    <pre><code>
+  douglaslwatts@linuxbox: ~ > cargo new hello_world
+       Created binary (application) `hello_world` package
+  douglaslwatts@linuxbox: ~ > cd hello_world
+  douglaslwatts@linuxbox: ~/hello_world > vim src/main.rs
+      </code></pre>
+    
+    <p>
+      Now we add the following code, save the file, and exit. You can use any plain text editor or IDE that 
+      you prefer. I am using <a href="https://www.vim.org/" target="new" rel="noopener noreferrer">Vim</a> in this example, I also like 
+      <a href="https://www.jetbrains.com/idea/" target="new" rel="noopener noreferrer">IntelliJ</a> or 
+      <a href="https://www.jetbrains.com/clion/" target="new" rel="noopener noreferrer">CLion</a> 
+      with their respective Rust plugins, and <a href="https://code.visualstudio.com/" target="new" rel="noopener noreferrer">VSCode</a> 
+      which has some nice Rust extensions to install. There are community versions of both IntelliJ and 
+      CLion which are free, VSCode also has versions for Linux which are free to download and use. 
+      Whatever editor you choose, just 
+      make sure you get the right package for your distribution of Linux or whatever OS you are using.
+    </p>
+    
+    <pre><code>
+  // any text which has '//' in front of it is a comment ignored by the compiler
+
+  fn main() &#123;
+  
+    let num = 32;
+    let num2: i64 = 64;
+    let float_num = 64.0;
+    let float_num2: f32 = 32.0;
+  
+  
+    let hello = "Hello";
+  
+    // note the mut keyword, without it we cannot use .push() or .push_str()
+  
+    let mut hello_world = String::from(hello); // using the variable 'hello' from above
+  
+    // to push a string we use .push_str(), strings are in double quotes
+  
+    hello_world.push_str(" World");
+  
+    // to push only a single character we use .push(), characters are in single quotes
+  
+    hello_world.push('!');
+  
+    // We can interpolate the variables' values into the string with the &#123;&#125;
+    // The second argument is the variable to be interpolated.
+  
+    println!("hello => &#123;&#125;", hello);
+    println!("hello_world => &#123;&#125;\n", hello_world);
+  
+    // we can also interpolate multiple variables
+  
+    println!("hello --> &#123;&#125;\nhello_world --> &#123;&#125;\n", hello, hello_world);
+  
+    println!("num is &#123;&#125;, num2 is &#123;&#125;, float_num is &#123;&#125;, and float_num2 is &#123;&#125;", num, num2,
+             float_num, float_num2);
+  &#125;
+      </code></pre>
+      
+    <p>
+      We can run this with the <mark>cargo run</mark> command.  </p>
+    
+    <pre><code>
+  douglaslwatts@linuxbox: ~/hello_world > cargo run
+         Compiling hello_world v0.1.0 (/home/douglaslwatts/hello_world)
+      Finished dev [unoptimized + debuginfo] target(s) in 0.22s
+       Running `target/debug/hello_world`
+  hello => Hello
+  hello_world => Hello World!
+  
+  hello --> Hello
+  hello_world --> Hello World!
+  
+  num is 32, num2 is 64, float_num is 64, and float_num2 is 32
+    </code></pre>
+    
+    <p>
+      Notice that Rust did not print the decimal for the floating point variables, this is because 
+      there was only zero after the decimal. Many languages would print the decimal anyway, this is 
+      a nice little formatting that Rust takes care of for us.
+    </p>
+  </article> 
+  <nav>
+    <a id="navRust2">Rust part 2</a>
+    <a id="navRust3">Rust part 3</a>
+  </nav>
+</div>

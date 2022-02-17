@@ -1,0 +1,326 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap');
+@import 'assets/styles/mixins';
+@import 'assets/styles/colors';
+//@import '~@sweetalert2/themes/dark/dark.scss';
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: auto;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar $scrollbarBackground; 
+}
+
+body {
+  font-family: 'Nunito', 'sans-serif';
+  overflow-y: auto;
+  background-color: $defaultBodyBackground;
+}
+
+.grayGreenBackground {
+  background: url("./assets/images/mountain_view_09.jpg") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  padding-bottom: 0vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10vmax;
+
+  @include xl_screen() {
+    flex-direction: row;
+    padding-top: 5vh;
+  }
+}
+
+.river_background {
+  background: url("./assets/images/background_image2_2.png") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0;
+  padding-bottom: 0vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 10vmax;
+
+  @include xl_screen() {
+    flex-direction: row;
+    padding-top: 5vh;
+  }
+}
+
+.tux_background {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: url("./assets/images/linux-256.png") no-repeat fixed;
+  background-size: 8%;
+  background-position: left;
+  min-height: 100%;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  margin-top: 0;
+
+  @include sm_screen() {
+    background-size: 10%;
+  }
+
+  @include md_screen() {
+    background-size: 15%;
+  }
+
+  @include lg_screen() {
+    background-size: 20%;
+  }
+}
+
+.rust_background {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: url("./assets/images/rust.png") no-repeat fixed;
+  background-size: 8%;
+  background-position: left;
+  min-height: 100%;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  margin-top: 0;
+
+  @include sm_screen() {
+    background-size: 10%;
+  }
+
+  @include md_screen() {
+    background-size: 15%;
+  }
+
+  @include lg_screen() {
+    background-size: 20%;
+  }
+}
+
+pre code {
+  display: block;
+  color: $codeAreaFont;
+  background: none;
+  background-color: lighten($primary, 15%);
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar $scrollbarBackground;
+  overflow: auto;
+  width: 90%;
+  max-width: 95%;
+  min-width: 35%;
+  margin: auto;
+  padding: .1rem .1rem;
+  border-radius: .4rem;
+  font-size: 0.8rem;
+
+  @include md_screen() {
+    font-size: 1.0rem;
+  }
+}
+
+.last_pre_on_page {
+  margin-bottom: 3vh;
+}
+
+code {
+  font-family: MyFancyCustomFont, monospace;
+  font-size: inherit;
+}
+
+/* Code in text */
+p > code,
+li > code,
+dd > code,
+td > code {
+  background: lighten($primary, 15%);
+  word-break: keep-all;
+  word-wrap: keep-all;
+  box-decoration-break: clone;
+  padding: 0 .1rem;
+  border-radius: .2rem;
+  font-size: 80%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $softWhite;
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+  color: $softWhite;
+  font-size: 5vmin;
+}
+
+p {
+  color: $softWhite;
+  font-size: 1.1rem;
+
+  @include sm_screen() {
+    font-size: 1.5rem;
+  }
+}
+
+a {
+  cursor: pointer;
+  color: $defaultAnchor;
+  text-decoration: none;
+
+  @include non_touch_screen() {
+    &:hover {
+        color: $defaultAnchorHover;
+    }
+  }
+}
+
+mark {
+  color: $defaultAnchorHover;
+  text-decoration: none;
+  background: none;
+}
+
+aside {
+  text-align: center;
+  font-size: 2.3vmin;
+  color: $codeAreaFont;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 0.1rem solid $softWhite;
+  position: fixed;
+  background-color: $topNavBackground;
+  padding-top: 0.5%;
+  padding-left: 3%;
+  padding-right: 3%;
+  z-index: 1;
+}
+
+blockquote {
+
+  text-align: center;
+  color: $codeAreaFont;
+  font-size: 2.2vmin;
+  padding-left: 12%;
+  padding-right: 20%;
+  padding-top: 2%;
+  padding-bottom: 1%;
+}
+
+figcaption {
+  color:  $codeAreaFont;
+}
+
+header {
+  background: $primary;
+  padding: 0;
+
+  nav {
+    float: right;
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      display: flex;
+
+      li a {
+        padding: 1em;
+
+          &:hover {
+            background: $topNavAnchorHoverBackground;
+          }
+      }
+    }
+  }
+}
+
+table {
+  padding-top: 1%;
+  padding-bottom: 5%;
+  font-size: 2vmin;
+  max-width: 80%;
+  margin: auto;
+
+  tr{
+    th {
+      color: #000;
+      text-align: center;
+      background-color: rgba(33, 100, 116, .8);
+      padding: 0.2rem 0.1rem;
+    }
+
+    td {
+      color: $softWhite;
+      text-align: left;
+      background-color: $defaultTableBackground;
+      padding: 0.25rem 1rem;
+    }
+  }
+
+  mark {
+    color: $tableMark;
+  }
+}
+
+figure {
+  padding-bottom: 5%;
+  max-width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  figcaption {
+    text-align: center;
+    padding-top: 1%;
+    font-size: 2vmin;
+  }
+
+  ol {
+    li {
+      color: $softWhite;
+    }
+  }
+
+  ul {
+    
+    li {
+      color: $softWhite;
+    }
+
+    li:before {
+      content: '- ';
+    }
+  }
+}

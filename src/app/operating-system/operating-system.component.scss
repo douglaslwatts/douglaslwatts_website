@@ -1,0 +1,99 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/colors';
+
+article {
+  max-width: 85vw;
+  margin: 0 auto;
+  border: solid $articleBorder 1px;
+  border-radius: 8px;
+
+  @include sm_screen() {
+    max-width: 80vw;
+  }
+
+  @include md_screen() {
+    max-width: 70vw;
+    padding-top: 2vmax;
+  }
+
+  @include lg_screen() {
+    max-width: 60vw;
+  }
+}
+
+h1 {
+  margin-top: 2vh;
+  color: $softWhite;
+}
+
+nav {
+  width: 85vw;
+  max-width: 85vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1%;
+  padding-top: 5%;
+  font-size: 5vmin;
+
+  @include xs_screen() {
+    padding-top: 1%;
+    font-size: 4vmin;
+  }
+
+  @include md_screen() {
+    padding-top: 1%;
+    font-size: 3vmin;
+  }
+}
+
+h2 {
+  font-size: 4.2vmin;
+}
+
+p {
+  padding: 5vmin;
+
+  h3 {
+    text-align: left;
+    border-bottom: 1px grey solid;
+    padding-bottom: 1%;
+    margin-top: 4vh;
+    font-size: 3.0vmin;
+  }
+}
+
+figure.linus_quote {
+  padding-left: 0;
+  padding-bottom: 5%;
+
+  figcaption {
+    text-align: left;
+    padding-left: 66%;
+    font-size: 2.2vmin;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+ul.normal {
+  color: $softWhite;
+  list-style: none;
+  max-width: 80%;
+  margin: auto;
+  font-size: 3vmin;
+}
+
+ul li:before {
+  content: '';
+}
+
+ol {
+  max-width: 80%;
+  color: $softWhite ;
+  margin: auto;
+  font-size: 2vmin;
+}

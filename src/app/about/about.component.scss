@@ -1,0 +1,87 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/colors';
+
+p {
+  margin: 10px;
+  margin-top: 5px;
+
+  @include sm_screen() {
+    margin: 20px;
+    margin-top: 5px;
+  }
+}
+
+article {
+  max-width: 85vw;
+  margin: 10vh auto;
+  border: 1px solid $articleBorder;
+  border-radius: 4px;
+  background-color: $grayGreenBackground;
+
+  @include sm_screen() {
+    max-width: 80vw;
+  }
+
+  @include md_screen() {
+    max-width: 70vw;
+  }
+
+  @include lg_screen() {
+    max-width: 60vw;
+  }
+}
+
+.title {
+  background: $lightImageGradientOverlay, 
+              url("../../assets/images/mountain_view_09.jpg") no-repeat;
+  background-size: cover;
+  padding: 2vmax;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  font-family: cursive;
+  border: solid $blackTransparent 5px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  width: 100%;
+  max-width: 100%;
+
+  h1 {
+    color: black;
+    font-family: 'Dancing Script', cursive;
+    letter-spacing: 2px;
+    font-size: 8vmin;
+  }
+}
+
+h2 {
+  color: black;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 2px;
+  font-size: 6vmin;
+  border-bottom: 1px solid black;
+  padding: 4px;
+  margin-bottom: 5px;
+
+  @include xl_screen() {
+    width: 97%;
+    max-width: 97%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+}
+
+p {
+  color: black;
+}
+
+mark {
+  color: black;
+}
+
+a {
+  color: $aboutAnchors;
+
+  &:hover {
+    color: $aboutAnchorsHover;
+  }
+}

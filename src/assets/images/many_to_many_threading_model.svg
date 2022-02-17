@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="many_to_many_threading_model.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="365.85585"
+     inkscape:cy="708.57143"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 78.052107,45.381253 c 3.391962,6.098174 -6.912388,15.007414 0.264584,21.695834"
+       id="path817"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path819"
+       d="m 99.747954,45.381253 c 3.391976,6.098174 -6.912388,15.007414 0.264586,21.695834"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 125.67728,44.852086 c 3.39198,6.098174 -6.91243,15.007414 0.26459,21.695834"
+       id="path821"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path823"
+       d="m 149.48993,44.852086 c 3.39198,6.098174 -6.91243,15.007414 0.26459,21.695834"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="M 78.581279,71.310417 C 107.68549,126.60833 107.68549,126.60833 107.68549,126.60833"
+       id="path829"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 100.01253,72.104167 7.67296,54.504163"
+       id="path831"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 126.20641,73.1625 c -18.52092,53.44583 -18.52092,53.44583 -18.52092,53.44583"
+       id="path833"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="M 150.01904,71.839584 C 107.68549,126.60833 107.68549,126.60833 107.68549,126.60833"
+       id="path835"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <ellipse
+       style="fill:none;fill-opacity:0.39215686;stroke:#bbbbbb;stroke-width:0.66600001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       id="path841"
+       cx="47.095802"
+       cy="160.34271"
+       rx="12.964583"
+       ry="13.361458"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="160.8662"
+       y="64.166672"
+       id="text845"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png"><tspan
+         sodipodi:role="line"
+         id="tspan847"
+         x="160.8662"
+         y="64.166672">&lt;-- User Threads</tspan></text>
+    <text
+       id="text851"
+       y="158.88713"
+       x="40.216599"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png"><tspan
+         sodipodi:role="line"
+         id="tspan853"
+         x="40.216599"
+         y="158.88713">Kernel</tspan><tspan
+         sodipodi:role="line"
+         id="tspan855"
+         x="40.216599"
+         y="164.1788">Thread</tspan></text>
+    <ellipse
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       ry="13.361458"
+       rx="12.964583"
+       cy="160.34271"
+       cx="92.075012"
+       id="ellipse895"
+       style="fill:none;fill-opacity:0.39215686;stroke:#bbbbbb;stroke-width:0.66600001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <ellipse
+       style="fill:none;fill-opacity:0.39215686;stroke:#bbbbbb;stroke-width:0.66600001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       id="ellipse897"
+       cx="132.82079"
+       cy="160.34271"
+       rx="12.964583"
+       ry="13.361458"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <ellipse
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       ry="13.361458"
+       rx="12.964583"
+       cy="160.34271"
+       cx="171.97859"
+       id="ellipse899"
+       style="fill:none;fill-opacity:0.39215686;stroke:#bbbbbb;stroke-width:0.66600001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <text
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="84.666641"
+       y="158.88713"
+       id="text905"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png"><tspan
+         y="158.88713"
+         x="84.666641"
+         id="tspan901"
+         sodipodi:role="line">Kernel</tspan><tspan
+         y="164.1788"
+         x="84.666641"
+         id="tspan903"
+         sodipodi:role="line">Thread</tspan></text>
+    <text
+       id="text911"
+       y="158.88713"
+       x="125.41245"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png"><tspan
+         sodipodi:role="line"
+         id="tspan907"
+         x="125.41245"
+         y="158.88713">Kernel</tspan><tspan
+         sodipodi:role="line"
+         id="tspan909"
+         x="125.41245"
+         y="164.1788">Thread</tspan></text>
+    <text
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="165.09944"
+       y="158.88713"
+       id="text917"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png"><tspan
+         y="158.88713"
+         x="165.09944"
+         id="tspan913"
+         sodipodi:role="line">Kernel</tspan><tspan
+         y="164.1788"
+         x="165.09944"
+         id="tspan915"
+         sodipodi:role="line">Thread</tspan></text>
+    <path
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       inkscape:connector-curvature="0"
+       id="path919"
+       d="M 164.60143,149.21601 C 107.65518,126.75482 107.65518,126.75482 107.65518,126.75482"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.19651814px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.19057068px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="M 55.891829,150.00466 C 107.63824,126.75992 107.63824,126.75992 107.63824,126.75992"
+       id="path921"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       inkscape:connector-curvature="0"
+       id="path923"
+       d="M 95.291959,146.86638 C 107.66103,126.7232 107.66103,126.7232 107.66103,126.7232"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.08673335px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.11370966px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="M 128.366,147.3917 C 107.6427,126.72704 107.6427,126.72704 107.6427,126.72704"
+       id="path925"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/astral/one_to_one_threading_model.png" />
+  </g>
+</svg>

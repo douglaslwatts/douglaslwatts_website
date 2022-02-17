@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="process_addres_space_unix.svg"
+   inkscape:export-filename="/home/astral/git/AstralAxiomOrg/src/assets/images/process_address_space_unix.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="395.87556"
+     inkscape:cy="651.73129"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="opacity:1;fill:none;fill-opacity:0.73333333;fill-rule:nonzero;stroke:#bbbbbb;stroke-width:0.53036362;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.73333333"
+       id="rect83606"
+       width="95.748802"
+       height="229.89255"
+       x="43.406849"
+       y="21.848515" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 43.126913,39.0312 c 96.043727,-0.264346 96.043727,0 96.043727,0"
+       id="path83608"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path83610"
+       d="m 43.126913,52.789542 c 96.043727,-0.264346 96.043727,0 96.043727,0"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path83614"
+       d="m 43.126913,103.06042 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 43.126913,116.28967 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       id="path83616"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path83618"
+       d="m 43.126913,143.27734 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 43.126913,179.2609 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       id="path83620"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path83622"
+       d="m 43.126913,202.01521 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 43.126913,220.00699 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       id="path83624"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path83626"
+       d="m 43.126913,241.70296 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#bbbbbb;fill-opacity:0.73333335;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       x="15.345833"
+       y="24.74375"
+       id="text83630"><tspan
+         sodipodi:role="line"
+         id="tspan83628"
+         x="15.345833"
+         y="24.74375"
+         style="stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:4.23333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;fill:#bbbbbb;fill-opacity:0.73333335;">0xFFFFFFFF</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="37.041683"
+       y="251.75464"
+       id="text83638"><tspan
+         sodipodi:role="line"
+         id="tspan83640"
+         x="37.041683"
+         y="251.75464">0</tspan></text>
+    <text
+       id="text83644"
+       y="26.331251"
+       x="48.683361"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan83648"
+         x="48.683361"
+         y="26.331251">Kernel space. Invisible to users and in C </tspan><tspan
+         sodipodi:role="line"
+         id="tspan83650"
+         x="48.683361"
+         y="31.622917">is a segmentation fault if access is </tspan><tspan
+         sodipodi:role="line"
+         id="tspan83652"
+         x="48.683361"
+         y="36.914585">attempted.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="48.683361"
+       y="43.793766"
+       id="text83660"><tspan
+         sodipodi:role="line"
+         id="tspan83664"
+         x="48.683361"
+         y="43.793766">Random amount of space between the </tspan><tspan
+         sodipodi:role="line"
+         id="tspan83666"
+         x="48.683361"
+         y="49.085434">kernel and the user stack</tspan></text>
+    <text
+       id="text83672"
+       y="57.552113"
+       x="44.979191"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan83735"
+         x="44.979191"
+         y="57.552113">User Runtime Stack. Grows down. Contains </tspan><tspan
+         sodipodi:role="line"
+         id="tspan83737"
+         x="44.979191"
+         y="62.843781">local variables in functions. In Rust arrays </tspan><tspan
+         sodipodi:role="line"
+         id="tspan83739"
+         x="44.979191"
+         y="68.135445">live on the stack.</tspan></text>
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26482978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 43.126913,73.427053 c 96.043727,-0.26434 96.043727,0 96.043727,0"
+       id="path83690"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="M 90.487499,73.1625 C 90.222916,90.095834 90.222916,90.095834 90.222916,90.095834 94.985417,85.8625 94.985417,85.8625 94.985417,85.8625"
+       id="path83692"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 90.222916,90.095834 c -4.497917,-3.96875 -4.7625,-4.233334 -4.7625,-4.233334"
+       id="path83694"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332;"
+       x="67.204208"
+       y="107.29379"
+       id="text83702"><tspan
+         sodipodi:role="line"
+         id="tspan83761">Memory mapped region</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83763">     Shared libraries</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="47.09586"
+       y="150.15601"
+       id="text83733"><tspan
+         sodipodi:role="line"
+         id="tspan83741"
+         x="47.09586"
+         y="150.15601">User Runtime Heap. Grows up. Contains</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83743"
+         x="47.09586"
+         y="155.44768">things for which memory is dynamically</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83745"
+         x="47.09586"
+         y="160.73933">allocated. In Rust vectors, strings, things</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83747"
+         x="47.09586"
+         y="166.03101">placed in a Box. In C things allocated with</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83749"
+         x="47.09586"
+         y="171.32268">malloc/calloc. In Java objects declared</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83751"
+         x="47.09586"
+         y="176.61433">using the keyword new.</tspan></text>
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 89.958332,142.74792 c 0.264584,-17.4625 0.264584,-17.4625 0.264584,-17.4625 v 0 0 c 4.233334,4.23333 4.233334,4.23333 4.233334,4.23333"
+       id="path83753"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 90.222916,125.28542 c -4.7625,4.23333 -4.7625,4.23333 -4.7625,4.23333"
+       id="path83755"
+       inkscape:connector-curvature="0" />
+    <text
+       id="text83769"
+       y="186.66801"
+       x="55.033363"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan83797"
+         x="55.033363"
+         y="186.66801">BSS segment (e.g.  .bss). Contains</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83799"
+         x="55.033363"
+         y="191.95969">uninitialized global variables in</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83801"
+         x="55.033363"
+         y="197.25134">our programs</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="53.975029"
+       y="206.77608"
+       id="text83775"><tspan
+         sodipodi:role="line"
+         id="tspan83803"
+         x="53.975029"
+         y="206.77608">Data segment (e.g.  .data). Contains</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83805"
+         x="53.975029"
+         y="212.06775">initialized global variable in our</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83807"
+         x="53.975029"
+         y="217.35941">programs</tspan></text>
+    <text
+       id="text83781"
+       y="228.47162"
+       x="53.975029"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan83809"
+         x="53.975029"
+         y="228.47162">Text segment. Read only. Contains</tspan><tspan
+         sodipodi:role="line"
+         id="tspan83811"
+         x="53.975029"
+         y="233.76329">binary code from the executable</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       x="82.550056"
+       y="247.52136"
+       id="text83787"><tspan
+         sodipodi:role="line"
+         id="tspan83813"
+         x="82.550056"
+         y="247.52136">Not used</tspan></text>
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.21686338px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333333"
+       d="m 144.55435,179.2609 c 11.02065,-4.8e-4 11.02065,0.2641 11.02065,0.2641 v 40.74583 l -11.02065,-0.26384 v 0"
+       id="path83815"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 155.31041,199.63333 c 6.61459,0 6.61459,0 6.61459,0"
+       id="path83817"
+       inkscape:connector-curvature="0" />
+    <text
+       id="text83823"
+       y="200.42616"
+       x="162.45375"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#bbbbbb;fill-opacity:0.73333333;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         sodipodi:role="line"
+         id="tspan83825"
+         x="162.45375"
+         y="200.42616">read/write segment</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/colors';
+@import '../operating-system/operating-system.component.scss';
+
+p {
+  h2 {
+    text-align: left;
+    border-bottom: 1px grey solid;
+    padding-bottom: 1%;
+    margin-top: 4vh;
+    font-size: 3.0vmin;
+  }
+}

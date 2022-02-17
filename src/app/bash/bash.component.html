@@ -1,0 +1,63 @@
+<div class="tux_background">
+  <article>
+    <h1>Basic Bash Scripting Tutorial</h1>
+    <p>
+      
+      <strong><h2>What is Bash, What is the Shell</h2></strong>
+    
+      The <mark>shell</mark> is an environment in which user input can be accepted and passed to 
+      the OS (Operating System) as commands to be executed. A shell can be a 
+      <mark>GUI (Graphical User Interface)</mark> in which one clicks buttons and fills in text fields, or a 
+      <mark>CLI (Command Line Interface)</mark> in which one types in commands. 
+      <a href="https://www.gnu.org/software/bash/" target="new" rel="noopener noreferrer">Bash</a> is
+      is a Unix shell and is a command language. Bash has a lot of advanced features over earlier shells such as <mark>csh</mark> 
+      and incorporates many features from both <mark>csh</mark> and <mark>ksh</mark> as well as adding 
+      additional features. Bash can do everything older shells can do and more and is the most widely 
+      used shell. <mark>Bash shell scripts</mark> are files in which we write a series of commands using 
+      Bash syntax. Bash provides useful features such as <mark>control flow</mark> and 
+      <mark>conditional logic expressions</mark>. It is not a fully fledged programming language, but 
+      a scripting language in which we call commands which are available on the system. Scripts are 
+      interpreted, not compiled. This means that the file is read line-by-line and the commands and 
+      logic of each line is executed as it is read by the interpreter. This makes a script slower than 
+      a program written in a fully fledged programming language like <mark>C</mark>. We use scripts for 
+      accomplishing automation of repetitive tasks. If we find that we are issuing the same set of 
+      commands often or need to rename or otherwise alter thousands of files to change certain values 
+      which appear in each, we can write a script to automate the job and save hours of work. 
+      Naturally, it is always a good idea to make a backup of a directory structure before running 
+      a script which alters files. Especially while writing and testing the script. In some 
+      cases a script could save hundreds of labor hours for a company. The original Unix shell was 
+      <mark>sh</mark> which is the <mark>Bourne Shell</mark>. Bash is the <mark>Bourne Again Shell</mark> 
+      and has features which are not included in sh. Scripts which are run at boot are often sh scripts, 
+      although in many systems sh really points to <mark>dash</mark>. Dash has poor usability as an 
+      interactive login shell and is mostly used by <mark>root</mark>. Scripts run by sh need to be 
+      <mark>POSIX</mark> compliant. Bash is excellent as an interactive login shell and offers many 
+      features which are not POSIX compliant.
+      <br><br>
+    
+      
+      <br><br>
+      <strong><h2>What is a Shell script</h2></strong>
+    
+    
+      A script, once proper permissions are set, is an <mark>executable</mark>. A <mark>process</mark> 
+      is spawned from an executable and is an instance of a running program. <mark>Daemons</mark> run 
+      background processes for the OS, but we can start one manually as well. The <mark>kernel</mark> 
+      is the main part of the OS and schedules tasks and manages resources. We use the shell to 
+      invoke <mark>tools</mark> which are programs available to us within the system. Invoking 
+      a tool creates a new process unless the tool is a <mark>shell builtin</mark>. 
+      In my Operating Systems class, one of our projects was to build a shell in Rust. We built several 
+      commands into our Rusty shell such as <code>ls</code>, <code>rm</code>, and <code>touch</code>. Many Linux tools 
+      are <mark>filters</mark>, meaning that, by default, they read from <mark>stdin (standard in)</mark> 
+      and write to <mark>stdout (standard out)</mark>. This allows them to be used with <mark>pipes</mark> 
+      to chain commands together to do extremely powerful things. By default, stdin is from the 
+      keyboard and stdout is to the screen. we also have <mark>stderr (standard error)</mark>, which, 
+      by default, goes to the screen along with stdout, but it is a different stream. Before moving 
+      on here, it is important to understand at least the content of the 
+      <a id="navCLI">basic CLI tutorial</a>.
+    </p>
+  </article>
+  <nav>
+    <a id="navBash2">Bash part 2</a>
+    <a id="navBash3">Bash part 3</a>
+  </nav>
+</div>

@@ -1,0 +1,79 @@
+@import '../assets/styles/mixins';
+@import '../assets/styles/colors';
+
+.hover_button {
+  background: none;
+  color: white;
+  padding: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+
+.drop_div {
+  position: relative;
+  display: inline-block;
+}
+
+.hover_drop_list {
+  display: none;
+  position: absolute;
+  background-color: white;
+  text-align: left;
+  min-width: 80px;
+  box-shadow: 0px 5px 10px 0px $dropHoverShadow;
+  z-index: 1;
+
+  a {
+    color: black;
+    padding: 0.15rem 0.15rem;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+
+    &:hover {
+      background-color: lighten($primary, 55%);
+    }
+  }
+}
+
+.drop_div:hover .hover_drop_list {
+  display: block;
+}
+
+.drop_div:hover .hover_drop_list_security {
+  display: block;
+}
+
+.drop_div:hover .hover_button {
+  background-color: $topNavAnchorHoverBackground;
+}
+
+li {
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+
+.home {
+  color: white;
+  padding: 0.5rem;
+  font-size: 1rem;
+  display: inline-block;
+}
+
+.about {
+  user-select: none;
+  background: none;
+  color: white;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+button {
+
+  outline: none;
+}

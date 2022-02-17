@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="fork_exec.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   inkscape:export-filename="/home/astral/git/AstralAxiomOrg/src/assets/images/fork_threads.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient98281"
+       osb:paint="gradient">
+      <stop
+         style="stop-color:#aaccee;stop-opacity:1;"
+         offset="0"
+         id="stop98277" />
+      <stop
+         style="stop-color:#aaccee;stop-opacity:0;"
+         offset="1"
+         id="stop98279" />
+    </linearGradient>
+    <symbol
+       id="Process">
+      <title
+         id="title7692">Process</title>
+      <desc
+         id="desc7694">Any processing function.</desc>
+      <rect
+         x="3.96875"
+         y="9.260417"
+         width="31.75"
+         height="21.166666"
+         style="stroke-width:0.52916664"
+         id="rect7696" />
+    </symbol>
+    <symbol
+       id="Connector">
+      <title
+         id="title7820">Connector</title>
+      <desc
+         id="desc7822">Exit to or entry from another part of chart.</desc>
+      <circle
+         cx="19.84375"
+         cy="19.84375"
+         r="5.2916665"
+         style="stroke-width:0.52916664"
+         id="circle7824" />
+    </symbol>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient98281"
+       id="linearGradient98287"
+       x1="3.7041667"
+       y1="19.84375"
+       x2="35.983333"
+       y2="19.84375"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-122.85714"
+     inkscape:cy="545.71429"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1080"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <use
+       id="use97941"
+       style="stroke:#bbbbbb;opacity:1;fill-opacity:0;stroke-width:0.9996968;stroke-miterlimit:4;stroke-dasharray:none;fill-rule:nonzero;fill:#000000;stroke-opacity:0.73333335"
+       xlink:href="#Process"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="matrix(1.3973879,0,0,1.4889391,28.589035,107.19196)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <desc
+         id="desc98099"
+         style="fill-opacity:1;fill:url(#linearGradient98287)">Parent Process</desc>
+      <title
+         id="title98097"
+         style="fill-opacity:1;fill:url(#linearGradient98287)">Parent Process</title>
+    </use>
+    <use
+       id="use97971"
+       style="fill:none;stroke:#bbbbbb;stroke-opacity:0.73333335"
+       xlink:href="#Connector"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="matrix(2.4959002,0,0,2.7038679,-33.653021,134.11)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <use
+       id="use98067"
+       style="fill:none;stroke:#bbbbbb;stroke-opacity:0.73333335"
+       xlink:href="#Connector"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="matrix(2.4959002,0,0,2.7038679,41.186265,134.86595)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <use
+       transform="matrix(2.4959002,0,0,2.7038679,5.656503,134.11)"
+       height="100%"
+       width="100%"
+       y="0"
+       x="0"
+       xlink:href="#Connector"
+       style="fill:none;stroke:#bbbbbb;stroke-opacity:0.73333335"
+       id="use98069"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <use
+       transform="matrix(1.3973879,0,0,1.4889391,113.2557,107.19196)"
+       height="100%"
+       width="100%"
+       y="0"
+       x="0"
+       xlink:href="#Process"
+       style="fill:none;stroke:#bbbbbb;stroke-opacity:0.73333335"
+       id="use98095"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       x="41.577381"
+       y="135.22618"
+       id="text98293"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98291"
+         x="41.577381"
+         y="135.22618"
+         style="stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:4.23333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;fill:#e6e6e6;">Parent Process</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="125.48809"
+       y="136.7381"
+       id="text98313"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98311"
+         x="125.48809"
+         y="136.7381"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332;fill:#e6e6e6;">Child Process</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;"
+       x="6.8035717"
+       y="188.8988"
+       id="text98317"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98315"
+         x="6.8035717"
+         y="188.8988"
+         style="stroke-width:0.26458332;-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:4.23333333px;text-anchor:start;text-align:start;writing-mode:lr;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;fill:#e6e6e6;">thread 1</tspan></text>
+    <text
+       id="text98321"
+       y="187.3869"
+       x="46.869049"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       xml:space="preserve"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98329">thread 2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr;text-anchor:start;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="83.154762"
+       y="188.8988"
+       id="text98325"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98327">thread 3</tspan></text>
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 34.134917,152.49603 c -13.724203,22.03968 -13.724203,22.03968 -13.724203,22.03968 v -0.75595"
+       id="path98331"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 56.696427,152.61309 c -0.755952,21.16667 -0.755952,21.16667 -0.755952,21.16667"
+       id="path98333"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:none;stroke:#bbbbbb;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.73333335"
+       d="m 78.501982,152.49603 c 8.432541,23.55159 8.432541,23.55159 8.432541,23.55159 v 0"
+       id="path98335"
+       inkscape:connector-curvature="0"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="98.273811"
+       y="163.95238"
+       id="text98339"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan98337"
+         x="98.273811"
+         y="163.95238"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332;fill:#e6e6e6;">The child process does not get</tspan><tspan
+         sodipodi:role="line"
+         x="98.273811"
+         y="171.00793"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332;fill:#e6e6e6;"
+         id="tspan98341">a copy of the threads.</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,474 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/colors';
+
+section.main_body {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 10px;
+  padding-top: 5px;
+
+  @include sm_screen() {
+    padding: 20px;
+    padding-top: 5px;
+  }
+
+  @include xl_screen() {
+    margin-top: 0;
+    margin-left: 32%;
+    margin-right: 12%;
+  }
+}
+
+.home_name_top {
+  padding: 2vmax;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  font-family: cursive;
+  width: 85%;
+  max-width: 85%;
+
+  h1 {
+    color: black;
+    font-size: 8vmin;
+    letter-spacing: 2px;
+    font-family: 'Dancing Script', cursive;
+    border-bottom: solid black 1px;
+    width: 75vw;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+    margin: 0 auto;
+
+    @include md_screen() {
+      width: 65vw;
+    }
+
+    @include md_screen() {
+      width: 55vw;
+    }
+
+    @include lg_screen() {
+      width: 50vw;
+    }
+
+    @include xl_screen() {
+      width: 40vw;
+    }
+
+    @include xxl_screen() {
+      width: 40vw;
+    }
+  }
+
+  @include xl_screen() {
+    width: 95%;
+    max-width: 95%;
+    display: none;
+  }
+}
+
+.home_name {
+  padding: 2vmax;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  font-family: cursive;
+  width: 100%;
+  max-width: 100%;
+  display: none;
+
+  h1 {
+    color: black;
+    border-bottom: 1px solid black;
+    font-size: 8vmin;
+    letter-spacing: 2px;
+    font-family: 'Dancing Script', cursive;
+    width: 75vw;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+    margin: 0 auto;
+
+    @include md_screen() {
+      width: 65vw;
+    }
+
+    @include md_screen() {
+      width: 55vw;
+    }
+
+    @include lg_screen() {
+      width: 50vw;
+    }
+
+    @include xl_screen() {
+      width: 40vw;
+    }
+
+    @include xxl_screen() {
+      width: 40vw;
+    }
+  }
+
+  @include xl_screen() {
+    width: 95%;
+    max-width: 95%;
+    display: block;
+  }
+}
+
+h2 {
+  color: black;
+  font-family: 'Dancing Script', cursive;
+  letter-spacing: 2px;
+  font-size: 6vmin;
+  padding: 4px;
+  text-align: left;
+
+  @include xl_screen() {
+    width: 85%;
+    max-width: 85%;
+    margin: 0 auto;
+  }
+}
+
+.grayGreen {
+
+  @include xl_screen() {
+    background-color: $grayGreenBackground;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
+  max-width: 85%;
+  margin: 0 auto;
+  background-color: $grayGreenBackground;
+  border: 1px solid black;
+  border-radius: 5px;
+
+  @include xs_screen() {
+    width: 70%;
+    max-width: 70%;
+  }
+
+  @include sm_screen() {
+    width: 60%;
+    max-width: 60%;
+  }
+
+  @include smr_screen() {
+    width: 50%;
+    max-width: 50%;
+  }
+
+  @include lgr_screen() {
+    width: 40%;
+    max-width: 40%;
+  }
+
+  @include xl_screen() {
+    width: 100%;
+    max-width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: rgba(0, 0, 0, 0.0);
+    border: none
+  }
+}
+
+.resume {
+  font-size: 1.3rem;
+  padding: 0 10px;
+  text-align: left;
+  padding: 0;
+  width: 85%;
+  max-width: 85%;
+  color: black;
+
+  &:hover {
+    color: $transparentWhite;
+  }
+
+  transition: all 150ms ease-in-out;
+
+  @include xl_screen() {
+    padding-left: 1rem;
+  }
+}
+
+.links {
+  text-align: left;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  width: 90%;
+  max-width: 90%;
+  margin: 0 auto;
+  font-size: 1rem;
+
+  @include xl_screen() {
+    border-right: 2px solid $softWhiteTransparent;
+    background-color: $grayGreenBackground;
+    padding-top: 8vh;
+    width: 20%;
+    max-width: 20%;
+    text-align: left;
+    height: 100%;
+    min-height: 100%;
+    position: fixed;
+  }
+}
+
+label {
+  font-size: 1.5rem;
+  color: black;
+  border-bottom: 1px solid black;
+  letter-spacing: 2px;
+
+  @include xl_screen() {
+    margin-left: 1rem;
+  }
+
+  .centering {
+    @include xl_screen() {
+      text-align: center;
+    }
+  }
+}
+
+.udemy_certificates {
+  list-style: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  font-size: 1rem;
+
+  @include xl_screen() {
+    padding-left: 1rem;
+    margin-left: 0;
+  }
+}
+
+.git {
+  width: 100%;
+  max-width: 100%;
+
+  @include xl_screen() {
+    width: 60%;
+    max-width: 60%;
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+
+  @include xxl_screen() {
+    width: 50%;
+    max-width: 50%;
+  }
+}
+
+.git a, .udemy_certificates a {
+  text-align: center;
+  padding: 0;
+  margin: 4px;
+  display: block;
+  text-align: left;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  color: black;
+  font-weight: 700;
+
+  &:hover {
+    color: $transparentWhite;
+  }
+  transition: all 150ms ease-in-out;
+}
+
+.udemy_certificates a {
+  @include xs_screen() {
+    width: 80%;
+    max-width: 80%;
+  }
+
+  @include sm_screen() {
+    width: 70%;
+    max-width: 70%;
+  }
+
+  @include md_screen() {
+    width: 65%;
+    max-width: 65%;
+  }
+
+  @include lg_screen() {
+    width: 55%;
+    max-width: 55%;
+  }
+
+  @include lgr_screen() {
+    width: 60%;
+    max-width: 60%;
+  }
+
+  @include xl_screen() {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.git a {
+  @include xs_screen() {
+    width: 45%;
+    max-width: 45%;
+  }
+
+  @include sm_screen() {
+    width: 40%;
+    max-width: 40%;
+  }
+
+  @include md_screen() {
+    width: 38%;
+    max-width: 38%;
+  }
+
+  @include lg_screen() {
+    width: 35%;
+    max-width: 35%;
+  }
+
+  @include xl_screen() {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+p {
+  margin-top: 1rem;
+
+  @include xl_screen() {
+    width: 85%;
+    max-width: 85%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+}
+
+ul {
+  margin-left: 1rem;
+  margin-bottom: 33px;
+  list-style-type: none;
+
+  h3 {
+    color: black;
+    letter-spacing: 2px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 4vw;
+    text-align: left;
+    border-bottom: solid black 1px;
+    width: 100%;
+    max-width: 100%;
+
+    @include xs_screen() {
+      width: 90%;
+      max-width: 90%;
+    }
+
+    @include sm_screen() {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    @include smr_screen() {
+      font-size: 3vw;
+    }
+
+    @include md_screen() {
+      width: 90%;
+      max-width: 90%;
+    }
+
+    @include lg_screen() {
+      width: 85%;
+      max-width: 85%;
+      font-size: 2.5vw;
+    }
+
+    @include lgr_screen() {
+      font-size: 2.2vw;
+      width: 90%;
+      max-width: 90%;
+    }
+
+    @include xl_screen() {
+      width: 60%;
+      max-width: 60%;
+      font-size: 2vw;
+    }
+
+    @include xxl_screen() {
+      width: 50%;
+      max-width: 50%;
+      font-size: 1.7vw;
+    }
+  }
+}
+
+ul.education {
+  list-style: '🎓';
+}
+
+ul.achievements {
+  list-style: '🗸';
+  margin-left: 0;
+}
+
+li.achievement {
+  margin-left: 1rem;
+}
+
+ul.aspirations {
+  list-style: '❂';
+}
+
+li {
+  color: black;
+  font-size: 3vw;
+  font-weight: 700;
+  padding-left: 1rem;
+
+  @include sm_screen() {
+    font-size: 2.5vw;
+  }
+
+  @include smr_screen() {
+    font-size: 2vw;
+  }
+
+  @include lg_screen() {
+    width: 85%;
+    max-width: 85%;
+    font-size: 1.5vw;
+  }
+
+  @include lgr_screen() {
+    font-size: 1.3vw;
+    width: 90%;
+    max-width: 90%;
+  }
+
+  @include xl_screen() {
+    width: 85%;
+    max-width: 85%;
+    text-align: left;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 5px;
+  }
+}

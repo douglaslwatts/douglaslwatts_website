@@ -1,0 +1,1173 @@
+<div class="tux_background">
+  <article>
+      <h1>Operating System</h1>
+      <div class="aside_box">
+        <aside>
+          How does the <mark>OS (operating system)</mark> work?
+        </aside>
+      </div>
+      <p>
+        <strong>
+          <h2>Programs vs. Processes vs. Executables</h2>
+        </strong>
+
+        A program is a set of instructions written in some programming language, while an executable 
+        is a program in a form which can be executed to spawn a process. So, for a C program the 
+        <mark>.c</mark> files, among others, are the program, the file that is created when we run 
+        the <mark>gcc</mark> compiler, without any flags to tell it to stop once the object files are 
+        created or anything like that, is the executable, and when we run (e.g. execute) that 
+        executable, a process is created. Each process has its own flow of control, its own 
+        <mark>program counter(PC)</mark> to keep track of what instruction should be executed next. 
+        The CPU switches between processes so quickly that we perceive all of our open processes as 
+        running simultaneously. If we have multiple CPUs (e.g. multi-core CPU or multiple single-core CPUs), 
+        then a different process can run on each CPU, thus multiple processes can actually run 
+        simultaneously. However, they cannot access the same system resource, such as the keyboard or 
+        screen, at the same time. They can access separate resources simultaneously, so one process 
+        can read from the keyboard while another writes to the screen or a disk. We must also consider 
+        the bus, however. So, there may be contention for transit over the system bus. Each process has 
+        its own private address space, or at least it thinks it does. Until we consider shared memory, 
+        each process has the perspective of having the entire address space to itself, from 0 to 2<sup>n</sup> - 1. 
+        Below is an image depicting the process address space on a Unix system.
+      </p>
+
+      <figure class="address_space">
+        <img class="resize" src="../../assets/images/process_address_space_unix.png">
+        <figcaption>Unix Process Address Space</figcaption>
+      </figure>
+
+      <p>
+        There will be some random amount of space between the <mark>Kernel segment</mark> and the user run time 
+        stack for security purposes. This way exact addresses are unknown, which 
+        makes it more difficult for an attacker. The user <mark>Stack</mark> contains things like local variables 
+        inside of functions and, in the Rust language, arrays. The <mark>Memory Mapping segment</mark> has shared 
+        libraries, the run time <mark>Heap</mark> contains things which space is dynamically allocated for, such as 
+        things in a <mark>Box</mark>, vectors, and strings in Rust. When we allocate space with 
+        <mark>malloc</mark> or <mark>calloc</mark> in 
+        C, that space is on the heap. In Java, when we declare an object with the <mark>new</mark> 
+        keyword that object lives on the heap. The <mark>BSS</mark> and <mark>Data</mark> segments are 
+        often thought of as combined and called the <mark>Read/Write segment</mark>. In this area of 
+        the process address space, <mark>.data</mark> contains initialized global variables created by the 
+        programmer, while <mark>.bss</mark> contains uninitialized global variables, who's values are to be determined 
+        at run time, which are created by the programmer. The read-only <mark>Text segment</mark> holds 
+        the binary code from the executable and below the text segment is unused memory at extremely low
+        addresses starting with zero. The top of the space where the kernel segment starts are extremely 
+        high addresses, such as 0xFFFFFFFF. The kernel segment is not visible for user processes and 
+        in C, if a process tries to access this segment there will be a <mark>segmentation fault</mark>.
+
+
+        <strong>
+          <h2>Context Switch</h2>
+        </strong>
+
+        When the CPU switches between processes, it is called a <mark>context switch</mark>. The 
+        <mark>context</mark> includes things such as registers' values, the current process's PC, 
+        The stack, the heap, any open file descriptors, etc. These must be saved so that they can 
+        be reloaded when the process being switched from is scheduled again. A context switch may 
+        occur because a program paused for I/O or simply because its current alloted CPU time is up. 
+        Processes have a state. Below is a table which describes the states a process may be in.
+      </p>
+
+      <table class="large_left_aligned">
+        <tr>
+          <th>State</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>New</td>
+          <td>The process is being created</td>
+        </tr>
+        <tr>
+          <td>Ready</td>
+          <td>The process is ready to be assigned to a CPU</td>
+        </tr>
+        <tr>
+          <td>Running</td>
+          <td>The process is currently executing on a CPU</td>
+        </tr>
+        <tr>
+          <td>Blocked/waiting/suspended</td>
+          <td>The process is waiting for some event such as I/O to complete</td>
+        </tr>
+        <tr>
+          <td>Terminated</td>
+          <td>The process has stopped permanently</td>
+        </tr>
+      </table>
+
+      <p>
+        Below is a finite automata which describes the life of a process.
+      </p>
+
+      <figure class="process_life_DFA">
+        <img src="../../assets/images/process_life_DFA.png" alt="process life automata">
+        <figcaption>Process Life Automata</figcaption>
+      </figure>
+
+      <p>
+        We can programmatically create new processes. When a parent process creates a child process, 
+        the child gets a copy of all of the variables, the stack, the heap, open file descriptors, etc. The file 
+        descriptors are distinct, but access the same files.
+        At the moment of creation, the child process <q>image</q> is almost identical to the parent. This 
+        changes immediately, as the child is its own process executing separately from the parent. 
+        When the child process begins changing things such as the values of variables, this does 
+        not affect the values in the parent process and visa versa. Each process has a unique 
+        <mark>PID (process ID)</mark>. In Rust we use the 
+        <a href="https://docs.rs/nix/0.18.0/nix/unistd/index.html" target="new" rel="noopener noreferrer">nix</a> 
+        crate to access standard 
+        system calls. The system call <mark>fork()</mark> is unsafe in larger multi-threaded programs 
+        and is in general, as a Unix system call, considered unsafe. This is because if a process 
+        which has threads executing forks off a new process, none of the threads are copied to the 
+        new child process. So, if one of the threads is doing something with shared memory or otherwise 
+        changing data on which the child process may depend, then the child process will be expecting 
+        data to be in a state which it no longer is.
+      </p>
+
+      <figure class="fork_with_threads">
+        <img src="../../assets/images/fork_threads.png" alt="process and child image">
+        <figcaption>Fork in Threaded Application</figcaption>
+      </figure>
+
+      <p>
+        There are a few solutions for this. The best solution is to always call <mark>exec()</mark> 
+        immediately after fork(), so that the process image is replaced with a new one. 
+        Until the process image is replaced, the child still shares some static buffers with the 
+        parent. So, it is dangerous to do things like print to the screen between a call to fork() 
+        and a call to exec(). An unrealistic solution would be to call fork() at the start of the 
+        program before any threads are started, however we cannot always know this and programs are 
+        maintained over time which means they change. The last solution is to only do this in 
+        <q>toy programs</q>. 
+
+        <strong>
+          <h2>System Calls and Process Management</h2>
+        </strong>
+
+        We have system calls for process management, sending signals between processes, file 
+        management, filesystem management, and file protection. The table below gives a basic 
+        layout of what each of these things means. The table also includes some examples of which 
+        system calls to use for certain things, however the table does not include the necessary 
+        parameters for these system calls.
+      </p>
+
+      <table class="large_left_aligned">
+        <tr>
+          <th>System Call Type</th>
+          <th>Description (no params in call examples)</th>
+        </tr>
+        <tr>
+          <td>Process Management</td>
+          <td>
+            Creating new processes with <mark>fork()</mark> and <mark>exec()</mark>, having a process wait for another with 
+            <mark>waitpid()</mark>, terminate a process with <mark>exit()</mark>, get the PID of a 
+            process or the PID of the process's parent with <mark>getpid()</mark> or 
+            <mark>getppid()</mark>, respectively.
+          </td>
+        </tr>
+        <tr>
+          <td>Signals</td>
+          <td>Sending signals between processes</td>
+        </tr>
+        <tr>
+          <td>File Management</td>
+          <td>
+            Making new directories and regular or special files with <mark>mknod()</mark> to create 
+            new <mark>inodes</mark>, open, close, read from, and write to files with <mark>open()</mark>,
+            <mark>close()</mark>, <mark>read()</mark>, and <mark>write()</mark>.
+          </td>
+        </tr>
+        <tr>
+          <td>Filesystem Management</td>
+          <td>
+            Make new directories with <mark>mkdir()</mark>, change to the root directory with 
+            <mark>chroot()</mark>, mounting and un-mounting a filesystem with <mark>mount()</mark> 
+            and <mark>umount()</mark>.
+          </td>
+        </tr>
+        <tr>
+          <td>File Protection</td>
+          <td>
+            Changing file permissions with <mark>fchmod()</mark>, changing a file's owner with
+            <mark>chown()</mark>, getting a user ID with <mark>getuid()</mark>.
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        We should never make assumptions about timing when working with processes. We do, however 
+        have ways of making a process wait for another process to complete its job before 
+        continuing to execute. When we call <mark>waitpid()</mark>, we pass in the PID of the process 
+        for which to wait as well as options such as how long to wait. We get back the process's exit 
+        status, so we can make decisions based on that status. When we call <mark>exec()</mark>, there 
+        is no return value as this causes the process image of the child to be replaced and gives 
+        the child its own static buffers, separate from the parent process. When we call <mark>exit()</mark>,
+        the process terminates and there is no return value. In Rust, there are methods to call which 
+        automatically <mark>fork()</mark> and <mark>exec()</mark>, with no time between for us to 
+        make problems. Some of these methods will wait for the completion and retrieve the exit 
+        status of the child process. There are also methods which retrieve all output as well as the 
+        exit status. To learn about these methods, we study the
+        <a href="https://doc.rust-lang.org/std/process/struct.Command.html" target="new" rel="noopener noreferrer">std::process::Command</a> 
+        and 
+        <a href="https://doc.rust-lang.org/std/process/struct.Child.html" target="new" rel="noopener noreferrer">std::process::Child</a> 
+        crates.
+
+        <strong>
+          <h2>Process Graph</h2>
+        </strong>
+
+        We can make a process graph to illustrate the relationships among processes. Below are 
+        examples of a couple of process graphs.
+      </p>
+
+      <figure class="process_graph">
+        <img src="../../assets/images/process_graph_01.png" alt="Process Graph image">
+        <figcaption>Process Graph 1</figcaption>
+      </figure>
+
+      <figure class="process_graph">
+        <img src="../../assets/images/process_graph_02.png" alt="Process Graph image">
+        <figcaption>Process Graph 2</figcaption>
+      </figure>
+
+      <p>
+        In the first graph, if <mark>i</mark> has the same value in both processes, we cannot tell which process printed 
+        first. Thus, the process and its child process have no timing relationship. In the 
+        second graph, however since we show that the process waits for the child process 
+        to complete before printing, we know that the child process printed first. Using these 
+        types of graphs, we can show timing relationships among processes. Below is an example my
+        professor provided of some Rust code which uses <mark>fork()</mark> in a loop.
+      </p>
+
+      <pre><code>
+  use nix::unistd::&#123;fork, getpid, ForkResult&#125;;
+  use std::&#123;thread, time&#125;;
+  
+  fn main() &#123;
+      let mut result;
+      let mut pid;
+  
+      for _ in 0..2 &#123;
+          result = unsafe&#123;fork()&#125;.expect("Forking failed");
+  
+          pid = getpid();
+  
+          match result &#123;
+              ForkResult::Parent &#123; child &#125; => &#123;
+                  println!("I am the Parent with PID &#123;&#125;, who just created &#123;&#125;", pid, child);
+              &#125;,
+              ForkResult::Child => &#123;
+                  println!("I am the Child with PID &#123;&#125;", pid);
+                  thread::sleep(time::Duration::from_secs(3));
+              &#125;
+          &#125;
+      &#125;
+  &#125;
+      </code></pre>
+
+      <p>
+        Now here is a process graph for the above code.
+      </p>
+
+
+      <figure class="process_graph">
+        <img src="../../assets/images/process_graph_03.png" alt="Process Graph image">
+        <figcaption>Process Graph 3</figcaption>
+      </figure>
+
+      <p>
+        There is no timing relationship between any of the processes here, although using sleep 
+        for the child processes means that the parent processes will likely finish first. There is, 
+        however no guarantee that the parent processes will finish first. Note that <mark>Child_01</mark>
+        is the parent of <mark>Child_01-Child</mark>. Note also that putting the calls to <mark>sleep()</mark>
+        in the graph
+        is optional, as it will not affect the program output and does not imply anything which may 
+        be assumed about a timing relationship or, in this case, the lack thereof. Below is some 
+        psuedo code my professor provided for which we will draw a process diagram and predict the possible outputs of.
+      </p>
+
+      <pre><code>
+  main() &#123;
+      fork();
+      if child_proc() &#123;
+          println!("A");
+      &#125; else &#123;
+          println!("B");
+          wait(child_proc);
+      &#125;
+      println!("C");
+      exit 0
+  &#125;
+      </code></pre>
+
+      <p>
+        Below is the process diagram for this psuedo code.
+      </p>
+
+      <figure class="process_graph">
+        <img src="../../assets/images/process_graph_04.png" alt="Process Graph image">
+        <figcaption>Process Graph 3</figcaption>
+      </figure>
+
+      <p>
+        Below are the possible outputs. Note that we assume that printing the newline always causes 
+        the output stream buffer to flush in this example.
+      </p>
+
+      <pre><code>
+  A
+  B
+  C
+  C
+      </code></pre>
+<br><br>
+      <pre><code>
+  B
+  A
+  C
+  C
+      </code></pre>
+<br><br>
+      <pre><code>
+  A
+  C
+  B
+  C
+      </code></pre>
+
+      <p>
+        In the first output scenario, the child printed <q>A</q>, then the parent printed <q>B</q>, the child 
+        printed <q>C</q>, then the parent printed <q>C</q>. In the second scenario the parent printed 
+        <q>B</q>, then child printed <q>A</q>, then the child printed <q>C</q>, lastly the parent 
+        printed <q>C</q>. In the last output scenario the child printed <q>A</q>, then the child 
+        printed <q>C</q>, then the parent printed <q>B</q>, and finally the parent printed <q>C</q>.
+        Note that it is not possible for the parent to have printed its <q>C</q> before the child printed 
+        its <q>C</q>, due to the timing relationship expressed in the graph. Any of these three 
+        scenarios could occur upon any given run of a program written based on this psuedo code.
+        <br><br>
+        When we use the method calls in Rust from
+        <a href="https://doc.rust-lang.org/std/process/struct.Command.html" target="new" rel="noopener noreferrer">std::process::Command</a>,
+        <mark>spawn()</mark> does not include a call to <mark>wait()</mark>, so we will need to do so 
+        explicitly, however when we use <mark>status()</mark> or <mark>output()</mark> the 
+        call to <mark>wait()</mark> is built into those methods. It is always important to read the 
+        documentation for system calls we wish to use.
+
+        <strong>
+          <h2>Signals</h2>
+        </strong>
+
+        When a parent process dies before the child process completes, the child process is 
+        <q>orphaned</q> and <mark>init</mark> or the <mark><q>sub-reaper</q></mark> becomes the 
+        parent process of that child. On systems running <mark>SystemD</mark> this sub-reaper may
+        be SystemD. Generally the parent will collect the exit status of and <q>clean up after</q> 
+        a child process once it completes, this is referred to as reaping the child process. That is 
+        where the term sub-reaper comes from ...sort of Grim Reaper-ish. It is possible to have a 
+        process ignore certain signals such as the interrupt signal, <mark>SIGINT</mark>, which is 
+        sent when we press CTRL+C. 
+        However, there are two signals a process cannot ignore and those are <mark>SIGSTOP</mark>, 
+        to remove the process from the CPU, and <mark>SIGKILL</mark>, to terminate the process 
+        completely. To send the SIGKILL signal we can use the <mark>kill</mark> tool with the 
+        <mark>-9</mark> option, i.e. <code>kill -9 PID</code>, where <mark>PID</mark> is the process 
+        ID of the running process we wish to kill. To get the process ID we can use the <mark>ps</mark>
+        tool. If we know the user who started the process we can use <code>ps -u username</code>, where 
+        <mark>username</mark> is the username of the user which started the process. We could combine 
+        this with <mark>grep</mark> to get only results containing the process we are interested in 
+        if we know the name of the process. If we do not know the user which started the process, we can 
+        use <code>ps -aux | grep <q>process_name</q></code>, where <mark>process_name</mark> is the name 
+        of the process we are interested in. We could also use <code>pgrep -l <q>process_name</q></code> 
+        which would give a much more concise output containing only the process ID and the name of the 
+        process, much like 
+        <code>ps -aux | grep <q>process_name</q> | awk '&#123;print $2 " " $NF&#125;'</code>. 
+        SIGSTOP does not terminate the process, so it could be rescheduled, e.g. assigned to a CPU,
+        whereas SIGKILL terminates the process completely. In Rust, we can use 
+        <a href="https://docs.rs/ctrlc/3.1.3/ctrlc/fn.set_handler.html" target="new" rel="noopener noreferrer">ctrlc::set_handler</a> 
+        to define what a process created from our program's executable does when CTRL+C is pressed.
+        This crate must be included in the Cargo.toml file just as is necessary with the nix crate.
+        Here is a small example derived from an example my professor gave during class.
+      </p>
+
+<pre><code>
+use ctrlc::set_handler;
+use std::process::&#123;exit, id&#125;;
+use std::&#123;thread::sleep, time::Duration&#125;;
+
+fn main() &#123;
+
+    // this assigns "handler()" as the function to be executed whenever SIGINT is caught
+
+    match set_handler(handler) &#123;
+        Ok(()) =&#62; 
+
+            // Now we'll just loop infinitely until the user presses CTRL+C
+
+            loop &#123;
+
+                // we also print the process id so we can explicitly send signals to the process
+
+                println!("(&#123;&#125;) waiting for CTRL+C to be pressed ...", id());
+                sleep(Duration::from_secs(1));
+            &#125;
+        &#125;,
+        Err(error) =&#62; &#123;
+            println!("Error: &#123;&#125;", error);
+            exit(1);
+        &#125;
+    &#125;
+&#125;
+
+/// Handles `SIGINT`
+fn handler() &#123;
+    println!("Exiting now ...");
+    exit(1);
+&#125;
+
+</code></pre>
+
+<p>
+  For such a simple example, the <mark>match</mark> really is overkill as we could simply use 
+  <mark>.expect("some message")</mark> to let the program panic with the given message. It actually 
+  makes the example easier to understand without the match statement, it is included here so that 
+  the program would exit cleanly and print the error, should one occur, as oppose to panicking.
+  We could do anything in the handler function above, including ignore the signal by not exiting. 
+  Note that we can also pass the <mark>set_handler()</mark> function a closure as oppose to defining 
+  a function to pass it the name of.
+  <br><br>
+
+  Some interesting signals from exploring the man page pulled up with <code>man 7 signal</code> are:
+</p>
+
+<pre><code>
+SIGILL       P1990      Core    Illegal Instruction
+SIGINT       P1990      Term    Interrupt from keyboard
+SIGKILL      P1990      Term    Kill signal
+SIGSTOP      P1990      Stop    Stop process
+</code></pre>
+
+<p>
+  This is only a few of the many listed in the man page:
+</p>
+
+<pre><code>
+ Signal      Standard   Action   Comment
+────────────────────────────────────────────────────────────────────────
+SIGABRT      P1990      Core    Abort signal from abort(3)
+SIGALRM      P1990      Term    Timer signal from alarm(2)
+SIGBUS       P2001      Core    Bus error (bad memory access)
+
+SIGCHLD      P1990      Ign     Child stopped or terminated
+SIGCLD         -        Ign     A synonym for SIGCHLD
+SIGCONT      P1990      Cont    Continue if stopped
+SIGEMT         -        Term    Emulator trap
+SIGFPE       P1990      Core    Floating-point exception
+SIGHUP       P1990      Term    Hangup detected on controlling terminal
+                                or death of controlling process
+SIGILL       P1990      Core    Illegal Instruction
+SIGINFO        -                A synonym for SIGPWR
+SIGINT       P1990      Term    Interrupt from keyboard
+SIGIO          -        Term    I/O now possible (4.2BSD)
+SIGIOT         -        Core    IOT trap. A synonym for SIGABRT
+SIGKILL      P1990      Term    Kill signal
+SIGLOST        -        Term    File lock lost (unused)
+SIGPIPE      P1990      Term    Broken pipe: write to pipe with no
+                                readers; see pipe(7)
+SIGPOLL      P2001      Term    Pollable event (Sys V).
+                                Synonym for SIGIO
+SIGPROF      P2001      Term    Profiling timer expired
+SIGPWR         -        Term    Power failure (System V)
+SIGQUIT      P1990      Core    Quit from keyboard
+SIGSEGV      P1990      Core    Invalid memory reference
+SIGSTKFLT      -        Term    Stack fault on coprocessor (unused)
+SIGSTOP      P1990      Stop    Stop process
+SIGTSTP      P1990      Stop    Stop typed at terminal
+SIGSYS       P2001      Core    Bad system call (SVr4);
+                                see also seccomp(2)
+SIGTERM      P1990      Term    Termination signal
+SIGTRAP      P2001      Core    Trace/breakpoint trap
+SIGTTIN      P1990      Stop    Terminal input for background process
+SIGTTOU      P1990      Stop    Terminal output for background process
+SIGUNUSED      -        Core    Synonymous with SIGSYS
+SIGURG       P2001      Ign     Urgent condition on socket (4.2BSD)
+SIGUSR1      P1990      Term    User-defined signal 1
+SIGUSR2      P1990      Term    User-defined signal 2
+SIGVTALRM    P2001      Term    Virtual alarm clock (4.2BSD)
+SIGXCPU      P2001      Core    CPU time limit exceeded (4.2BSD);
+                                see setrlimit(2)
+SIGXFSZ      P2001      Core    File size limit exceeded (4.2BSD);
+                                see setrlimit(2)
+SIGWINCH       -        Ign     Window resize signal (4.3BSD, Sun)
+
+The signals SIGKILL and SIGSTOP cannot be caught, blocked, or ignored.
+</code></pre>
+
+<p>
+  Notice the note at the bottom of the table. When we send signals it is done through system calls,
+  which is essentially us asking the OS to deliver the signal. Notice in the table above that both
+  <mark>SIGUSER1</mark> and <mark>SIGUSER2</mark> are user-defined. They are there so that if we need 
+  to design a custom signal we can.
+
+
+
+  <strong>
+    <h2>Zombies ...aaaahhhh!</h2>
+  </strong>
+
+  If the parent process dies init(1) or a subreaper, such as systemd(pid) which could have any PID, takes 
+  over as the parent of the child process and reaps the child process when it has exited. What happens 
+  if the parent process gets stuck or blocked and never dies and the child process is left unattended?
+  The child process becomes a <mark><q>zombie</q></mark> process in this case because the child process 
+  will not get a new parent as its parent process is still running (e.g. alive). When the child process has finished 
+  its task and returns its exit status, the parent does not collect the status or clean up after 
+  the child process. So, it is somewhere between running and terminated ...a zombie. It is an additional
+  state in the finite automata from earlier:
+</p>
+
+<figure class="process_life_DFA">
+  <img src="../../assets/images/process_life_DFA_with_zombie.png" alt="process life automata">
+  <figcaption>Process Life Automata with zombie state</figcaption>
+</figure>
+
+<p>
+  Zombies are bad because we can only create a finite number of processes as processes, even zombies, 
+  take up the finite resources of the system such as memory, the heap, the stack, they could have 
+  open file descriptors. In the case of zombies, these resources are not being freed. There is a process table
+  which is an array of process control blocks containing information about processes' states needed 
+  for context switching in multi-programming such as the program counter, the stack pointer, the 
+  status of any open files, among other things. One zombie may not cause much harm, however imagine 
+  if this happens to a lot of processes (aaahhh! Zombie horde!). Then, the system will have to be rebooted to try to solve the 
+  issue because new processes can no longer be created or because the system is frozen due to all 
+  available system resources being used up. For example, if a web server spawns a new process to handle 
+  each customer and never cleans the processes up when they exit, then after a while no new customers 
+  may be handled and money will be lost while the system is rebooted and we try to resolve the issue. 
+  Essentially, zombies are bad because they take up resources and slow the machine down and can 
+  eventually bring the system to a halt.
+  <br><br>
+
+  When the exit status is collected from a child process, this is called reaping the child process. 
+  So, if the parent process dies before the child process, init or the sub-reaper will reap the child 
+  process when it exits (e.g. dies). We should always collect all of our child processes' exit statuses and clean 
+  up gracefully. We can use <mark>top</mark> or <mark>htop</mark> to view running 
+  processes on the system. These are excellent tools and we can actually see context switching in 
+  action when we use them.
+
+  <strong>
+    <h2>Recap for Processes, Zombies, Init, and Sub-Reapers</h2>
+  </strong>
+
+  The init process is the direct or indirect ancestor of all processes. At one time it was true that 
+  only one init process would exist. This is no longer the case on many systems and on systems running 
+  systemd, init is often just a link which points to systemd. The link is there because so many people 
+  are accustomed to calling init. We can see this with an <code>ls -l /sbin/init</code> which will 
+  show us:
+</p>
+
+<pre><code>douglaslwatts@linuxbox: ~ > ls -l /sbin/init
+
+lrwxrwxrwx 1 root root 20 Feb 22 19:18 /sbin/init -> /lib/systemd/systemd
+</code></pre>
+
+<p>
+  As can be seen, this is simply a symlink to <code>/lib/systemd/systemd</code>. We can see the process 
+  tree for a process with the <mark>pstree</mark> tool. The <mark>-p</mark> option tells pstree to 
+  print the process ID, the <mark>-s</mark> option tells it to show the process's ancestors, and the 
+  <mark>$$</mark> is using the bash special parameter <mark>$</mark> to get the process ID of the 
+  pstree command which we will now run:
+</p>
+
+<pre><code>douglaslwatts@linuxbox: ~ > pstree -p -s $$
+
+systemd(1)───systemd(3476)───x-terminal-emul(192105)───bash(274084)───pstree(279683)
+</code></pre>
+
+<p>
+  If you are ssh'd onto a remote server there would likely be a few sshd processes between systemd 
+  and bash, but here on my local box the only thing between is another systemd, with process ID 3476, and 
+  the terminal emulator which I am using, with process ID 192105. In the case shown above, systemd(3476) 
+  is the sub-reaper which will become the parent of orphaned processes, i.e. processes which do not 
+  exit before their parent process exits (e.g. dies). So, when we have a process tree such as:
+  <br><br>
+  <mark>init ─── bash ─── A ─── B</mark>
+  <br><br>
+  A is the parent of B and if A gets stuck or blocked and B exits, then B is a zombie process since 
+  A, its parent, is still running (e.g. alive) and not collecting the exit status or cleaning up after B. 
+  If A is terminated, then init will become the parent 
+  of B, not bash or any other process inbetween. If there were a sub-reaper, then the sub-reaper 
+  would be the new parent, not init. So, the new parent will be init or a sub-reaper such as systemd.
+
+
+  <strong>
+    <h2>Global Variables Are Not Always Bad</h2>
+  </strong>
+
+  Sometimes we need global variables when programming at the operating systems level. We can have a 
+  <mark>static</mark> variable in global space in Rust. If it is immutable, which is the default in 
+  Rust, that is no problem. However, if we need a mutable global, Rust makes this a bit more complex.
+  This is because Rust has our safety in mind and has a lot of safety checks which make it more difficult to do dangerous things.
+  Processes do not share the static space, but threads of processes do share the static space with 
+  the parent process and the compiler cannot be certain that we have not created threads in our program.
+  So, we cannot simply declare a mutable static variable in global space because multiple threads could 
+  be reading from and/or writing to this variable simultaneously, due to context switching. In Rust,
+  we can put the global mutable static in a 
+  <a href="https://doc.rust-lang.org/std/cell/struct.RefCell.html" target="new" rel="noopener noreferrer">RefCell</a> 
+  which keeps track of accesses and will 
+  disallow simultaneous accesses by separate threads. We also wrap it in a 
+  <a href="https://doc.rust-lang.org/std/macro.thread_local.html" target="new" rel="noopener noreferrer">thread_local!&#123;&#125;</a> 
+  block which is like making a promise that we will only use it in the local thread. Then, if we break that 
+  promise and create threads anyway, Rust will make copies of the variable so it is not shared between the threads.
+  Using thread_local! like this essentially locks the variable in a box and we have a <q>key</q> for it.
+  So, the RefCell is a container in which we put our variable, and that container is put inside the 
+  thread_local! container and locked. Now, our global variable, lets say it is a counter, can be 
+  accessed using the <mark>with()</mark> method from this lock box, which we pass a 
+  <a href="https://doc.rust-lang.org/rust-by-example/fn/closures.html" target="new" rel="noopener noreferrer">closure</a> 
+  and, using the arg we define in the closure, we can then call the <mark>borrow_mut()</mark> and 
+  <mark>borrow()</mark> methods from the RefCell to access the counter. A safer way is to use the 
+  <mark>try_borrow()</mark> and <mark>try_borrow_mut()</mark> methods as they return a <mark>Result</mark> 
+  which we can match on as opposed to simply panicking if the 
+  variable is currently mutably borrowed or is borrowed at all in the case of borrow_mut(). After the closure's block 
+  ends, the counter is immediately placed back under lock and key for another process to access. 
+  Below is some code derived from an example my professor provided for us in class.
+</p>
+
+<pre><code>use std::cell::RefCell;
+
+thread_local!() &#123;
+    static VALUE: RefCell&#60;i32&#62; = RefCell::new(0);
+&#125;
+
+fn main() &#123;
+    VALUE.with(|global_val_mutable| &#123;          // we now have mutable access to VALUE
+        &#42;global_val_mutable.borrow_mut() += 1; // &#60;-- mutating VALUE
+    &#125;); // closure ends, global_val_mutable goes out of scope, VALUE is in lock box again
+
+    println!("count is: &#123;&#125;",
+             VALUE.with(|global_val_immutable| &#123;  // we now have immutable access to VALUE
+                 &#42;global_val_immutable.borrow()   // &#60;-- just reading VALUE to print it
+             &#125;) // closure ends, global_val_immutable is out of scope, VALUE is locked in box again
+    );
+
+    foo()
+&#125;
+
+fn foo() &#123;
+    println!("The value really is global, foo sees it too: &#123;&#125;",
+        VALUE.with(|global_val| &#123;
+            &#42;val.borrow()
+        &#125;)
+    );
+&#125;
+
+</code></pre>
+
+  <p>
+    To learn about RefCell we can study <q>std::cell::RefCell</q> in the Rust docs. The purpose is to
+    count how many threads are trying to access the counter at the same time, then guard the variable 
+    so only one can actually access it at a time.
+
+    <strong>
+      <h2>Filesystem Handling</h2>
+    </strong>
+
+    For filesystem handling system calls we can use the 
+    <a href="https://doc.rust-lang.org/std/fs/index.html" target="new" rel="noopener noreferrer">std::fs</a> 
+    crate.
+    Some things in 
+    <a href="https://doc.rust-lang.org/std/env/" target="new" rel="noopener noreferrer">std::env</a> 
+    are useful as well, env is the shell environment and fs is 
+    the file system. These are built into the standard part of Rust. 
+    
+    <strong>
+      <h2>Pipes</h2>
+    </strong>
+    
+    One system call which is more 
+    complex and not built into the standard part of Rust is to create a <mark>pipe</mark> from one 
+    process to another. Rust does not expose pipes directly, so they are safer than in languages like 
+    C. A pipe takes the <mark>stdout</mark> of one process and channels it to the <mark>stdin</mark>
+    of another process. Processes have stdout (e.g. standard out) and stdin (e.g. standard in):
+    <br><br>
+    <mark>stdin --&#62; process --&#62; stdout</mark>
+    <br><br>
+    When we create a pipe, we pipe the stdout of one process into the stdin of another process. In 
+    bash <mark><q>|</q></mark> is the pipe operator. So, when we do something like <code>ls | wc -l</code> the 
+    output (stdout) of the ls command is piped into the input (stdin) of the wc command. There must 
+    be constructs for doing this in systems level languages like Rust and C. Below is some code 
+    derived from an example my professor provided during class.
+  </p>
+
+  <pre><code>/// This is a process which will accept stdin from a pipe
+
+use std::io::&#123;Write, Read, stdin, stdout&#125;;
+
+const BUF_SIZE: usize = 1024;
+
+fn main() &#123;
+
+    // instantiate a buffer with all zeros in which to read stdin
+
+    let mut buffer: [u8; BUF_SIZE] = [0; BUF_SIZE];
+
+    // the newlines generally cause the stdout stream to flush, no guarantees
+
+    stdout().write_all(b"Writing this to stdout\n\n").expect("Error writing to stdout!");
+
+    // read stdin into the buffer, the program waits here for stdin
+
+    stdin().read(&mut buffer).expect("Error reading from stdin");
+
+    // write the stdin which was stored in the buffer into the stdout stream
+
+    stdout().write_all(&buffer).expect("Error writing to stdout");
+
+    // write a newline to stdout stream so the previous output is not concatonated to the prompt
+
+    stdout().write_all(b"\n").expect("Error writing to stdout");
+&#125;
+  </code></pre>
+  <br><br>
+
+<pre><code>use std::io::&#123;Write&#125;;
+use std::process::&#123;Command, Stdio, exit&#125;;
+
+fn main() &#123;
+    let process = match Command::new("./filter")
+                                 .stdin(Stdio::piped()) // &#60;-- tell the new process its stdin is piped in
+                                 .spawn() &#123;             // &#60;-- spawn the child process
+                      Ok(process) => process,
+                      Err(why) => &#123;
+                          println!("Could not spawn program &#123;&#125;", why);
+                          exit(1);
+                      &#125;
+                  &#125;;
+    let buffer = "Super secret Data".as_bytes(); // &#60;-- create a buffer to pipe into the child process
+
+    // Now we write the buffer to stdin of the child process
+
+    process.stdin.unwrap().write_all(buffer).expect("Error writing to stdin of child process!");
+&#125;
+</code></pre>
+
+<p>
+  The top code block is in a rust program which I called <mark>filter</mark>, as it takes stdin from 
+  the keyboard and writes to stdout, and the second code block is in a rust program which I called 
+  <mark>rusty_pipe</mark>. A somewhat humerous way of naming a Rust program that I picked up from the name 
+  of the current programming assignment which my professor has assigned ...<mark>A RUSTy Shell</mark>. 
+  <br><br>
+  Now we can run the <q>rusty_pipe</q> program with the executable from the <q>filter</q> program 
+  copied into its root directory.
+</p>
+
+  <pre><code>douglaslwatts@linuxbox: ~/rusty_pipe > cargo run
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/rusty_pipe`
+Writing this to stdout
+
+Super secret Data
+douglaslwatts@linuxbox: ~/rusty_pipe >
+  </code></pre>
+
+  <p>
+    We could also use the <q>filter</q> executable independently:
+  </p>
+
+<pre><code>douglaslwatts@linuxbox: ~/rusty_pipe > ./filter
+Writing this to stdout
+
+I typed this as input to filter's stdin, now it will be printed on the next line
+I typed this as input to filter's stdin, now it will be printed on the next line
+
+douglaslwatts@linuxbox: ~/rusty_pipe >
+</code></pre>
+
+  <p>
+    or by piping some other program's output into it:
+  </p>
+
+  <pre><code>douglaslwatts@linuxbox: ~/rusty_pipe > echo "hello" | ./filter
+Writing this to stdout
+
+hello
+
+douglaslwatts@linuxbox: ~/rusty_pipe >
+  </code></pre>
+
+<p>
+
+  <strong>
+    <h2>Duping</h2>
+  </strong>
+
+  Often it is useful for multiple processes to be able to write to the same file. This means we need 
+  to, somehow access the file two or more times. We cannot simply <mark>open</mark> the file twice 
+  and if we <mark>create</mark> the file twice, we are overwriting or truncating the first one. What we 
+  can do is try to clone the original file handle. Then, the pointers move together, i.e. if we write 
+  a line with one they both move to the next line and if we <mark>seek</mark> with one the other moves to the same 
+  line. To do this in rust we use the 
+  <a href="https://doc.rust-lang.org/std/fs/struct.File.html" target="new" rel="noopener noreferrer">std::fs::File</a> 
+  crate. We can use the <mark>try_clone()</mark>
+  method, which 
+  <q>creates a new File instance that shares the same underlying file handle as the 
+    existing File instance. Reads, writes, and seeks will affect both File instances simultaneously</q>. 
+    Below is some code derived from the example my professor provided during class.
+</p>
+
+<pre><code>use std::fs::File;
+use std::io::Write;
+
+fn main() &#123;
+
+    // create the file example.file with the File instance stored in "og_file_handle"
+    // having a file handle for it
+
+    let mut og_file_handle = File::create("example.file").expect("Panicked creating file!");
+
+    // write to the file with og_file_handle
+
+    og_file_handle.write(b"\nwritten by og_file_handle\n").expect("Error writing to file");
+
+    // clone the original file handler and store the clone in duped
+
+    let mut duped = og_file_handle.try_clone().expect("Panicked cloning file!");
+
+    // write to the file with duped
+
+    duped.write(b"\nwritten by duped\n").expect("Error writing to file");
+
+    // write to the file with duped
+
+    duped.write(b"\nwoof!\n").expect("Error writing to file");
+
+    // write to the file with duped
+
+    duped.write(b"\nwoof!\n").expect("Error writing to file");
+
+    // write to the file with og_file_handle
+
+    og_file_handle.write(b"\nmeow!\n").expect("Error writing to file");
+
+&#125; // the files are closed now as the variables og_file_handle and duped are out of scope
+
+</code></pre>
+
+<p>
+  In this example both File instances are in the same stack frame of the same process. However, this 
+  can be used in more advanced ways involving multiple processes. Now, if we check the contents of 
+  <q>example.file</q> we see:
+</p>
+
+<pre><code>douglaslwatts@linuxbox: ~/duping > cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/duping`
+douglaslwatts@linuxbox: ~/duping > cat example.file
+
+written by og_file_handle
+
+written by duped
+
+woof!
+
+woof!
+
+meow!
+douglaslwatts@linuxbox: ~/duping >
+</code></pre>
+
+<p>
+  As we see from <q>meow!</q> being printed at the end of the file, the <mark>og_file_handle</mark> 
+  pointer was moved along with the <mark>duped</mark> pointer as it wrote to the file. The Linux 
+  tool <mark>cat</mark> concatonates files and prints to stdout.
+
+  <strong>
+    <h2>Tracing System Calls</h2>
+  </strong>
+
+  We can trace the system calls that our programs make with the Linux tool <mark>strace</mark>. We 
+  use it with the <mark>-c</mark> option so that the output will be sumarized and include a count 
+  of system calls made and we use the <mark>-f</mark> option to cause strace to also trace child 
+  processes as they are created by the process we are tracing. Without the -c option we get A LOT 
+  of extra output which is virtually incomprehensable, however this output includes information such 
+  as the exact system calls made including the arguments that were passed. So, this could in some 
+  cases also be useful ...we just may want to pipe it into grep or otherwise filter the output so we get 
+  only the parts we are interested in. Below is a call to strace using the rusty_pipe program from 
+  earlier.
+</p>
+
+<pre><code>douglaslwatts@linuxbox: ~/rusty_pipe > strace -c -f target/release/rusty_pipe
+
+strace: Process 635448 attached
+Writing this to stdout
+
+Super secret Data
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 15.72    0.000141           7        18           read
+ 12.49    0.000112           7        16           mprotect
+ 10.93    0.000098          98         1           clone
+  9.36    0.000084           0       135           rt_sigaction
+  7.69    0.000069          13         5           munmap
+  6.47    0.000058           9         6           rt_sigprocmask
+  5.80    0.000052           8         6           prlimit64
+  5.13    0.000046           3        12           openat
+  3.79    0.000034           0        45           mmap
+  3.46    0.000031           2        14           close
+  3.23    0.000029           4         6           sigaltstack
+  3.12    0.000028           4         6           brk
+  2.79    0.000025          25         1           pipe2
+  2.12    0.000019           9         2           poll
+  1.67    0.000015           7         2           sched_getaffinity
+  1.56    0.000014           1        12           fstat
+  1.56    0.000014          14         1           futex
+  1.34    0.000012           6         2           set_tid_address
+  1.34    0.000012           6         2           set_robust_list
+  0.45    0.000004           1         4           write
+  0.00    0.000000           0        16           pread64
+  0.00    0.000000           0         2         2 access
+  0.00    0.000000           0         1           dup2
+  0.00    0.000000           0         2           execve
+  0.00    0.000000           0         4         2 arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000897                   321         4 total
+
+</code></pre>
+
+<p>
+  As is the case in this output, on some systems we may see <mark>clone()</mark> instead of <mark>fork()</mark> for programs 
+  in which we create child processes. The clone() system call is newer and creates new processes 
+  in a similar way to fork(), but gives us more control over what things are shared before the process 
+  becomes separate upon a call to <mark>exec()</mark>. This includes things such as memory space, the table of 
+  file descriptors, and the table of signal handlers. We can learn about most of the system calls 
+  in the above strace output by reading the man pages. <mark>close</mark> closes files, <mark>mmap</mark> maps memory, 
+  <mark>openat</mark> 
+  opens files, <mark>munmap</mark> unmaps memory, <mark>brk</mark> moves things on the heap, <mark>write</mark> writes to files, etc.
+
+  <strong>
+    <h2>More Detail on Exceptions (events)</h2>
+  </strong>
+
+  Exceptions are a form of exceptional control flow and are handled by hardware and the OS. We may have 
+  an App running and then an event occurs at some random point in time. Three things that could 
+  happen are:
+</p>
+
+<figure>
+<ol>
+  <li>We may return control to the current instruction</li>
+  <li>We may return control to the next instruction</li>
+  <li>We may abort the app</li>
+</ol>
+</figure>
+
+<p>
+  Below is a drawing of a scenario in which we return to the next instruction.
+</p>
+
+<figure class="handling_exception">
+  <img src="../../assets/images/handling_exception.png" alt="Handling Exception Image">
+  <figcaption></figcaption>
+</figure>
+
+<p>
+  The reason we may want to return control to the current instruction is that something may have 
+  gone wrong during its execution which caused the exception and the exception handler may be able 
+  to fix the issue and then we can try the instruction again. If the exception was caused by error from the instruction and 
+  is not recoverable, then we abort the program. In general terms there is 
+  an <mark>exception table (A.K.A exception vector)</mark> which holds pointers to exception handlers. 
+  An <mark>exception handler</mark> is 
+  certain code to be executed in the event of the specific exceptions which that code was written to handle.
+  These exception handlers are run in kernel mode. The following is not completely standard, however 
+  there are 4 classes of exceptions:
+</p>
+
+<table class="large_left_aligned">
+  <tr>
+    <th>Class</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Interrupts</td>
+    <td>
+      events from hardware, typically I/O devices. These return to the next instruction and are 
+      asynchronous.
+    </td>
+  </tr>
+  <tr>
+    <td>Trap</td>
+    <td>
+      intentional exceptions (e.g. system calls like write(), fork(), clone()). These return to the next instruction.
+    </td>
+  </tr>
+  <tr>
+    <td>Fault</td>
+    <td>
+      <mark>potentially</mark> recoverable errors. This is synchronous and <mark>may</mark> return 
+      to the <strong>current</strong> instruction to retry if the error was recoverable.
+    </td>
+  </tr>
+  <tr>
+    <td>Abort</td>
+    <td>
+      non-recoverable errors. These are synchronous and never return to the application, but may 
+      return to another piece of code which cleans up.
+    </td>
+  </tr>
+</table>
+
+<p>
+  Some interesting exceptions my professor looked up for us are in the table below.
+</p>
+
+<table class="large_left_aligned">
+  <tr>
+    <th>Number</th>
+    <th>Class</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>0</td>
+    <td>Abort</td>
+    <td>Divide by zero ...Linux x86_64</td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>Fault</td>
+    <td>
+      General protection fault. Segmentation fault is <mark>one</mark> of these which is, interestingly, 
+      not recoverable ...although it is in the fault class. There are other faults which are recoverable.
+    </td>
+  </tr>
+  <tr>
+    <td>18</td>
+    <td>Abort</td>
+    <td>Machine Check (fatal hardware error)</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>Abort</td>
+    <td>
+      double fault. This occurs when an exception occurs while handling an exception. There is also 
+      a triple fault that may occur when handling a double fault, that one is super non-recoverable and 
+      definitely and abort.
+    </td>
+  </tr>
+</table>
+
+<p>
+  <strong>
+    <h2>Step Into a System Call</h2>
+  </strong>
+
+  Library functions which we use from a language are wrappers around actual system calls. They are 
+  library code, not actual system calls. The code in the library make the actual system call for us.
+  If we step into a call to something like 
+  <a href="https://docs.rs/nix/0.20.0/nix/unistd/fn.read.html" target="new" rel="noopener noreferrer">nix::unistd::read</a>
+  there are 9 steps which take place if we consider pushing the arguments onto the stack as one step.
+  <br><br>
+  Note: this is stepping down to the assembly level.
+</p>
+
+<figure class="stepinto">
+  <ol>
+    <li>Push the args onto the stack (at the assembly level)</li>
+    <li>Call nix::unistd::read (i.e. transfer of control to the library code)</li>
+    <li>
+      Now inside the library code, the library loads the numeric code for the actual read() system call 
+      into a register.
+    </li>
+    <li>Now the library code will make a system call to trap() the kernel, thus we now swicth to kernel mode</li>
+    <li>Dispatch/lookup the code/index for the trap/exeption handler</li>
+    <li>Execute the code in the trap/exception handler to handle the finer details of the read</li>
+    <li>Return to the library code which called the system call, thus switching back into user mode</li>
+    <li>Now the library code transfers control back to its caller (e.g. our program)</li>
+    <li>Clean up the stack</li>
+  </ol>
+</figure>
+
+<p>
+  As mentioned earlier, we have programs, executables, and processes (jobs). In multi-programming,
+  when there is a context switch the OS must store a lot of information about the current process's 
+  condition so that when it is scheduled again all of these things can be set back to what the 
+  process is expecting. These things are stored in a <mark>process control block (PCB)</mark>
+  which contains things such as:
+</p>
+
+<figure class="pcb">
+  <ul>
+    <li>process state (running, ready, blocked, etc.)</li>
+    <li>accounting information (PID, CPU time thus far, etc.)</li>
+    <li>PC/NPC (Program Counter, Next Program Counter)</li>
+    <li>Register contents (the number and type of registers is hardware dependent)</li>
+    <li>Memory setup (this is a lot: how much memory, the contents (which includes caches, page tables, etc.))</li>
+    <li>I/O status (open file handles, whether stdout, stdin, stderr are open)</li>
+  </ul>
+</figure>
+
+<p>
+  Context switches are very important and are 100% overhead, i.e. not useful work with respect to
+  our processes. We also have, in the concept of multiple programs running, <mark>threads (<q>lightweight processes</q>)</mark> and 
+  <mark>process scheduling</mark>.
+
+  <strong>
+    <h2>Threads</h2>
+  </strong>
+
+  Threads share some portions of the address space, so it takes more work to write a safe multi-threaded 
+  program, than it does to write a safe program which spawns multiple processes.
+
+  <strong>
+    <h2>Process Scheduling</h2>
+  </strong>
+
+  Process scheduling is choosing which process or set of processes to run among viable processes and includes <mark>scheduling queues</mark>. 
+  There is a <mark>job queue (A.K.A. job pool)</mark>, which holds all processes entering the system, 
+  and a <mark>ready queue</mark>, which holds all processes which are in the ready state.
+
+  In a metaphorical sense we can look at the OS as a client/server model. In many modern OSs as much 
+  code as possible has been moved to the user space. Often user space is faster, so especially in 
+  modern Linux OSs they try to take as much out of the kernel and put it into the user space as 
+  possible. Then the kernel acts as a server, so to speak, in that when we make system calls, we ask 
+  the kernel to do something or retrieve some data for us. This means that when we create processes 
+  and threads, <mark>process communication</mark>, including things like creating pipes, sending 
+  signals, etc., is of great importance. We cannot move everything into user space. Many things must 
+  be done in the kernel, but we try to make the kernel as small as possible. System calls must be executed 
+  by the kernel, we make the system calls and the kernel handles process communication. The original 
+  Windows OS was of a monolithic design in which almost everything was in the kernel. If we have a 
+  system with  multi-programming but without time sharing (i.e. a laptop, desktop, or other personal device) vs. 
+  a system with multi-programming and time sharing (like a server) we will have different algorithmic 
+  solutions for process scheduling. In a single-user system we are only concerned with the processes of 
+  that single user and necessary processes to keep the system running. In a multi-user system we must 
+  also be concerned with switching between the different users' processes with some sort of fairness 
+  algorithm. Below is a depiction of a <mark>job pool (job queue)</mark>, a <mark>ready queue</mark>, and a 
+  <mark>waiting queue</mark> with the schedulers also shown.
+</p>
+
+<figure class="process_queuing">
+  <img src="../../assets/images/job_scheduling.png" alt="Job Scheduling Image">
+  <figcaption>Job Scheduling</figcaption>
+</figure>
+
+<p>
+  There are schedulers which schedule jobs including the <mark>short term scheduler</mark>, the 
+  <mark>medium term scheduler</mark>, and the <mark>long term scheduler</mark>. The short term scheduler 
+  (A.K.A. <mark>CPU scheduler</mark>) is one of the things that decides what job from the ready queue goes on a CPU 
+  next. The medium term schedular (A.K.A. <mark>swap scheduler</mark>) swaps jobs in and out 
+  (multi-programming context switching). The long term scheduler (A.K.A. <mark>job scheduler</mark>) 
+  chooses from the job pool which jobs go into the ready queue. The long term scheduler's job is to give 
+  the short term scheduler a good mix of <mark>I/O bound</mark> and <mark>CPU bound</mark> processes 
+  to choose from in the ready queue. If we put all I/O bound jobs into the ready queue, then the CPU 
+  starts them all and then has nothing to do since all the processes are waiting for user input or 
+  some other I/O event. The short term scheduler wants the CPU busy at all times. The long term 
+  scheduler should do a good job of choosing which jobs from the job pool go into the ready queue so 
+  that this is possible. An I/O bound process is a process which does a lot of I/O, such as reading 
+  user input from the keyboard or writing data to a disk, and not so much 
+  work, whereas a CPU bound process is one which does a lot of work and not so much I/O.
+  Multi-programming cannot be maximized if the long term scheduler puts all I/O bound or all CPU bound 
+  processes into the ready queue, so a good mix is prefered. In a time sharing system, we must think 
+  about fairly switching among all users. So, the medium term scheduler becomes more important and the 
+  long term scheduler has a weaker presence, whereas in a single-user system with no time sharing, 
+  the long term scheduler is more important. On a multi-user system we cannot choose just any mix of 
+  processes, we must switch among different user's processes so all users' processes get their fair 
+  share of CPU time.
+</p>
+
+  </article>
+  <nav>
+    <a id="navOS">OS part 1</a>
+    <a id="navOS3">OS part 3</a>
+  </nav>
+</div>

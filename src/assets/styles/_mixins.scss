@@ -1,0 +1,62 @@
+$xs_scr: 575px;
+$sm_scr: 767px;
+$smr_scr: 860px;
+$md_scr: 992px;
+$lg_scr: 1170px;
+$lgr_scr: 1320px;
+$xl_scr: 1500px;
+$xxl_scr: 1800px;
+
+@mixin xs_screen {
+  @media only screen and (min-width: $xs_scr) {
+    @content;
+  }
+}
+
+@mixin sm_screen {
+  @media only screen and (min-width: $sm_scr) {
+    @content;
+  }
+}
+
+@mixin smr_screen {
+  @media only screen and (min-width: $smr_scr) {
+    @content;
+  }
+}
+
+@mixin md_screen {
+  @media only screen and (min-width: $md_scr) {
+    @content;
+  }
+}
+
+@mixin lg_screen {
+  @media only screen and (min-width: $lg_scr) {
+    @content;
+  }
+}
+
+@mixin lgr_screen {
+  @media only screen and (min-width: $lgr_scr) {
+    @content;
+  }
+}
+
+@mixin xl_screen {
+  @media only screen and (min-width: $xl_scr) {
+    @content;
+  }
+}
+
+@mixin xxl_screen {
+  @media only screen and (min-width: $xxl_scr) {
+    @content;
+  }
+}
+
+@mixin non_touch_screen {
+  @media(hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

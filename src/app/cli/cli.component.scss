@@ -1,0 +1,61 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/colors';
+
+article {
+  width: 85vw;
+  max-width: 85vw;
+  margin: 0 auto;
+  border: solid $articleBorder 1px;
+  border-radius: 8px;
+
+  @include sm_screen() {
+    max-width: 80vw;
+  }
+
+  @include md_screen() {
+    max-width: 70vw;
+    padding-top: 2vmax;
+  }
+
+  @include lg_screen() {
+    max-width: 60vw;
+  }
+}
+
+h1 {
+  margin-top: 2vh;
+  color: $softWhite;
+}
+
+nav {
+  width: 85vw;
+  max-width: 85vw;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1%;
+  padding-top: 5%;
+  font-size: 5vmin;
+
+  @include xs_screen() {
+    padding-top: 1%;
+    font-size: 4vmin;
+  }
+
+  @include md_screen() {
+    padding-top: 1%;
+    font-size: 3vmin;
+  }
+}
+
+p {
+  padding: 5vmin;
+
+  h2 {
+    text-align: left;
+    border-bottom: 1px grey solid;
+    padding-bottom: 1%;
+    font-size: 3.8vmin;
+  }
+}
