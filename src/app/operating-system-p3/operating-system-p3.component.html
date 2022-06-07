@@ -11,9 +11,9 @@
 
         When we run a process there is at least one <mark>thread of execution</mark>, the main
         thread. Threads run as if they are separate processes and many OSs consider them as such.
-        When we spawn a child process, the child process gets a copy of all the variables, file 
+        When we spawn a child process, the child process gets a copy of all the variables, file
         handles, etc., but when we spawn a new thread much of this data is shared memory instead.
-        The table below shows a comparison of what is shared and what is not shared for processes vs. 
+        The table below shows a comparison of what is shared and what is not shared for processes vs.
         threads.
       </p>
 
@@ -61,19 +61,19 @@
         </table>
 
         <p>
-          As you can see, a lot is shared with the main thread of execution when we spawn child 
-          threads. The stack is not shared because this would cause problems. Imagine the main 
-          thread calls a function <mark>foo()</mark> and, before the stack frame for 
-          <mark>foo()</mark> has been popped, a child thread calls a function <mark>bar()</mark>. 
-          Now, when the child thread's call to <mark>bar()</mark> is popped off the stack, it is 
-          returning to <mark>foo()</mark>. The child thread did not call <mark>foo()</mark> and 
+          As you can see, a lot is shared with the main thread of execution when we spawn child
+          threads. The stack is not shared because this would cause problems. Imagine the main
+          thread calls a function <mark>foo()</mark> and, before the stack frame for
+          <mark>foo()</mark> has been popped, a child thread calls a function <mark>bar()</mark>.
+          Now, when the child thread's call to <mark>bar()</mark> is popped off the stack, it is
+          returning to <mark>foo()</mark>. The child thread did not call <mark>foo()</mark> and
           <mark>foo()</mark> is not expecting this return value.
           <br><br>
 
-          Context switching is faster between threads than between processes. This is because 
-          passing messages, e.g. using pipes, is slower whereas using shared memory is much 
+          Context switching is faster between threads than between processes. This is because
+          passing messages, e.g. using pipes, is slower whereas using shared memory is much
           more efficient. There are two ways of communicating between threads,
-          <mark>message passing</mark> and <mark>shared memory</mark>. Shared memory is faster, 
+          <mark>message passing</mark> and <mark>shared memory</mark>. Shared memory is faster,
           but more dangerous. However, the benefits of shared memory include
         </p>
 
@@ -96,7 +96,7 @@
           <br><br>
 
           The kernel is aware of kernel threads. Though kernel threads are slower due to system calls,
-          other child threads and the main thread of execution can continue to execute if a kernel 
+          other child threads and the main thread of execution can continue to execute if a kernel
           thread gets blocked.
 
           <strong>
@@ -113,8 +113,8 @@
         </ul>
 
         <p>
-          In a <mark>many-to-one</mark> threading model, many user threads run on one kernel thread. 
-          This means that if the kernel thread is preempted, then all the threads are preempted. 
+          In a <mark>many-to-one</mark> threading model, many user threads run on one kernel thread.
+          This means that if the kernel thread is preempted, then all the threads are preempted.
           This also means that all of the threads will run on the same CPU, thus this is not true
           concurrency because it does not take advantage of multiple CPUs to do multiple tasks
           simultaneously. Below is an image depicting a many-to-one threading model.
@@ -126,10 +126,10 @@
       </figure>
 
       <p>
-        In a <mark>one-to-one</mark> threading model, each time we spawn a user thread a kernel 
-        thread is created for that thread. Most OSs do at least this. This is true concurrency as 
-        the threads can run on separate CPUs. There is more overhead which means less efficiency, 
-        but if one thread is preempted the rest continue to execute. Below is an image depicting a 
+        In a <mark>one-to-one</mark> threading model, each time we spawn a user thread a kernel
+        thread is created for that thread. Most OSs do at least this. This is true concurrency as
+        the threads can run on separate CPUs. There is more overhead which means less efficiency,
+        but if one thread is preempted the rest continue to execute. Below is an image depicting a
         one-to-one threading model.
       </p>
 
@@ -139,9 +139,9 @@
       </figure>
 
       <p>
-        In a <mark>many-to-many</mark> threading model any given kernel thread could have any 
-        subset of the user threads. This would be very difficult to implement and it is possible 
-        that some OSs are somewhere between one-to-one and many-to-many. Below is an image 
+        In a <mark>many-to-many</mark> threading model any given kernel thread could have any
+        subset of the user threads. This would be very difficult to implement and it is possible
+        that some OSs are somewhere between one-to-one and many-to-many. Below is an image
         depicting a many-to-many threading model.
 
       </p>
@@ -152,21 +152,21 @@
       </figure>
 
       <p>
-        Concurrency with threads and, thus shared memory introduces some dangers and other 
-        considerations. For example, if the main process spawns child threads, should the child 
+        Concurrency with threads and, thus shared memory introduces some dangers and other
+        considerations. For example, if the main process spawns child threads, should the child
         threads be allowed to spawn child threads or processes of their own and if so, how many?
         This could lead to an explosion of threads and/or processes. If a child process blocks,
-        should the parent block and visa versa? If two threads are blocked waiting on I/O from the 
-        keyboard and then the keyboard input is retrieved, which process should wake up and 
-        receive the input? Should it be first-come-first-serve? Should the parent get the input? 
-        Should both processes get the input? What about memory allocation, if a thread wants to 
-        allocate more memory for itself and other threads want to do the same, how do we manage 
-        memory? These are questions to consider in OS design. 
-        Normally, processes do not share memory, and instead use pipes to pass messages between each other. 
+        should the parent block and visa versa? If two threads are blocked waiting on I/O from the
+        keyboard and then the keyboard input is retrieved, which process should wake up and
+        receive the input? Should it be first-come-first-serve? Should the parent get the input?
+        Should both processes get the input? What about memory allocation, if a thread wants to
+        allocate more memory for itself and other threads want to do the same, how do we manage
+        memory? These are questions to consider in OS design.
+        Normally, processes do not share memory, and instead use pipes to pass messages between each other.
         Threads share memory by default as the address space is shared.
         <br><br>
 
-        Here is a very simple example, which is derived from an example my professor gave during 
+        Here is a very simple example, which is derived from an example my professor gave during
         class, of using the
         <a href="https://doc.rust-lang.org/std/thread/" target="new" rel="noopener noreferrer">std::thread</a>
         crate to spawn one child thread from the main thread of execution.
@@ -180,7 +180,7 @@ fn main() &#123;
 
     // spawn detaches the child thread, so if this were not spawned by the main thread of
     // execution, then the child thread could outlive the parent. Since this thread is being
-    // spawned by the main thread it cannot because once the main thread exits the entire
+    // spawned by the main thread it cannot because once the main thread exits the entire 
     // process is terminated.
 
     thread::spawn(|| &#123;
@@ -198,7 +198,7 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        Here is another version in which the main thread waits for the child thread to complete its 
+        Here is another version in which the main thread waits for the child thread to complete its
         task before doing anything else.
       </p>
 
@@ -225,7 +225,7 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        In the following example multiple child threads are spawned and the main thread waits for 
+        In the following example multiple child threads are spawned and the main thread waits for
         them to complete before doing anything else or exiting.
       </p>
 
@@ -320,18 +320,18 @@ douglaslwatts@linuxbox: ~/multiple_threads >
       </code></pre>
 
       <p>
-        In the following example we create a struct and move ownership of the struct into a thread 
-        which is spawned. It is necessary to transfer ownership to the thread because when we spawn 
-        a thread, it is detached from the parent and, unless the parent is the main thread of 
-        execution, the child thread may outlive the parent. What this means is that if the parent 
-        thread dies before the child and the child thread has a reference to some data owned by the 
+        In the following example we create a struct and move ownership of the struct into a thread
+        which is spawned. It is necessary to transfer ownership to the thread because when we spawn
+        a thread, it is detached from the parent and, unless the parent is the main thread of
+        execution, the child thread may outlive the parent. What this means is that if the parent
+        thread dies before the child and the child thread has a reference to some data owned by the
         parent, then that reference is useless and may point to nothing or just some random data.
-        In languages such as C, this is an issue and a difficult bug to find. Rust will not allow 
-        the program to compile until the ownership issue is resolved, which protects us from making 
-        such mistakes. It is very easy to make this type of mistake in C or C++ and it is often very 
-        difficult to find and fix. Things of this nature are a large part of what makes Rust so nice 
+        In languages such as C, this is an issue and a difficult bug to find. Rust will not allow
+        the program to compile until the ownership issue is resolved, which protects us from making
+        such mistakes. It is very easy to make this type of mistake in C or C++ and it is often very
+        difficult to find and fix. Things of this nature are a large part of what makes Rust so nice
         as a systems level language. Rust is young, however and there are a few interesting quirks,
-        the reasons for which are not yet well explained in their documentation. 
+        the reasons for which are not yet well explained in their documentation.
       </p>
 
       <pre><code>use std::thread;
@@ -366,7 +366,7 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        Often we need the data in more than one thread, so what we can do is clone the data. This 
+        Often we need the data in more than one thread, so what we can do is clone the data. This
         makes a deep copy of the data.
       </p>
 
@@ -406,14 +406,14 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        We can also have a thread pool to limit the number of threads which are spawned. To do this 
-        in Rust we can use the 
+        We can also have a thread pool to limit the number of threads which are spawned. To do this
+        in Rust we can use the
         <a href="https://docs.rs/threadpool/1.8.1/threadpool/struct.ThreadPool.html" target="new" rel="noopener noreferrer">threadpool::ThreadPool</a>
-        crate. This allows us to write our program as if there are any number of threads while only 
-        actually having some set number of threads in a thread pool. This will cause the set number 
-        of threads to be created and then as a thread from the pool finishes a task and becomes 
-        available, a new task will be assigned to it. So, we are reusing the threads again and 
-        again until all tasks have been completed. Below is an example of doing this which is 
+        crate. This allows us to write our program as if there are any number of threads while only
+        actually having some set number of threads in a thread pool. This will cause the set number
+        of threads to be created and then as a thread from the pool finishes a task and becomes
+        available, a new task will be assigned to it. So, we are reusing the threads again and
+        again until all tasks have been completed. Below is an example of doing this which is
         derived from yet another example provided by my professor.
       </p>
 
@@ -427,7 +427,7 @@ fn main() &#123;
     // collect the CLI args and give a usage message if none or too many are provided
 
     let args: Vec&#60;String&#62; = args().collect();
-    
+
     if args.len() != 2 &#123;
         eprintln!("Usage cargo run &#60;numthreads&#62;");
         exit(1);
@@ -467,8 +467,8 @@ fn main() &#123;
 
       <p>
         Below is the output from a run of the above code. Notice, via the printing of the Thread ID,
-        that one of the threads in the pool executes each task and that they do not complete in order. 
-        They will complete in a different order each run of the program. The threads in the pool have IDs 
+        that one of the threads in the pool executes each task and that they do not complete in order.
+        They will complete in a different order each run of the program. The threads in the pool have IDs
         2, 3, 4, and 5 because the main thread of execution has thread ID 1.
       </p>
 
@@ -524,11 +524,11 @@ douglaslwatts@linuxbox: ~/thread_pool >
           <h2>Communicating Between Threads Using Message Passing</h2>
         </strong>
 
-        We need to communicate between threads. One way to do this is by message passing, another 
+        We need to communicate between threads. One way to do this is by message passing, another
         is shared memory. To use the message passing technique in Rust, we can create channels. To
         do this we can use the
         <a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html" target="new" rel="noopener noreferrer">std::sync::mpsc::channel</a>
-        crate. This will provide us with sending and receiving sides of the channel. Below is an 
+        crate. This will provide us with sending and receiving sides of the channel. Below is an
         example of doing this, which is derived from an example my professor provided.
       </p>
 
@@ -542,8 +542,8 @@ fn main() &#123;
 
     let (sender, receiver) = channel();
 
-    // Spin up a new thread and send a message from it back to the main thread. Notice that the 
-    // messages vector is declared inside the closure and thus is dropped once the scope of the 
+    // Spin up a new thread and send a message from it back to the main thread. Notice that the
+    // messages vector is declared inside the closure and thus is dropped once the scope of the
     // closure ends. This proves that we have certainly done message passing as the data never
     // existed in the main thread of execution.
 
@@ -597,8 +597,8 @@ douglaslwatts@linuxbox: ~/channels >
       </code></pre>
 
       <p>
-        We can also have multiple senders by cloning the sending channel and moving ownership of the 
-        clones into the threads as we spawn them. Below is an example of doing this, which is derived 
+        We can also have multiple senders by cloning the sending channel and moving ownership of the
+        clones into the threads as we spawn them. Below is an example of doing this, which is derived
         from an example provided by my professor.
       </p>
 
@@ -636,7 +636,7 @@ fn main() &#123;
 
     drop(sender);
 
-    // We iterate here until all of the senders have closed, hence the need to drop the 
+    // We iterate here until all of the senders have closed, hence the need to drop the
     // original above. Until all senders have closed, there could be more messages.
 
     for message in receiver &#123;
@@ -662,63 +662,63 @@ douglaslwatts@linuxbox: ~/multiple_senders >
       </code></pre>
 
       <p>
-        In a low level language like Rust, the process is the main thread of execution and if we kill 
-        the main thread all children threads are terminated as well. However, if we spawn a thread and 
-        that thread spawns more threads and then dies before those threads exit, the children of that 
-        thread will continue to execute. So killing the parent thread only kills the children threads 
-        if the parent is the main thread of execution. In a language such as Java, the Java Virtual 
-        Machine is actually the main thread of execution. So, killing the main thread which is our 
-        program, the main() method running, does not kill any child threads of that thread because 
-        the JVM is still running. However, calling <mark>System.exit()</mark> will kill the JVM no 
+        In a low level language like Rust, the process is the main thread of execution and if we kill
+        the main thread all children threads are terminated as well. However, if we spawn a thread and
+        that thread spawns more threads and then dies before those threads exit, the children of that
+        thread will continue to execute. So killing the parent thread only kills the children threads
+        if the parent is the main thread of execution. In a language such as Java, the Java Virtual
+        Machine is actually the main thread of execution. So, killing the main thread which is our
+        program, the main() method running, does not kill any child threads of that thread because
+        the JVM is still running. However, calling <mark>System.exit()</mark> will kill the JVM no
         matter what thread calls it. So <mark>System.exit()</mark> always kills the entire process.
         <br><br>
 
-        There are different ways message passing can be done. Message passing can first be either 
-        <mark>Indirect</mark> or <mark>Direct</mark>. Then, it can be <mark>synchronous</mark> or 
-        <mark>asynchronous</mark>, lastly it can use <mark>automatic buffering</mark> or 
-        <mark>explicit buffering</mark>. If the message passing is direct, then the message is 
-        passed directly between two processes, whereas in indirect message passing there is a 
+        There are different ways message passing can be done. Message passing can first be either
+        <mark>Indirect</mark> or <mark>Direct</mark>. Then, it can be <mark>synchronous</mark> or
+        <mark>asynchronous</mark>, lastly it can use <mark>automatic buffering</mark> or
+        <mark>explicit buffering</mark>. If the message passing is direct, then the message is
+        passed directly between two processes, whereas in indirect message passing there is a
         mailbox which is shared by the communicating processes.
         <br><br>
 
-        In direct communication, all pairs of processes or threads that communicate are connected 
-        by a link of some type. This link is between exactly two processes. If the direct communication 
-        is synchronous, then communication is between these two processes only. If the direct 
-        communication is asynchronous, however any number of processes can send a message and the 
-        receiving process must use the sending process's ID to determine which process sent the 
-        message. This is similar to what we did in the last code example, we had many senders and one 
+        In direct communication, all pairs of processes or threads that communicate are connected
+        by a link of some type. This link is between exactly two processes. If the direct communication
+        is synchronous, then communication is between these two processes only. If the direct
+        communication is asynchronous, however any number of processes can send a message and the
+        receiving process must use the sending process's ID to determine which process sent the
+        message. This is similar to what we did in the last code example, we had many senders and one
         receiver to get all of their messages. However, channels <em>may</em> actually use a mailbox
         under the hood in Rust which would be indirect communication not direct.
         <br><br>
 
-        In indirect communication, there will be a mailbox between the communicating processes which 
-        each process has a link to. A link exists between processes if they share a mailbox. These 
+        In indirect communication, there will be a mailbox between the communicating processes which
+        each process has a link to. A link exists between processes if they share a mailbox. These
         links can be between multiple processes, unlike direct communication. Also, multiple links
         can exist via multiple shared mailboxes. This poses an issue. If process A sends a message,
-        and both process B and process C have called the receive method or function, who gets the 
-        message, e.g. which process will consume the message? It depends on which library is being 
-        used. In some implementations, a mailbox may only be shared between two processes. So, the 
+        and both process B and process C have called the receive method or function, who gets the
+        message, e.g. which process will consume the message? It depends on which library is being
+        used. In some implementations, a mailbox may only be shared between two processes. So, the
         issue is not present as only process A and C or A and B could share the mailbox to begin with.
-        In other implementations there may be a strict first-come-first-serve ordering enforced, so 
-        whichever process, B or C, called receive first gets the message. There could be some other 
-        metric in place for who gets the message such as some level of importance which is associated 
-        with the processes or maybe whichever process has received less messages gets the message. 
+        In other implementations there may be a strict first-come-first-serve ordering enforced, so
+        whichever process, B or C, called receive first gets the message. There could be some other
+        metric in place for who gets the message such as some level of importance which is associated
+        with the processes or maybe whichever process has received less messages gets the message.
         It can be different for different libraries.
         <br><br>
 
         Another issue is, who owns the mailbox? Is it running as a kernel process or a user process?
-        If the mailbox is a process in user space, then it is easier to restrict it if we need to. 
-        Usually the mailbox would be owned by the process which created it in this case and the 
-        owner is the only one which will receive messages. So, there will be many senders and only 
-        the owner of the mailbox will receive messages which makes it easy to setup and restrict. 
-        Also, if the user process owns the mailbox then when that process terminates, the mailbox 
-        no longer exists. If the mailbox is owned by the kernel, then the lifetime of the mailbox 
-        is not dependent on a user process. This means that when the process which created the mailbox 
-        exits, the mailbox still exists. We need to know how to create mailboxes, send and receive 
-        messages through mailboxes, delete mailboxes, and transfer privileges such as who owns or has 
-        write and read privileges for the mailbox. If the mailbox is owned by the kernel, then 
-        the mailbox is not deleted automatically when the user process terminates. So, deleting and 
-        transferring privileges becomes more complicated when the kernel owns the mailbox, but kernel 
+        If the mailbox is a process in user space, then it is easier to restrict it if we need to.
+        Usually the mailbox would be owned by the process which created it in this case and the
+        owner is the only one which will receive messages. So, there will be many senders and only
+        the owner of the mailbox will receive messages which makes it easy to setup and restrict.
+        Also, if the user process owns the mailbox then when that process terminates, the mailbox
+        no longer exists. If the mailbox is owned by the kernel, then the lifetime of the mailbox
+        is not dependent on a user process. This means that when the process which created the mailbox
+        exits, the mailbox still exists. We need to know how to create mailboxes, send and receive
+        messages through mailboxes, delete mailboxes, and transfer privileges such as who owns or has
+        write and read privileges for the mailbox. If the mailbox is owned by the kernel, then
+        the mailbox is not deleted automatically when the user process terminates. So, deleting and
+        transferring privileges becomes more complicated when the kernel owns the mailbox, but kernel
         owned mailboxes can be more robust.
 
         <strong>
@@ -726,37 +726,37 @@ douglaslwatts@linuxbox: ~/multiple_senders >
         </strong>
 
         A mailbox's send and receive methods or functions can be either blocking (A.K.A. synchronous)
-        or non-blocking (A.K.A. asynchronous). We could have a blocking and/or non-blocking send in 
-        a given language. A blocking send will have the sending process block/sleep until the message 
-        is received, whereas a non-blocking send will have the sending process continue to execute 
+        or non-blocking (A.K.A. asynchronous). We could have a blocking and/or non-blocking send in
+        a given language. A blocking send will have the sending process block/sleep until the message
+        is received, whereas a non-blocking send will have the sending process continue to execute
         once the message has been sent. A blocking receive will have the process which called
-        receive block/sleep until a message is available to be received. So, it is a good idea to 
-        set a timer such that the process will not wait forever if no message is sent. In a non-blocking 
-        receive, the process which called receive will not block/sleep until there is a message to receive. 
-        If there is no message, then receive() will have returned None or Null or whatever 
-        the respective language does to handle that and the receiving process will continue on with 
+        receive block/sleep until a message is available to be received. So, it is a good idea to
+        set a timer such that the process will not wait forever if no message is sent. In a non-blocking
+        receive, the process which called receive will not block/sleep until there is a message to receive.
+        If there is no message, then receive() will have returned None or Null or whatever
+        the respective language does to handle that and the receiving process will continue on with
         its execution and maybe check back later to see if there is a message to receive.
 
         <strong>
           <h2>Automatic vs. Explicit Buffering</h2>
         </strong>
 
-        We need buffering for mailboxes in case there are lots of or large messages so that we have 
+        We need buffering for mailboxes in case there are lots of or large messages so that we have
         someplace to store the messages. We have three possibilities
 
         <strong>
           <h5>Unbounded Queue</h5>
         </strong>
-        
-        A potentially infinite buffer, the actual size limit of which is resource dependent. 
-        The sender never blocks, as there is potentially infinite space in the buffer to store the 
+
+        A potentially infinite buffer, the actual size limit of which is resource dependent.
+        The sender never blocks, as there is potentially infinite space in the buffer to store the
         messages it sends, and the receiver may or may not block.
         <strong><h6></h6></strong>
 
         <strong>
           <h5>Bounded Queue</h5>
         </strong>
-        
+
         A buffer of finite size. If the queue is full then send() will return something
         to let the sender know they must try later, the receiver will block if the queue is empty.
         <strong><h6></h6></strong>
@@ -765,51 +765,51 @@ douglaslwatts@linuxbox: ~/multiple_senders >
           <h5>Zero Capacity</h5>
         </strong>
 
-        This means there is no buffering at all when we send(), so the receiver 
-        must be available to receive. The sender blocks until the message has been received and the 
-        receiver blocks until a message is available to be received. This is known as <q>rendezvous</q>. 
-        This makes the producer/consumer problem, which will be discussed in more detail later, 
-        trivial. However, this is less efficient as no work can be done until message passing has 
-        completed. Basically, producer processes produce data and consumer processes consume that 
-        data. So, there needs to be room in a buffer to hold the data or the producers should 
-        wait to produce more data and there needs to be data to consume or the consumer processes 
-        should block/wait/sleep until there is data to consume. As rendezvous uses no buffer and the 
+        This means there is no buffering at all when we send(), so the receiver
+        must be available to receive. The sender blocks until the message has been received and the
+        receiver blocks until a message is available to be received. This is known as <q>rendezvous</q>.
+        This makes the producer/consumer problem, which will be discussed in more detail later,
+        trivial. However, this is less efficient as no work can be done until message passing has
+        completed. Basically, producer processes produce data and consumer processes consume that
+        data. So, there needs to be room in a buffer to hold the data or the producers should
+        wait to produce more data and there needs to be data to consume or the consumer processes
+        should block/wait/sleep until there is data to consume. As rendezvous uses no buffer and the
         processes must wait anyway, this becomes trivial.
         <strong><h6></h6></strong>
         <br>
 
-        When we used <mark>std::sync::mpsc::channel</mark> earlier, we were using an asynchronous 
-        channel with a sender and a receiver side. This channel has an infinite buffer, an unbounded queue. 
-        No send() blocks the calling thread, so we can send as many messages as we need to before 
-        any of them are received. However, receive() will block the calling thread until there is 
-        a message to be received. A sync-channel is also available in the same crate, however. This will 
-        create a synchronous channel which has a bounded buffer. In this case, send() blocks the 
-        calling thread when the buffer is full, while receive() always blocks until there is a 
-        message available to be received. When we create the channel we specify the size of the 
-        buffer and zero is a legal size. If we give it a zero size, we are doing zero capacity, 
-        e.g. rendezvous. 
+        When we used <mark>std::sync::mpsc::channel</mark> earlier, we were using an asynchronous
+        channel with a sender and a receiver side. This channel has an infinite buffer, an unbounded queue.
+        No send() blocks the calling thread, so we can send as many messages as we need to before
+        any of them are received. However, receive() will block the calling thread until there is
+        a message to be received. A sync-channel is also available in the same crate, however. This will
+        create a synchronous channel which has a bounded buffer. In this case, send() blocks the
+        calling thread when the buffer is full, while receive() always blocks until there is a
+        message available to be received. When we create the channel we specify the size of the
+        buffer and zero is a legal size. If we give it a zero size, we are doing zero capacity,
+        e.g. rendezvous.
 
         <strong>
           <h2>Race Conditions</h2>
         </strong>
 
         Race conditions are when two or more processes are reading and writing to the same shared memory,
-        and who gets there first changes the resulting content of that memory. Race conditions are 
+        and who gets there first changes the resulting content of that memory. Race conditions are
         very difficult to debug due to a lack of timing guarantees with respect to processes.
-        No timing guarantee means it is very difficult to recreate the race conditions. Sometimes, 
-        it is nearly impossible to recreate the condition even with enforced timing because it is 
-        so difficult to determine what processes are causing the issue. Critical sections of code 
+        No timing guarantee means it is very difficult to recreate the race conditions. Sometimes,
+        it is nearly impossible to recreate the condition even with enforced timing because it is
+        so difficult to determine what processes are causing the issue. Critical sections of code
         are highly related to race conditions.
 
         <strong>
           <h2>Critical Sections</h2>
         </strong>
 
-        Critical sections/regions are sections of code where shared data is not only accessed for 
-        reading, but accessed for reading and writing. It is a critical section when the data 
-        is mutable and being mutated. Part of the solution for this is <mark>mutual exclusion</mark>. 
-        Mutual exclusion means that we enforce only one process being able to access the shared 
-        memory at a time. We do not care if multiple processes are reading the data, but if the data 
+        Critical sections/regions are sections of code where shared data is not only accessed for
+        reading, but accessed for reading and writing. It is a critical section when the data
+        is mutable and being mutated. Part of the solution for this is <mark>mutual exclusion</mark>.
+        Mutual exclusion means that we enforce only one process being able to access the shared
+        memory at a time. We do not care if multiple processes are reading the data, but if the data
         is being changed by any process then only one process may access it at a time.
         <br><br>
 
@@ -817,11 +817,11 @@ douglaslwatts@linuxbox: ~/multiple_senders >
           <h2>Race Conditions and Critical Sections</h2>
         </strong>
 
-        Imagine we have some section of code in which two processes are trying to update a counter 
-        variable which is shared memory. Process A wants do <code>count++;</code>, while process B 
-        wants to do <code>count--;</code>. The resulting value of count could be 7, 8, or 9. This is 
-        a race condition, more specifically a <mark>data race</mark>. Another race condition could be 
-        if the main thread tries to print some resulting computation before the child threads have 
+        Imagine we have some section of code in which two processes are trying to update a counter
+        variable which is shared memory. Process A wants do <code>count++;</code>, while process B
+        wants to do <code>count--;</code>. The resulting value of count could be 7, 8, or 9. This is
+        a race condition, more specifically a <mark>data race</mark>. Another race condition could be
+        if the main thread tries to print some resulting computation before the child threads have
         finished computing the answer, that would not be a data race but is still a race condition.
         Below is an image depicting the data race we have just described.
       </p>
@@ -832,11 +832,11 @@ douglaslwatts@linuxbox: ~/multiple_senders >
       </figure>
 
       <p>
-        To see why it is possible for the resulting value of the <mark>count</mark> variable could 
+        To see why it is possible for the resulting value of the <mark>count</mark> variable could
         be 7, 8, or 9 we need to drop down to the assembly level. So, here is some pseudo
-        assembly code provided as an example by my professor. Remember these processes are running concurrently on different CPU cores, 
-        so it does not matter that they both use the same register numbers because they are using 
-        the registers on different CPUs. However, for the sake of clarity we will have process A 
+        assembly code provided as an example by my professor. Remember these processes are running concurrently on different CPU cores,
+        so it does not matter that they both use the same register numbers because they are using
+        the registers on different CPUs. However, for the sake of clarity we will have process A
         use the t registers and process B use the s registers.
       </p>
 
@@ -859,7 +859,7 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </code></pre>
 
       <p>
-        These things can happen in some different orders. Let us assume that both processes have 
+        These things can happen in some different orders. Let us assume that both processes have
         loaded the address of count into a register and the following scenario occurs.
       </p>
 
@@ -875,13 +875,13 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </ol>
 
       <p>
-        At the point when process A stored the incremented value back into shared memory the value 
-        of <mark>count</mark> was 9. Then, process B stored its decremented value back into shared 
+        At the point when process A stored the incremented value back into shared memory the value
+        of <mark>count</mark> was 9. Then, process B stored its decremented value back into shared
         memory and <mark>count</mark>'s value became 7.
         <br><br>
 
-        Now let us consider another slightly different scenario in which process B does not get 
-        blocked and gets to finish its decrement of the <mark>count</mark>. Then, process A 
+        Now let us consider another slightly different scenario in which process B does not get
+        blocked and gets to finish its decrement of the <mark>count</mark>. Then, process A
         gets rescheduled and finishes its increment of the <mark>count</mark> variable.
       </p>
 
@@ -896,14 +896,14 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </ol>
 
       <p>
-        Now, at the point when B stored its decremented value back into shared memory the value of 
-        the <mark>count</mark> variable was 7. Then, when process A stored its incremented value 
+        Now, at the point when B stored its decremented value back into shared memory the value of
+        the <mark>count</mark> variable was 7. Then, when process A stored its incremented value
         back into shared memory the value of the <mark>count</mark> was 9. So, in the first scenario
-        the final value of <mark>count</mark> was 7 and in the second scenario the final value was 
+        the final value of <mark>count</mark> was 7 and in the second scenario the final value was
         9. This is not acceptable, this is a data race.
         <br><br>
 
-        Let us consider another scenario in which process A completed its increment before process 
+        Let us consider another scenario in which process A completed its increment before process
         B loaded the value.
       </p>
 
@@ -917,8 +917,8 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </ol>
 
       <p>
-        Now, at the point when process A stored the incremented value back into shared memory the 
-        value of <mark>count</mark> was 9. So, process B loaded that value into a register and stored 
+        Now, at the point when process A stored the incremented value back into shared memory the
+        value of <mark>count</mark> was 9. So, process B loaded that value into a register and stored
         8 back into shared memory. This could be reversed and we would also get 8 as a final value.
       </p>
 
@@ -932,29 +932,29 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </ol>
 
       <p>
-        Now, at the point when process B stored the decremented value back into shared memory the 
-        value of <mark>count</mark> was 7. So, process A loaded that value into a register and stored 
-        8 back into shared memory. These last two scenarios are the results we were hoping 
-        for, but things do not happen sequentially when running concurrent programs. That is kind of 
-        the point. So, we need to protect against race conditions like these in which the final 
-        value of <mark>count</mark> could be different depending on what order things happen in. We 
-        could run the program 100 times and get 8 and then the 101st time we get 7 or 9. So, this 
+        Now, at the point when process B stored the decremented value back into shared memory the
+        value of <mark>count</mark> was 7. So, process A loaded that value into a register and stored
+        8 back into shared memory. These last two scenarios are the results we were hoping
+        for, but things do not happen sequentially when running concurrent programs. That is kind of
+        the point. So, we need to protect against race conditions like these in which the final
+        value of <mark>count</mark> could be different depending on what order things happen in. We
+        could run the program 100 times and get 8 and then the 101st time we get 7 or 9. So, this
         type of problem can be very difficult to debug.
         <br><br>
 
         The critical section of each process's code is everything except the first line in which they
-        load the address of <mark>count</mark>. What <mark>mutual exclusion</mark> does is to 
-        disallow one process from entering that critical section until no other process is in the 
-        critical section. So, once process A enters the critical section in which it is mutating the 
-        value, process B would go to sleep until process A leaves the critical section. Then, process 
-        B can enter the critical section and no other process like C, or D, etc. can enter the critical 
-        section until B completes its decrement of <mark>count</mark>. However, mutual exclusion alone 
-        is not enough. Imagine process A goes to sleep for some extended period of time, then process 
+        load the address of <mark>count</mark>. What <mark>mutual exclusion</mark> does is to
+        disallow one process from entering that critical section until no other process is in the
+        critical section. So, once process A enters the critical section in which it is mutating the
+        value, process B would go to sleep until process A leaves the critical section. Then, process
+        B can enter the critical section and no other process like C, or D, etc. can enter the critical
+        section until B completes its decrement of <mark>count</mark>. However, mutual exclusion alone
+        is not enough. Imagine process A goes to sleep for some extended period of time, then process
         B is blocked/sleeping for that entire time. So, we need some means of doing this fairly such
         that process B can go off and do some other work, if possible, while process A is in the critical section.
         <br><br>
 
-        So, once again the critical section is a section of code in which two or more processes 
+        So, once again the critical section is a section of code in which two or more processes
         access the same shared data and the data is modified.
         <br><br>
 
@@ -969,15 +969,15 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
           the critical section.
         </li>
         <li>
-          No process should wait forever to enter the critical section. This could happen if a 
-          process has a higher level of importance than another and keeps entering the critical 
+          No process should wait forever to enter the critical section. This could happen if a
+          process has a higher level of importance than another and keeps entering the critical
           section and the less important process just waits forever.
         </li>
       </ol>
 
       <p>
-        All of the above conditions refer to two processes accessing the same critical section, there 
-        can be many critical sections in a given program. Below is an image depicting the basic 
+        All of the above conditions refer to two processes accessing the same critical section, there
+        can be many critical sections in a given program. Below is an image depicting the basic
         idea of mutual exclusion.
       </p>
 
@@ -987,7 +987,7 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </figure>
 
       <p>
-        To make this happen we need data structures to allow us to do enforce it. The data structures 
+        To make this happen we need data structures to allow us to do enforce it. The data structures
         used and the way they work are language dependent.
         <br><br>
 
@@ -996,12 +996,12 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
         <strong>
           <h5>Disabling Interrupts</h5>
         </strong>
-        Every process would disable interrupts when entering a critical section. Note that context 
-        switches happen via interrupts. This is a potential solution which could work at the kernel 
-        level, but at the user level this is not a good idea. The issue with doing this in user 
-        space is that if process A enters a critical section and sends a signal that all CPU cores 
-        should disable interrupts, process B could enter the critical section before the CPU on which 
-        it is running receives the message. Note that this does not prevent deadlock, livelock, or 
+        Every process would disable interrupts when entering a critical section. Note that context
+        switches happen via interrupts. This is a potential solution which could work at the kernel
+        level, but at the user level this is not a good idea. The issue with doing this in user
+        space is that if process A enters a critical section and sends a signal that all CPU cores
+        should disable interrupts, process B could enter the critical section before the CPU on which
+        it is running receives the message. Note that this does not prevent deadlock, livelock, or
         starvation.
         <strong>
           <h6></h6>
@@ -1010,13 +1010,13 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
         <strong>
           <h5>Lock Variables</h5>
         </strong>
-        A lock variable would be (open | closed) => (1 | 0). This is just a normal variable that we 
-        set. If it is <mark>1 => open</mark>, then a process can set it to <mark>0 => closed</mark> 
-        and enter the critical section and reset it to <mark>1 => open</mark> when it exits the 
-        critical section. If it is <mark>0 => closed</mark>, then the process must wait or do other 
-        work until it is <mark>1 => open</mark> and then the process may do the same ...set it to 
-        closed, do its work in the critical section, and then reset it to open. The issue is that the 
-        lock variable is shared memory, so mutating its value is also a critical section. We cannot 
+        A lock variable would be (open | closed) => (1 | 0). This is just a normal variable that we
+        set. If it is <mark>1 => open</mark>, then a process can set it to <mark>0 => closed</mark>
+        and enter the critical section and reset it to <mark>1 => open</mark> when it exits the
+        critical section. If it is <mark>0 => closed</mark>, then the process must wait or do other
+        work until it is <mark>1 => open</mark> and then the process may do the same ...set it to
+        closed, do its work in the critical section, and then reset it to open. The issue is that the
+        lock variable is shared memory, so mutating its value is also a critical section. We cannot
         have a critical section guarding another critical section because it has the same issue.
         There are data structures that use this technique which handle this for us in a safe way.
         <strong>
@@ -1026,22 +1026,22 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
         <strong>
           <h5>Strict Alternation</h5>
         </strong>
-        This could work, conceptually. Process A enters the critical section, then once A leaves the 
-        critical section B enters the critical section, then once B leaves the critical section C 
-        enters the critical section. We go round robin like this again and again. The issue is that 
-        if process A does not enter the critical 
-        section for a while, then B and C must wait their turns until A decides to finally enter the 
-        critical section and finishes its work in the critical section. This violates rule number 3 
-        of a good way to handle mutual exclusion (i.e., No process outside of the critical section should 
-        block another process from entering the critical section). So, this would protect data but 
+        This could work, conceptually. Process A enters the critical section, then once A leaves the
+        critical section B enters the critical section, then once B leaves the critical section C
+        enters the critical section. We go round robin like this again and again. The issue is that
+        if process A does not enter the critical
+        section for a while, then B and C must wait their turns until A decides to finally enter the
+        critical section and finishes its work in the critical section. This violates rule number 3
+        of a good way to handle mutual exclusion (i.e., No process outside of the critical section should
+        block another process from entering the critical section). So, this would protect data but
         is not a viable solution.
         <strong>
           <h6></h6>
         </strong>
         <br>
 
-        There is hardware support for <mark>Test, Set, & Lock (TSL)</mark>. TSL involves polling, 
-        however and we should not use polling at the user process level. If 1,000 threads are asking 
+        There is hardware support for <mark>Test, Set, & Lock (TSL)</mark>. TSL involves polling,
+        however and we should not use polling at the user process level. If 1,000 threads are asking
         can I enter the critical section yet, over and over again then the CPU is busy answering them.
         This is a waste of CPU time. At the hardware level, sometimes a short polling is necessary.
         However, at the level we are working, we should not do something like:
@@ -1052,29 +1052,29 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
 
     // do work in critical section
 &#125; else &#123;
-    // do work in critical section 
+    // do work in critical section
 &#125;
       </code></pre>
 
       <p>
-        We want, instead, for processes waiting to access shared data to go to sleep or do other work 
-        while they wait for access. There is a data structure called <mark>semaphore</mark>, which 
-        can help us to enforce mutual exclusion without polling. Semaphore was invented by Dijkstra 
-        in 1965. A counting semaphore will allow <mark><em>n</em></mark> processes to enter a critical 
+        We want, instead, for processes waiting to access shared data to go to sleep or do other work
+        while they wait for access. There is a data structure called <mark>semaphore</mark>, which
+        can help us to enforce mutual exclusion without polling. Semaphore was invented by Dijkstra
+        in 1965. A counting semaphore will allow <mark><em>n</em></mark> processes to enter a critical
         section of code, e.g. get past a lock. Once they are into the critical section, we must ensure
-        that they use the shared data correctly. Bringing back the <mark>count</mark> variable from 
-        earlier, a counting semaphore will allow updating the <mark>count</mark> to take place 
-        uninterrupted. This will solve one part of the data race issue. There are methods who's names 
-        were improved over time which are associated with a semaphore. Originally they were called 
-        <mark>p()</mark> and <mark>v()</mark>, but that is not very useful as it is hard to remember 
+        that they use the shared data correctly. Bringing back the <mark>count</mark> variable from
+        earlier, a counting semaphore will allow updating the <mark>count</mark> to take place
+        uninterrupted. This will solve one part of the data race issue. There are methods who's names
+        were improved over time which are associated with a semaphore. Originally they were called
+        <mark>p()</mark> and <mark>v()</mark>, but that is not very useful as it is hard to remember
         which is which. Then, they were renamed as <mark>down()</mark> and <mark>up()</mark>
         because <mark>down()</mark> decrements the semaphore and <mark>up()</mark> increments it, but
-        this still is not very descriptive. So, finally they were renamed as <mark>acquire()</mark> and 
-        <mark>release()</mark>, which is descriptive of what is going on. We acquire() access to the 
-        critical section, then once finished working in the critical section we release() access so 
-        that some other process can acquire() access. Let us consider a scenario in which we have 
-        four processes, A, B, C, and D. In the following example, the number passed into the 
-        constructor, Semaphore(<em>n</em>), is the number, <em>n</em>, of processes which may enter 
+        this still is not very descriptive. So, finally they were renamed as <mark>acquire()</mark> and
+        <mark>release()</mark>, which is descriptive of what is going on. We acquire() access to the
+        critical section, then once finished working in the critical section we release() access so
+        that some other process can acquire() access. Let us consider a scenario in which we have
+        four processes, A, B, C, and D. In the following example, the number passed into the
+        constructor, Semaphore(<em>n</em>), is the number, <em>n</em>, of processes which may enter
         the critical section of code at a time. In this example that number is 2.
       </p>
 
@@ -1094,31 +1094,31 @@ sw   $s2, 0($s1)   # store the decremented value back into shared memory
       </ol>
 
       <p>
-        Notice the lack of any timing relationships, any process could request to acquire() at any 
-        time and any process could finish and release() at any time. Also, notice that which waiting 
-        process is awaken to finish its decrement of <em>n</em> and enter the critical section is 
+        Notice the lack of any timing relationships, any process could request to acquire() at any
+        time and any process could finish and release() at any time. Also, notice that which waiting
+        process is awaken to finish its decrement of <em>n</em> and enter the critical section is
         not certain and is OS implementation dependent.
         <br><br>
 
-        This is called an <mark>atomic operation (i.e. an indivisible or uninterruptible operation)</mark>. 
-        The sleep is a voluntary 
-        operation. Once acquire() is called and the process enters the critical section, the process 
-        cannot be interrupted and will complete its work in the critical section uninterrupted. This 
-        is called a counting semaphore because it keeps count of how many processes currently have 
-        access to the critical section. There is also a <mark>binary semaphore</mark>, which means 
-        that the lock is either open or closed ...only one process may enter the critical section 
-        at a time. If we pass (<em>n</em> = 1) to a counting semaphore, then it becomes a binary 
-        semaphore. A binary semaphore is a mutex. To create a mutex in Java, we instantiate a 
+        This is called an <mark>atomic operation (i.e. an indivisible or uninterruptible operation)</mark>.
+        The sleep is a voluntary
+        operation. Once acquire() is called and the process enters the critical section, the process
+        cannot be interrupted and will complete its work in the critical section uninterrupted. This
+        is called a counting semaphore because it keeps count of how many processes currently have
+        access to the critical section. There is also a <mark>binary semaphore</mark>, which means
+        that the lock is either open or closed ...only one process may enter the critical section
+        at a time. If we pass (<em>n</em> = 1) to a counting semaphore, then it becomes a binary
+        semaphore. A binary semaphore is a mutex. To create a mutex in Java, we instantiate a
         semaphore passing in <mark><em>n</em> = 1</mark>.
 
         <strong>
           <h2>Producer/Consumer problem</h2>
         </strong>
 
-        In the producer/consumer problem we have processes which are producers of data who put data 
-        into a buffer and processes which are consumers which remove data from the buffer. We cannot 
-        allow two or more producers to put data into the buffer at exactly the same time because they 
-        will try to place the data into the same slot (e.g. array index). So, we need a way of guarding 
+        In the producer/consumer problem we have processes which are producers of data who put data
+        into a buffer and processes which are consumers which remove data from the buffer. We cannot
+        allow two or more producers to put data into the buffer at exactly the same time because they
+        will try to place the data into the same slot (e.g. array index). So, we need a way of guarding
         the buffer. Below is some C-like pseudo code which my professor provided as an example.
       </p>
 
@@ -1129,7 +1129,7 @@ semaphore mutex = 1;
 semaphore empty = MAX;
 semaphore full  = 0;
 
-// assume there is a shared array which has insert() and remove() functions 
+// assume there is a shared array which has insert() and remove() functions
 // associated with it
 
 // note that mutex is short for mutual exclusion (A.K.A. one-at-a-time)
@@ -1141,9 +1141,9 @@ void producer(void) &#123;
     while (TRUE) &#123;
         item = produce_item();
         acquire(&empty);   // if no empty slots go to sleep/block ...decrements empty when access granted
-        acquire(&mutex);   // sleep until access to the array is granted 
-        insert(item);      // place an item into the current index of the array 
-        release(&mutex);   // release the access to the array 
+        acquire(&mutex);   // sleep until access to the array is granted
+        insert(item);      // place an item into the current index of the array
+        release(&mutex);   // release the access to the array
         release(&full);    // release access to the mutex ...increments full
     &#125;
 &#125;
@@ -1152,9 +1152,9 @@ void consumer(void) &#123;
     int item;
     while (TRUE) &#123;
         acquire(&full);    // if no full slots go to sleep/block ...decrements full when access granted
-        acquire(&mutex);   // sleep until access to the array is granted 
-        remove(item);      // place an item into the current index (0 - MAX) of the array 
-        release(&mutex);   // release the access to the array 
+        acquire(&mutex);   // sleep until access to the array is granted
+        remove(item);      // place an item into the current index (0 - MAX) of the array
+        release(&mutex);   // release the access to the array
         release(&empty);   // release access to the mutex ...increments full
 
         // do something with the item
@@ -1164,16 +1164,16 @@ void consumer(void) &#123;
 
       <p>
         If a producer calls acquire(&mutex) before calling acquire(&empty) and the buffer is full,
-        then the producer goes to sleep/blocks on the acquire(&empty) since empty is zero. 
-        Then, when a consumer calls acquire(&full), it will 
-        be granted access to the mutex and then call acquire(&mutex), but will sleep/block because 
-        the sleeping producer has been granted access to the mutex already and is sleeping until an 
-        empty slot is available. So, the producer is waiting for an empty slot while the consumer is 
-        waiting for access to the full buffer. Now, all of the processes will block/sleep. All the 
-        producers will block on the call to acquire(&empty) because there are no empty slots, 
-        and consumers will block on the call to acquire(&mutex) because the sleeping producer which 
-        first called acquire(&mutex) already has access to the mutex. This is called 
-        <mark>deadlock</mark>! Below is an example of this. Notice that it is a very small change 
+        then the producer goes to sleep/blocks on the acquire(&empty) since empty is zero.
+        Then, when a consumer calls acquire(&full), it will
+        be granted access to the mutex and then call acquire(&mutex), but will sleep/block because
+        the sleeping producer has been granted access to the mutex already and is sleeping until an
+        empty slot is available. So, the producer is waiting for an empty slot while the consumer is
+        waiting for access to the full buffer. Now, all of the processes will block/sleep. All the
+        producers will block on the call to acquire(&empty) because there are no empty slots,
+        and consumers will block on the call to acquire(&mutex) because the sleeping producer which
+        first called acquire(&mutex) already has access to the mutex. This is called
+        <mark>deadlock</mark>! Below is an example of this. Notice that it is a very small change
         in which two lines are swapped.
       </p>
 
@@ -1214,28 +1214,28 @@ void consumer(void) &#123;
         <strong>
           <h5>Deadlock</h5>
         </strong>
-        All processes in the set are waiting on another process to wake up so all processes are sleeping. 
+        All processes in the set are waiting on another process to wake up so all processes are sleeping.
         <br><br>
-        In this case it is all 
-        processes associated with the semaphores. If the buffer were never filled to capacity, then 
-        deadlock will never happen, but if conditions change and it does get filled, then we suddenly 
+        In this case it is all
+        processes associated with the semaphores. If the buffer were never filled to capacity, then
+        deadlock will never happen, but if conditions change and it does get filled, then we suddenly
         have deadlock. This is why it can be so hard to debug, also the error in the code is very subtle.
         <strong>
           <h6></h6>
         </strong>
 
-        There is a data structure called a <mark>monitor</mark> which handles this order for us so 
-        that we cannot mess it up, and we just need to guard the actual data. Sharing data 
-        in Java is easy since everything is an Object on the heap. Sharing data in Rust is 
-        more difficult because there are so many safe guards in place in the compiler. There is 
-        something called a <mark>reference counter (RC)</mark> which will keep track of how many 
-        references point to the same data and the data will only be dropped once there are no 
-        references to it ...very much like the garbage collector in Java. If we use this, all of these 
-        checks are done at runtime, so it is a lot slower than being able to do the checks at compile 
-        time. We pay the cost of compile time once, we pay the cost of runtime every time we run the 
-        program. Normal reference counters will not work with threads since they could be interrupted 
-        in the middle of updating the count and the count would be off. So, there is an <mark>atomic 
-        reference counter (Arc)</mark> which is uninterruptible. Below is an example, derived from 
+        There is a data structure called a <mark>monitor</mark> which handles this order for us so
+        that we cannot mess it up, and we just need to guard the actual data. Sharing data
+        in Java is easy since everything is an Object on the heap. Sharing data in Rust is
+        more difficult because there are so many safe guards in place in the compiler. There is
+        something called a <mark>reference counter (RC)</mark> which will keep track of how many
+        references point to the same data and the data will only be dropped once there are no
+        references to it ...very much like the garbage collector in Java. If we use this, all of these
+        checks are done at runtime, so it is a lot slower than being able to do the checks at compile
+        time. We pay the cost of compile time once, we pay the cost of runtime every time we run the
+        program. Normal reference counters will not work with threads since they could be interrupted
+        in the middle of updating the count and the count would be off. So, there is an <mark>atomic
+        reference counter (Arc)</mark> which is uninterruptible. Below is an example, derived from
         an example my professor provided, of using an <mark>Arc</mark>.
       </p>
 
@@ -1262,7 +1262,7 @@ fn main() &#123;
 
     match child.join() &#123;
 
-        // Once the child thread has finished, print the data from within 
+        // Once the child thread has finished, print the data from within
         // the Arc in the main thread
 
         Ok(()) => println!("The data in the Arc is still accessible from the main thread and is: &#123;&#125;",
@@ -1276,15 +1276,15 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        What this does is places our data in an Arc to which our variable <mark>sharable</mark> 
-        points. Then, when we clone <mark>sharable</mark> and store it in the <mark>reference</mark> 
-        variable, <mark>reference</mark> also points to the same Arc. A consideration to keep in 
+        What this does is places our data in an Arc to which our variable <mark>sharable</mark>
+        points. Then, when we clone <mark>sharable</mark> and store it in the <mark>reference</mark>
+        variable, <mark>reference</mark> also points to the same Arc. A consideration to keep in
         mind is that the Arc is thread safe, but it does not make the data inside it thread safe.
-        So, we cannot simply mutate the data inside the Arc in a multi-threaded program. We must 
-        place the data inside a mutex and then place the mutex in the Arc. Below is an example of 
-        doing this which is derived from an example my professor provided. If we do not do things 
+        So, we cannot simply mutate the data inside the Arc in a multi-threaded program. We must
+        place the data inside a mutex and then place the mutex in the Arc. Below is an example of
+        doing this which is derived from an example my professor provided. If we do not do things
         in a thread safe way, the Rust compiler will complain and help us fix it. In most languages,
-        however there will be no warnings and it simply will not function correctly and will be 
+        however there will be no warnings and it simply will not function correctly and will be
         difficult to debug.
       </p>
 
@@ -1329,7 +1329,7 @@ fn main() &#123;
                     if i == 6 &#123; // happens inside the lock so all other threads must wait for 6
                         thread::sleep(Duration::from_secs(3));
                     &#125;
-                    
+
                     // multiply it by 2 via a bitwise left shift
 
                     *num <<= 1; // this is dereferencing the data from within the mutex
@@ -1388,26 +1388,26 @@ douglaslwatts@linuxbox: ~/arc_mutex >
       </code></pre>
 
       <p>
-        Notice that all the other threads finished before thread 2. It is not seen here, but when thread 
+        Notice that all the other threads finished before thread 2. It is not seen here, but when thread
         6 went to sleep with the lock, the program hung until thread 6 woke up and completed its work.
-        We put the sleeps in to demonstrate that no other threads needed to wait for thread 2 since 
-        it went to sleep before locking the data, whereas every thread after thread 6 had to wait since 
-        it had the data locked already and went to sleep with the lock. This points out a very important 
-        observation. If there is any work that can be done before we lock the data or after we unlock 
-        the data, we should do that work outside of the lock so that our program will make the best 
-        use of concurrency that is possible. It is fine to lock the data, then release the lock and do 
-        some work and then lock the data again if need be. All of the work with the data does not 
+        We put the sleeps in to demonstrate that no other threads needed to wait for thread 2 since
+        it went to sleep before locking the data, whereas every thread after thread 6 had to wait since
+        it had the data locked already and went to sleep with the lock. This points out a very important
+        observation. If there is any work that can be done before we lock the data or after we unlock
+        the data, we should do that work outside of the lock so that our program will make the best
+        use of concurrency that is possible. It is fine to lock the data, then release the lock and do
+        some work and then lock the data again if need be. All of the work with the data does not
         have to happen within one lock.
 
         <strong>
           <h2>Atomic Primitives</h2>
         </strong>
 
-        Atomic versions of primitive types makes thread-safe primitives, as they are uninterruptible. 
-        The atomic is really a wrapper around the data, so we have to use associated methods to access 
-        the data. We also use an Ordering to let Rust know how strict the access needs to be. The 
-        Relaxed ordering means that we only guard the data affected by the current operation. We still 
-        need a mutex if we want to share some data such as a struct we built. There are only atomic 
+        Atomic versions of primitive types makes thread-safe primitives, as they are uninterruptible.
+        The atomic is really a wrapper around the data, so we have to use associated methods to access
+        the data. We also use an Ordering to let Rust know how strict the access needs to be. The
+        Relaxed ordering means that we only guard the data affected by the current operation. We still
+        need a mutex if we want to share some data such as a struct we built. There are only atomic
         versions of primitives ...not our own custom structures.
         Below is an example, derived from an example provided by my professor, of using an AtomicI32.
       </p>
@@ -1443,8 +1443,8 @@ fn main() &#123;
         let child = thread::spawn(move || &#123;
 
             // Load the data from the AtomicI32 wrapper, mutate it and store the mutated
-            // value back into the AtomicI32, then Load the new value and print it. 
-            // We could just print the value before storing it, but this is to emphasize 
+            // value back into the AtomicI32, then Load the new value and print it.
+            // We could just print the value before storing it, but this is to emphasize
             // that we have stored the mutated data
 
             let current_val = (*reference).load(Ordering::Relaxed);
@@ -1471,7 +1471,7 @@ fn main() &#123;
     &#125;
 
     // print the sharable data from within the Arc again to show that we still have access to it
-    // If we use debug print for the AtomicI32, we can just dereference the Arc to print the data 
+    // If we use debug print for the AtomicI32, we can just dereference the Arc to print the data
     // inside the AtomicI32 instead of calling load() on the AtomicI32 once we dereference
     // it from within the Arc.
 
@@ -1480,7 +1480,7 @@ fn main() &#123;
       </code></pre>
 
       <p>
-        Below is the output from a run of the above code. Notice the evidence of concurrency in that 
+        Below is the output from a run of the above code. Notice the evidence of concurrency in that
         the threads do not complete their respective tasks in the order they were spawned.
       </p>
 
@@ -1507,14 +1507,14 @@ douglaslwatts@linuxbox: ~/atomic_primitives >
           <h2>Readers and Writers Problem</h2>
         </strong>
 
-        The readers and writers problem is to write a program such that we can have as many processes 
-        read shared data at the same time as we want, but only one process can write to the shared 
-        memory at a time. If a process is writing to the shared memory, no process should be 
-        reading the data until the writing process has finished mutating the data. In most languages 
-        we need to solve this with semaphores and counting variables. In Rust, we have a 
+        The readers and writers problem is to write a program such that we can have as many processes
+        read shared data at the same time as we want, but only one process can write to the shared
+        memory at a time. If a process is writing to the shared memory, no process should be
+        reading the data until the writing process has finished mutating the data. In most languages
+        we need to solve this with semaphores and counting variables. In Rust, we have a
         read write lock. We use the
         <a href="https://doc.rust-lang.org/std/sync/struct.RwLock.html" target="new" rel="noopener noreferrer">std::sync::RwLock</a>
-        crate to more easily solve the readers and writers problem in Rust. Below is an example, 
+        crate to more easily solve the readers and writers problem in Rust. Below is an example,
         derived from an example my professor provided, of using this crate.
       </p>
 
@@ -1528,7 +1528,7 @@ fn main() &#123;
     let data_lock = RwLock::new(2);
 
     // let a single writer mutate the data
-    
+
     match data_lock.write() &#123;
         Ok(mut data) => &#123;
             *data <<= 1; // dereference and mutate the data, multiply by 2
@@ -1596,28 +1596,28 @@ douglaslwatts@linuxbox: ~/readers_and_writers >
           <h2>Recap for Arc and Mutex</h2>
         </strong>
 
-        The Arc is more expensive during runtime, as it keeps track of how many references there are 
+        The Arc is more expensive during runtime, as it keeps track of how many references there are
         to the data. The mutex guards the data such that only one process can access it at a time.
-        So, we put the data in a mutex, put the mutex in an Arc, and let a set of processes 
+        So, we put the data in a mutex, put the mutex in an Arc, and let a set of processes
         share the Arc by cloning it and moving ownership of the clones into their respective threads.
 
         <strong>
           <h2>Monitors and Condition Variables</h2>
         </strong>
 
-        A monitor enforces mutual exclusion without us having to explicitly create a mutex, so there 
+        A monitor enforces mutual exclusion without us having to explicitly create a mutex, so there
         is a mutex <q>under the hood</q>. Java has these built in because methods can be synchronized.
-        All objects in Java have locks and when we synchronize a method in Java we can make sure that 
-        only one process gets to access the data at a time so the data is guarded. However, we still 
-        have considerations such as, if it is an array and we have a producer/consumer scenario, is 
-        there room in the array for producers to place new data or is there any data in the array for 
-        consumers to retrieve? We can use <mark>condition variables</mark> with some of the other 
-        constructs which will allow us to block and notify other processes, etc. Condition variables 
-        usually have a method for causing a process to wait/sleep/block, one for waking a sleeping 
+        All objects in Java have locks and when we synchronize a method in Java we can make sure that
+        only one process gets to access the data at a time so the data is guarded. However, we still
+        have considerations such as, if it is an array and we have a producer/consumer scenario, is
+        there room in the array for producers to place new data or is there any data in the array for
+        consumers to retrieve? We can use <mark>condition variables</mark> with some of the other
+        constructs which will allow us to block and notify other processes, etc. Condition variables
+        usually have a method for causing a process to wait/sleep/block, one for waking a sleeping
         process up, and one to wake up all of the processes which are sleeping on the condition variable.
         When we use a condition variable we also need a guard such as a mutex.
-        In Rust we can create an Arc and pass it a Mutex and a Condvar in a tuple, 
-        and the condition variable will use the mutex as the guard. Below is an example of doing 
+        In Rust we can create an Arc and pass it a Mutex and a Condvar in a tuple,
+        and the condition variable will use the mutex as the guard. Below is an example of doing
         this in Rust, which is derived from an example my professor provided.
       </p>
 
@@ -1637,7 +1637,7 @@ fn main() &#123;
 
         // now we need to get a reference to the data inside the Arc.
 
-        // This dereferences the contents of the Arc, i.e. the tuple, from the Arc and then gets a 
+        // This dereferences the contents of the Arc, i.e. the tuple, from the Arc and then gets a
         // reference to that data as to borrow it. we cannot take ownership of it here. Then, we
         // are destructuring the tuple we have acquired a reference to into the variables on the
         // left side of the assignment statement to obtain the Mutex and the Condvar.
@@ -1645,7 +1645,7 @@ fn main() &#123;
         let (borrowed_mutex, borrowed_condition_var) = &*arc_clone;
 
         // Note that "= *arc_clone;" would transfer ownership of the values in the tuple,
-        // we are not allowed to move the values out of the Arc, whereas "= arc_clone;" would give 
+        // we are not allowed to move the values out of the Arc, whereas "= arc_clone;" would give
         // us the tuple itself and so would need to be assigned to a single variable and then we
         // could borrow the values from within it in a separate statement.
 
@@ -1679,7 +1679,7 @@ fn main() &#123;
             println!("Hello from the main thread, going to sleep until the Condvar notifies me...");
 
             // wait on the condition variable using the lock, "data". wait() needs the mutex guard
-            // so that we can release it and then reacquire the lock once this thread is notified 
+            // so that we can release it and then reacquire the lock once this thread is notified
             // and wakes up
 
             match borrowed_condition_var.wait(data) &#123;
@@ -1703,24 +1703,24 @@ fn main() &#123;
           <h2>Recap for Deadlock, Livelock, and Starvation</h2>
         </strong>
 
-        Deadlock is when every process is asleep waiting for another process to wake up and all 
+        Deadlock is when every process is asleep waiting for another process to wake up and all
         of the processes are sleeping waiting on another process which is also sleeping.
         <br><br>
 
-        Livelock is when every process is waking up, doing some work but cannot complete the task 
-        until another process does some work so they wake another process which also cannot complete 
-        their task until another process does some work so they wake another process, etc. So, the 
+        Livelock is when every process is waking up, doing some work but cannot complete the task
+        until another process does some work so they wake another process which also cannot complete
+        their task until another process does some work so they wake another process, etc. So, the
         processes are just waking each other up and going back to sleep infinitely.
         <br><br>
 
-        Starvation is when we have a set of processes doing work in the critical section and one or 
-        more of them never gets time in the critical section. So, those processes are starving. This 
-        can be difficult to detect as we can still get an answer but it just takes a little longer 
+        Starvation is when we have a set of processes doing work in the critical section and one or
+        more of them never gets time in the critical section. So, those processes are starving. This
+        can be difficult to detect as we can still get an answer but it just takes a little longer
         because we are not using all of our processes.
         <br><br>
 
-        We can use <mark>wait_while()</mark> to wait until notified by the condition variable and 
-        some condition is not true. An example of this is below which is derived from an example 
+        We can use <mark>wait_while()</mark> to wait until notified by the condition variable and
+        some condition is not true. An example of this is below which is derived from an example
         provided by my professor.
       </p>
 
@@ -1736,7 +1736,7 @@ fn main() &#123;
 
     // If we have multiple threads all waiting on a signal, but only certain threads
     // need to do any work once the signal comes through we can use wait_while()
-    
+
     // create a thread-safe tuple of guarded data and a signaler
 
     let guarded_data = Arc::new((Mutex::new(2), Condvar::new()));

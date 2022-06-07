@@ -55,7 +55,7 @@ export class AppComponent {
       osBtn.addEventListener('click', () => this.router.navigateByUrl('/operating-system'));
     }
 
-    const archBtn = document.querySelector('#arch');
+    const archBtn = document.querySelector('#archLinux');
     if (archBtn != null) {
       archBtn.addEventListener('click', () => this.router.navigateByUrl('/arch-install'));
     }

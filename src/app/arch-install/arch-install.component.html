@@ -1,0 +1,177 @@
+<div class="tux_background">
+	<article>
+		<h1>Initial Setup - Current Arch Linux Laptop (UEFI)</h1>
+		<br><br>
+		<h2>// TODO - add detail, maybe output from commands as well</h2>
+		<br><br>
+		<hr><br>
+
+		<p>
+			First determine the name of the disk being installed on in /dev. Then partition it using gdisk.
+			The following is for a disk to be fully committed to this install.
+		</p>
+
+		<pre><code>root@archiso ~ # gdisk /dev/sda
+		> x
+		> z
+		> y
+		> y
+
+root@archiso ~ # gdisk /dev/sda
+		> n
+		> accept default (1)
+		> accept default (1st sec)
+		> 1GB (last sec)
+		> Hexcode ef00
+
+		> n
+		> accept default (2)
+		> accept default (1st sec)
+		> accept default (last sec)
+		> Hexcode 8e00
+
+    </code></pre>
+
+		<p>
+			Now setup boot partition, encrypt and open OS partition, and then create and mount a btrfs
+			file system with a subvolume for / and one for /home.
+		</p>
+
+		<pre><code>root@archiso ~ # mkfs.fat -F32 /dev/sda1
+root@archiso ~ # cryptsetup luksFormat /dev/sda2 (enter new password for encrypted partition twice)
+root@archiso ~ # cryptsetup luksOpen /dev/sdb2 luks_lvm (enter password set above)
+
+root@archiso ~ # pvcreate /dev/mapper/luks_lvm
+root@archiso ~ # vgcreate luks_volume /dev/mapper/luks_lvm
+root@archiso ~ # lvcreate -L 32G luks_volume -n swap
+root@archiso ~ # lvcreate -l %100FREE luks_volume -n btrfs
+
+root@archiso ~ # mkswap /dev/mapper/luks_volume-swap
+root@archiso ~ # mkfs.btrfs -L luks_btrfs /dev/mapper/luks_volume-btrfs
+
+root@archiso ~ # mount /dev/mapper/luks_volume-btrfs /mnt
+
+root@archiso ~ # btrfs subvolume create /mnt/@
+root@archiso ~ # btrfs subvolume create /mnt/@home
+root@archiso ~ # btrfs subvolume list /mnt
+root@archiso ~ # umount /mnt
+    </code></pre>
+
+		<p>
+			Next mount the subvolume for / to /mnt, make directories /boot and /home on it, then mount the
+			subvolume for /home to /mnt/home and the boot partition to /mnt/boot. Then activate the swap
+			volume. Check the setup with lsblk.
+		</p>
+
+		<pre><code>root@archiso ~ # mount /dev/mapper/luks_volume-btrfs -o subvol=@ /mnt
+root@archiso ~ # mkdir /mnt/boot /mnt/home
+
+root@archiso ~ # mount /dev/mapper/luks_volume-btrfs -o subvol=@home /mnt/home
+root@archiso ~ # mount /dev/sda1 /mnt/boot
+root@archiso ~ # swapon /dev/mapper/luks_volume-swap
+
+root@archiso ~ # lsblk
+		</code></pre>
+
+		<p>
+			Now it is time to install Reflector and use it to setup an efficient mirror list for Pacman.
+		</p>
+
+    <pre><code>root@archiso ~ # pacman -Syy
+root@archiso ~ # pacman -S reflector
+
+root@archiso ~ # reflector --verbose --country 'United States' --latest 15 --sort rate --save /etc/pacman.d/mirrorlist
+
+
+    </code></pre>
+
+		<p>
+			Then, pacstrap the base packages as well as some other packages which are needed. Next, take a
+			look at the setup, generate a file system table and write it to /etc/fstab, arch chroot onto
+			/mnt, and setup the time zone and clock.
+		</p>
+
+    <pre><code>root@archiso ~ # pacstrap /mnt base base-devel linux linux-firmware intel-ucode lvm2 btrfs-progs vim
+		man-db man-pages less texinfo
+root@archiso ~ # ls /mnt
+root@archiso ~ # lsblk
+root@archiso ~ # fdisk -l
+root@archiso ~ # genfstab -U /mnt >> /mnt/etc/fstab
+root@archiso ~ # cat !$
+root@archiso ~ # arch-chroot /mnt
+root@archiso ~ # ln -sf /usr/share/zoninfo/America/New-York /etc/localtime
+root@archiso ~ # hwclock --systohc
+		</code></pre>
+
+		<p>
+			Setup locale, machine's name, and hosts file.
+		</p>
+
+    <pre><code>root@archiso ~ # vim /etc/locale.gen
+
+# In the above file, find and uncomment the line with 'en_US.UTF-8 UTF-8'
+
+root@archiso ~ # locale-gen
+root@archiso ~ # echo "LANG=en_US.UTF-8" > /etc/locale.conf
+root@archiso ~ # cat !$
+root@archiso ~ # export LANG=en_US.UTF-8
+root@archiso ~ # echo adage > /etc/hostname
+root@archiso ~ # vim /etc/hosts
+
+# Add the following to the above file
+
+127.0.0.1    localhost
+::1          localhost
+127.0.1.1    adage.localdomain    adage
+		</code></pre>
+
+		<p>
+			Check that efivarfs is already mounted and setup hooks in mkinitcpio.conf
+		</p>
+
+		<pre><code>root@archiso ~ # mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
+root@archiso ~ # vim /etc/mkinitcpio.conf
+
+# Change Hooks to the following.
+
+HOOKS=(base systemd btrfs keyboard autodetect modconf block sd-encrypt lvm2 filesystems fsck)
+		</code></pre>
+
+		<p>
+			Now install systemd boot loader, start an arch.conf, and setup user.
+		</p>
+
+		<pre><code>root@archiso ~ # bootctl --path=/boot install
+root@archiso ~ # echo "options rd.luks.name=$(blkid -s UUID -o value /dev/sda2)=luks_lvm
+root=/dev/mapper/luks_volume-btrfs rootflags=subvol=@ rd.luks.options=discard resume=/dev/mapper/luks_volume-swap
+vt.global_cursor_default=0 quiet rw" >> /boot/loader/entries/arch.conf
+
+root@archiso ~ # vim !$
+
+# add the following lines at the top of the file above the line just added
+
+title    Arch linux
+linux    /vmlinuz-linux
+initrd   /intel-ucode.img
+initrd   /initramfs-linux.img
+		</code></pre>
+
+		<p>
+			Now generate an image and setup a sudo user.
+		</p>
+
+
+		<pre><code>root@archiso ~ # mkinitcpio -p linux
+root@archiso ~ # passwd
+		> set root's password by entering it twice
+		>
+root@archiso ~ # groupadd douglaslwatts
+root@archiso ~ # useradd -m -g douglaslwatts -G wheel,storage,power -s /bin/bash douglaslwatts
+root@archiso ~ # passwd douglaslwatts
+		> set sudo user's password by entering it twice
+		>
+root@archiso ~ # EDITOR=vim visudo
+# uncomment the line which has '%wheel    ALL=(ALL) ALL'
+		</code></pre>
+	</article>
+</div>

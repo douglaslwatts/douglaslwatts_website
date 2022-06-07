@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { OperatingSystemComponent } from './operating-system/operating-system.component';
 import { OperatingSystemP2Component } from './operating-system-p2/operating-system-p2.component';
 import { OperatingSystemP3Component } from './operating-system-p3/operating-system-p3.component';
+import { ArchInstallComponent } from './arch-install/arch-install.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'operating-system', component: OperatingSystemComponent },
   { path: 'operating-system-p2', component: OperatingSystemP2Component },
   { path: 'operating-system-p3', component: OperatingSystemP3Component },
+  { path: 'arch-install', component: ArchInstallComponent },
 ];
 
 @NgModule({
