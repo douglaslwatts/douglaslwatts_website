@@ -99,24 +99,24 @@ root@archiso ~ # fdisk -l
 root@archiso ~ # genfstab -U /mnt >> /mnt/etc/fstab
 root@archiso ~ # cat !$
 root@archiso ~ # arch-chroot /mnt
-root@archiso ~ # ln -sf /usr/share/zoninfo/America/New-York /etc/localtime
-root@archiso ~ # hwclock --systohc
+[root@archiso /]# ln -sf /usr/share/zoninfo/America/New-York /etc/localtime
+[root@archiso /]# hwclock --systohc
 		</code></pre>
 
 		<p>
 			Setup locale, machine's name, and hosts file.
 		</p>
 
-    <pre><code>root@archiso ~ # vim /etc/locale.gen
+    <pre><code>[root@archiso /]# vim /etc/locale.gen
 
 # In the above file, find and uncomment the line with 'en_US.UTF-8 UTF-8'
 
-root@archiso ~ # locale-gen
-root@archiso ~ # echo "LANG=en_US.UTF-8" > /etc/locale.conf
-root@archiso ~ # cat !$
-root@archiso ~ # export LANG=en_US.UTF-8
-root@archiso ~ # echo adage > /etc/hostname
-root@archiso ~ # vim /etc/hosts
+[root@archiso /]# locale-gen
+[root@archiso /]# echo "LANG=en_US.UTF-8" > /etc/locale.conf
+[root@archiso / ]# cat !$
+[root@archiso / ]# export LANG=en_US.UTF-8
+[root@archiso / ]# echo adage > /etc/hostname
+[root@archiso / ]# vim /etc/hosts
 
 # Add the following to the above file
 
@@ -129,8 +129,8 @@ root@archiso ~ # vim /etc/hosts
 			Check that efivarfs is already mounted and setup hooks in mkinitcpio.conf
 		</p>
 
-		<pre><code>root@archiso ~ # mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
-root@archiso ~ # vim /etc/mkinitcpio.conf
+		<pre><code>[root@archiso / ]# mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
+[root@archiso / ]# vim /etc/mkinitcpio.conf
 
 # Change Hooks to the following.
 
@@ -141,12 +141,12 @@ HOOKS=(base systemd btrfs keyboard autodetect modconf block sd-encrypt lvm2 file
 			Now install systemd boot loader, start an arch.conf, and setup user.
 		</p>
 
-		<pre><code>root@archiso ~ # bootctl --path=/boot install
-root@archiso ~ # echo "options rd.luks.name=$(blkid -s UUID -o value /dev/sda2)=luks_lvm
+		<pre><code>[root@archiso / ]# bootctl --path=/boot install
+[root@archiso / ]# echo "options rd.luks.name=$(blkid -s UUID -o value /dev/sda2)=luks_lvm
 root=/dev/mapper/luks_volume-btrfs rootflags=subvol=@ rd.luks.options=discard resume=/dev/mapper/luks_volume-swap
 vt.global_cursor_default=0 quiet rw" >> /boot/loader/entries/arch.conf
 
-root@archiso ~ # vim !$
+[root@archiso / ]# vim !$
 
 # add the following lines at the top of the file above the line just added
 
@@ -161,17 +161,21 @@ initrd   /initramfs-linux.img
 		</p>
 
 
-		<pre><code>root@archiso ~ # mkinitcpio -p linux
-root@archiso ~ # passwd
+		<pre><code>[root@archiso / ]# mkinitcpio -p linux
+[root@archiso / ]# passwd
 		> set root's password by entering it twice
 		>
-root@archiso ~ # groupadd douglaslwatts
-root@archiso ~ # useradd -m -g douglaslwatts -G wheel,storage,power -s /bin/bash douglaslwatts
-root@archiso ~ # passwd douglaslwatts
+[root@archiso / ]# groupadd douglaslwatts
+[root@archiso / ]# useradd -m -g douglaslwatts -G wheel,storage,power -s /bin/bash douglaslwatts
+[root@archiso / ]# passwd douglaslwatts
 		> set sudo user's password by entering it twice
-		>
-root@archiso ~ # EDITOR=vim visudo
-# uncomment the line which has '%wheel    ALL=(ALL) ALL'
+			>
+[root@archiso / ]# EDITOR=vim visudo
+# uncomment the line which has '%wheel    ALL=(ALL:ALL) ALL'
+# also add these two lines
+
+Defaults        env_reset,pwfeedback
+Defaults        editor=/usr/bin/vim
 		</code></pre>
 	</article>
 </div>
