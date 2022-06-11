@@ -39,12 +39,12 @@ root@archiso ~ # gdisk /dev/sda
 
 		<pre><code>root@archiso ~ # mkfs.fat -F32 /dev/sda1
 root@archiso ~ # cryptsetup luksFormat /dev/sda2 (enter new password for encrypted partition twice)
-root@archiso ~ # cryptsetup luksOpen /dev/sdb2 luks_lvm (enter password set above)
+root@archiso ~ # cryptsetup luksOpen /dev/sda2 luks_lvm (enter password set above)
 
 root@archiso ~ # pvcreate /dev/mapper/luks_lvm
 root@archiso ~ # vgcreate luks_volume /dev/mapper/luks_lvm
 root@archiso ~ # lvcreate -L 32G luks_volume -n swap
-root@archiso ~ # lvcreate -l %100FREE luks_volume -n btrfs
+root@archiso ~ # lvcreate -l 100%FREE luks_volume -n btrfs
 
 root@archiso ~ # mkswap /dev/mapper/luks_volume-swap
 root@archiso ~ # mkfs.btrfs -L luks_btrfs /dev/mapper/luks_volume-btrfs
@@ -99,7 +99,7 @@ root@archiso ~ # fdisk -l
 root@archiso ~ # genfstab -U /mnt >> /mnt/etc/fstab
 root@archiso ~ # cat !$
 root@archiso ~ # arch-chroot /mnt
-[root@archiso /]# ln -sf /usr/share/zoninfo/America/New-York /etc/localtime
+[root@archiso /]# ln -sf /usr/share/zoneinfo/America/New_York /etc/localtime
 [root@archiso /]# hwclock --systohc
 		</code></pre>
 
@@ -126,11 +126,10 @@ root@archiso ~ # arch-chroot /mnt
 		</code></pre>
 
 		<p>
-			Check that efivarfs is already mounted and setup hooks in mkinitcpio.conf
+			Setup hooks in mkinitcpio.conf
 		</p>
 
-		<pre><code>[root@archiso / ]# mount -t efivarfs efivarfs /sys/firmware/efi/efivars/
-[root@archiso / ]# vim /etc/mkinitcpio.conf
+		<pre><code>[root@archiso / ]# vim /etc/mkinitcpio.conf
 
 # Change Hooks to the following.
 
