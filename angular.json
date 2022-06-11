@@ -122,5 +122,8 @@
       }
     }
   },
-  "defaultProject": "AstralAxiomOrg"
+  "defaultProject": "AstralAxiomOrg",
+  "cli": {
+    "analytics": false
+  }
 }
